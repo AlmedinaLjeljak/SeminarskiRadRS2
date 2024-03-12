@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xFit", "xFit\xFit.csproj", "{9C369FF3-F807-45AC-ABFE-52CB57B8A629}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xFit.Model", "xFit.Model\xFit.Model.csproj", "{1ED024B2-64BF-4C37-A942-837E4BB693AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xFit.Services", "xFit.Services\xFit.Services.csproj", "{14DE8798-AA57-4F4C-95D0-A537FDF75EC3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9C369FF3-F807-45AC-ABFE-52CB57B8A629}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C369FF3-F807-45AC-ABFE-52CB57B8A629}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C369FF3-F807-45AC-ABFE-52CB57B8A629}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C369FF3-F807-45AC-ABFE-52CB57B8A629}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1ED024B2-64BF-4C37-A942-837E4BB693AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1ED024B2-64BF-4C37-A942-837E4BB693AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1ED024B2-64BF-4C37-A942-837E4BB693AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1ED024B2-64BF-4C37-A942-837E4BB693AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14DE8798-AA57-4F4C-95D0-A537FDF75EC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14DE8798-AA57-4F4C-95D0-A537FDF75EC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14DE8798-AA57-4F4C-95D0-A537FDF75EC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14DE8798-AA57-4F4C-95D0-A537FDF75EC3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {95838D3A-0D03-4921-BF86-4856547D97C5}
+	EndGlobalSection
+EndGlobal
