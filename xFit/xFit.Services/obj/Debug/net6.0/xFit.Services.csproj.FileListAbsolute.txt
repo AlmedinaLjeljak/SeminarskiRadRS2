@@ -13,3 +13,5 @@ C:\Users\HOME\Desktop\SeminarskiRadRazvojSoftvera2\SeminarskiRadRS2\xFit\xFit.Se
 C:\Users\HOME\Desktop\SeminarskiRadRazvojSoftvera2\SeminarskiRadRS2\xFit\xFit.Services\obj\Debug\net6.0\refint\xFit.Services.dll
 C:\Users\HOME\Desktop\SeminarskiRadRazvojSoftvera2\SeminarskiRadRS2\xFit\xFit.Services\obj\Debug\net6.0\xFit.Services.pdb
 C:\Users\HOME\Desktop\SeminarskiRadRazvojSoftvera2\SeminarskiRadRS2\xFit\xFit.Services\obj\Debug\net6.0\ref\xFit.Services.dll
+C:\Users\HOME\Desktop\SeminarskiRadRazvojSoftvera2\SeminarskiRadRS2\xFit\xFit.Services\bin\Debug\net6.0\xFit.Services.runtimeconfig.json
+C:\Users\HOME\Desktop\SeminarskiRadRazvojSoftvera2\SeminarskiRadRS2\xFit\xFit.Services\obj\Debug\net6.0\xFit.Services.genruntimeconfig.cache
