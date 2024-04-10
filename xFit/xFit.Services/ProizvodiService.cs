@@ -4,12 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using xFit.Model;
+using xFit.Services.Database;
 
 namespace xFit.Services
 {
 	public class ProizvodiService : IProizvodiService
 	{
-		List<Proizvodi> proizvodis = new List<Proizvodi>()
+		XFitContext _context;
+		public ProizvodiService(XFitContext context)
+		{
+			_context = context;
+		}
+		List<Model.Proizvodi> proizvodis = new List<Model.Proizvodi>()
 		{
 			new Proizvodi()
 			{
@@ -17,8 +23,9 @@ namespace xFit.Services
 				Naziv="Oprema"
 			}
 		};
-		public IList<Proizvodi> Get()
+		public IList<Model.Proizvodi> Get()
 		{
+			var list = _context.Proizvods.ToList();
 			return proizvodis;
 		}
 	}

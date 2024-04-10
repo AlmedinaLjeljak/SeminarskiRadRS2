@@ -4,7 +4,7 @@ using xFit.Services;
 
 namespace xFit.Controllers
 {
-	[ApiController]
+	/*[ApiController]
 	[Route("[controller]")]
 	public class ProizvodiController : ControllerBase
 	{
@@ -24,5 +24,6 @@ namespace xFit.Controllers
 			return _proizvodiService.Get();
 			
 		}
-	}
+
+	}*/
 }

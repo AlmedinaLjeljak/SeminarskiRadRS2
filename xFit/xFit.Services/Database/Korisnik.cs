@@ -15,7 +15,7 @@ public partial class Korisnik
 
     public string? KorisnickoIme { get; set; }
 
-    public int? GradId { get; set; }
+   public int? GradId { get; set; }
 
     public int? SpolId { get; set; }
 
@@ -23,7 +23,7 @@ public partial class Korisnik
 
     public string? LozinkaSalt { get; set; }
 
-    public virtual Grad? Grad { get; set; }
+    public virtual  Grad Grad { get; set; }
 
     public virtual ICollection<Klijent> Klijents { get; } = new List<Klijent>();
 
@@ -31,7 +31,7 @@ public partial class Korisnik
 
     public virtual ICollection<Narudzba> Narudzbas { get; } = new List<Narudzba>();
 
-    public virtual Spol? Spol { get; set; }
+    public virtual Spol Spol { get; set; }
 
     public virtual ICollection<Uposlenik> Uposleniks { get; } = new List<Uposlenik>();
 }
