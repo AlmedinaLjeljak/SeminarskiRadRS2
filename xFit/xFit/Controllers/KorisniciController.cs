@@ -22,9 +22,9 @@ namespace xFit.Controllers
 
 		}
 		[HttpGet()]
-		  public IEnumerable<Model.Korisnik> Get()
+		  public async Task< IEnumerable<Model.Korisnik>> Get()
 			{
-		       return _service.Get();
+		       return await _service.Get();
 
 			}
 		 [HttpPost]

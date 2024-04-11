@@ -9,7 +9,7 @@ namespace xFit.Services
 {
 	public interface IKorisniciService
 	{
-		List<Model.Korisnik> Get();
+		Task<List<Model.Korisnik>> Get();
 		Model.Korisnik Insert(KorisnikInsertRequest request);
 		Model.Korisnik Update(int id, KorisnikUpdateRequest request);
 	}

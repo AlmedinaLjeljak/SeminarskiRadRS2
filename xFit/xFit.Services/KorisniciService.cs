@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,24 +21,10 @@ namespace xFit.Services
 			_context = context;
 			_mapper = mapper;
 		}
-		public List<Model.Korisnik> Get()
+		public async Task<List<Model.Korisnik>> Get()
 		{
-			var entityList = _context.Korisniks.ToList();
+			var entityList = await _context.Korisniks.ToListAsync();
 
-			/*var list = new List<Model.Korisnik>();
-			foreach(var item in entityList)
-			{
-				list.Add(new Model.Korisnik()
-				{
-					KorisnikId=item.KorisnikId,
-					Ime = item.Ime,
-					Prezime=item.Prezime,
-					KorisnickoIme=item.KorisnickoIme,
-					DatumRodjenja=item.DatumRodjenja
-
-				});
-			}
-			return list;*/
 			return _mapper.Map<List<Model.Korisnik>>(entityList);
 		}
 
