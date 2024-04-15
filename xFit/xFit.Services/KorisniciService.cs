@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure.Core;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,40 +8,26 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using xFit.Model.Requests;
+using xFit.Model.SearchObjects;
 using xFit.Services.Database;
 
 namespace xFit.Services
 {
-	public class KorisniciService : IKorisniciService
+	public class KorisniciService : BaseCRUDService<Model.Korisnik, Database.Korisnik, KorisnikSearchObject,KorisnikInsertRequest,KorisnikUpdateRequest>, IKorisniciService
 	{
-		XFitContext _context;
-		public IMapper _mapper { get; set; }
+
+
+		public KorisniciService(XFitContext context, IMapper mapper)
+			: base(context, mapper)
+		{
+
+		}
 		
-		public KorisniciService(XFitContext context,IMapper mapper)
+		
+		public override async Task BeforeInsert(Korisnik entity, KorisnikInsertRequest insert)
 		{
-			_context = context;
-			_mapper = mapper;
-		}
-		public async Task<List<Model.Korisnik>> Get()
-		{
-			var entityList = await _context.Korisniks.ToListAsync();
-
-			return _mapper.Map<List<Model.Korisnik>>(entityList);
-		}
-
-		public Model.Korisnik Insert(KorisnikInsertRequest request)
-		{
-			var entity = new Korisnik();
-			_mapper.Map(request, entity);
-
 			entity.LozinkaSalt = GenerateSalt();
-			entity.LozinkaHash = GenerateHash(entity.LozinkaHash, request.Password);
-
-			_context.Korisniks.Add(entity);
-			_context.SaveChanges();
-
-			return _mapper.Map<Model.Korisnik>(entity);
-			
+			entity.LozinkaHash = GenerateHash(entity.LozinkaHash, insert.Password);
 		}
 		public static string GenerateSalt()
 		{
@@ -65,14 +52,17 @@ namespace xFit.Services
 			return Convert.ToBase64String(inArray);
 		}
 
-		public Model.Korisnik Update(int id, KorisnikUpdateRequest request)
+		
+
+		public override IQueryable<Korisnik> AddInclude(IQueryable<Korisnik>query,KorisnikSearchObject? search=null)
 		{
-			var entity = _context.Korisniks.Find(id);
-
-			_mapper.Map(request, entity);
-
-			_context.SaveChanges();
-			return _mapper.Map<Model.Korisnik>(entity);
+			if(search?.isUlogeIncluded==true)
+			{
+				query = query.Include("KorisniciUlogas.Uloga");
+			}
+			return base.AddInclude(query, search);
 		}
+
+		
 	}
 }

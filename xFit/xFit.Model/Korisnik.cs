@@ -19,7 +19,7 @@ namespace xFit.Model
 		public string? KorisnickoIme { get; set; }
 
 		
-		//public virtual ICollection<KorisnikUloga> KorisnikUlogas { get; } = new List<KorisnikUloga>();
+		public virtual ICollection<KorisnikUloga> KorisnikUlogas { get; } = new List<KorisnikUloga>();
 
 		
 	}

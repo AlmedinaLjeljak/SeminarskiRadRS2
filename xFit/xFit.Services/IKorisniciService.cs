@@ -7,10 +7,9 @@ using xFit.Model.Requests;
 
 namespace xFit.Services
 {
-	public interface IKorisniciService
+	public interface IKorisniciService:ICRUDService<Model.Korisnik,Model.SearchObjects.KorisnikSearchObject,Model.Requests.KorisnikInsertRequest,Model.Requests.KorisnikUpdateRequest>
 	{
-		Task<List<Model.Korisnik>> Get();
-		Model.Korisnik Insert(KorisnikInsertRequest request);
-		Model.Korisnik Update(int id, KorisnikUpdateRequest request);
+		
+	
 	}
 }
