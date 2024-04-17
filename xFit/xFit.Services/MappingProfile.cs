@@ -15,6 +15,10 @@ namespace xFit.Services
 			CreateMap<Model.Requests.KorisnikInsertRequest, Database.Korisnik>();
 			CreateMap<Model.Requests.KorisnikUpdateRequest, Database.Korisnik>();
 
+			CreateMap<Database.Proizvod, Model.Proizvod>();
+			CreateMap<Model.Requests.PorizvodInsertRequest, Database.Proizvod>();
+			CreateMap<Model.Requests.ProizvodUpdateRequest, Database.Proizvod>();
+
 			CreateMap<Database.VrstaProizvodum, Model.VrstaProizvodum>();
 			CreateMap<Database.KorisnikUloga, Model.KorisnikUloga>();
 			CreateMap<Database.Uloga, Model.Uloga>();

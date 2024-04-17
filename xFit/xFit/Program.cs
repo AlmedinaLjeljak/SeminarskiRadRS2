@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddTransient<IProizvodiService, ProizvodiService>();
+builder.Services.AddTransient<IProizvodService, ProizvodService>();
 builder.Services.AddTransient<IKorisniciService, KorisniciService>();
 builder.Services.AddTransient<IService<xFit.Model.VrstaProizvodum,BaseSearchObject>, BaseSevice<xFit.Model.VrstaProizvodum, xFit.Services.Database.VrstaProizvodum,BaseSearchObject>>();
 
