@@ -16,6 +16,7 @@ public partial class Proizvod
     public byte[]? Slika { get; set; }
 
     public int? VrstaProizvodaId { get; set; }
+    public string? StateMachine { get; set; }
 
     public virtual ICollection<OmiljeniProizvod> OmiljeniProizvods { get; } = new List<OmiljeniProizvod>();
 

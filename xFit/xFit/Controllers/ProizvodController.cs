@@ -18,7 +18,11 @@ namespace xFit.Controllers
 
 
 		}
-
+		[HttpPut("{id}/activate")]
+		public virtual async Task<Model.Proizvod> Activate(int id)
+		{
+			return await (_service as IProizvodService).Activate(id);
+		}
 		
 	}
 	} 
