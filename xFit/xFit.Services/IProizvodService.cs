@@ -12,6 +12,7 @@ namespace xFit.Services
 	public interface IProizvodService:ICRUDService<Proizvod,ProizvodSearchObject,PorizvodInsertRequest,ProizvodUpdateRequest>
 	{
 		Task<Proizvod> Activate(int id);
-
+		Task<Proizvod> Hide(int id);
+		Task<List<string>> AllowedActions(int id);
 	}
 }

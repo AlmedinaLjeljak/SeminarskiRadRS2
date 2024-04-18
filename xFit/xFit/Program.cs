@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using xFit.Filters;
 using xFit.Model.SearchObjects;
 using xFit.Services;
 using xFit.Services.Database;
@@ -17,7 +18,10 @@ builder.Services.AddTransient<InitialProductState>();
 builder.Services.AddTransient<DraftProductState>();
 builder.Services.AddTransient<ActiveProductState>();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(x=>
+{
+	x.Filters.Add<ErrorFilter>();
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

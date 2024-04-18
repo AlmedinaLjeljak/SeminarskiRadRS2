@@ -48,6 +48,7 @@ namespace xFit.Services.ProizvodStateMachine
 			switch(stateName)
 			{
 				case "initial":
+				case null:
 					return _serviceProvider.GetService<InitialProductState>();
 					break;
 				case "draft":
@@ -60,6 +61,10 @@ namespace xFit.Services.ProizvodStateMachine
 				default:
 					throw new Exception("Not allowed");
 			}
+		}
+		public virtual async Task<List<string>> AllowedActions()
+		{
+			return new List<string>();
 		}
 	}
 }

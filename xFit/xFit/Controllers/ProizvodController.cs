@@ -23,6 +23,18 @@ namespace xFit.Controllers
 		{
 			return await (_service as IProizvodService).Activate(id);
 		}
-		
+
+		[HttpPut("{id}/hide")]
+		public virtual async Task<Model.Proizvod> Hide(int id)
+		{
+			return await (_service as IProizvodService).Hide(id);
+		}
+
+		[HttpGet("{id}/allowedActions")]
+		public virtual async Task<List<string>> AllowedActions(int id)
+		{
+			return await (_service as IProizvodService).AllowedActions(id);
+		}
+
 	}
-	} 
+} 
