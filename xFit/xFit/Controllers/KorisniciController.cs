@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Storage;
 using xFit.Model;
@@ -17,6 +18,12 @@ namespace xFit.Controllers
 		{
 
 
+		}
+
+		[Authorize(Roles ="Administrator")]
+		public override Task<Model.Korisnik> Insert([FromBody]KorisnikInsertRequest insert)
+		{
+			return base.Insert(insert);
 		}
 
 		

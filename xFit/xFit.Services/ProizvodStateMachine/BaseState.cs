@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using xFit.Model;
 using xFit.Model.Requests;
 using xFit.Services.Database;
 
@@ -23,24 +24,24 @@ namespace xFit.Services.ProizvodStateMachine
 		}
 		public virtual Task<Model.Proizvod> Insert(PorizvodInsertRequest request)
 		{
-			throw new Exception("Not allowed");
+			throw new UserException("Not allowed");
 		}
 
 		public virtual Task<Model.Proizvod> Update(int id,ProizvodUpdateRequest request)
 		{
-			throw new Exception("Not allowed");
+			throw new UserException("Not allowed");
 		}
 		public virtual Task<Model.Proizvod> Activate(int id)
 		{
-			throw new Exception("Not allowed");
+			throw new UserException("Not allowed");
 		}
 		public virtual Task<Model.Proizvod> Hide(int id )
 		{
-			throw new Exception("Not allowed");
+			throw new UserException("Not allowed");
 		}
 		public virtual Task<Model.Proizvod> Delete(int id)
 		{
-			throw new Exception("Not allowed");
+			throw new UserException("Not allowed");
 		}
 
 		public BaseState Createstate(string stateName)
@@ -59,7 +60,7 @@ namespace xFit.Services.ProizvodStateMachine
 					break;
 
 				default:
-					throw new Exception("Not allowed");
+					throw new UserException("Not allowed");
 			}
 		}
 		public virtual async Task<List<string>> AllowedActions()

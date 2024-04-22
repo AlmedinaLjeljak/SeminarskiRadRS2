@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using xFit.Services.Database;
+using Microsoft.Extensions.Logging;
 
 namespace xFit.Services.ProizvodStateMachine
 {
@@ -13,6 +14,7 @@ namespace xFit.Services.ProizvodStateMachine
 	{
 		public ActiveProductState(IServiceProvider serviceProvider,Database.XFitContext context, IMapper mapper) : base(serviceProvider,context, mapper)
 		{
+			
 		}
 		public override async Task<Model.Proizvod>Hide(int id)
 		{

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using xFit.Model;
 using xFit.Services;
 
@@ -18,6 +19,7 @@ namespace xFit.Controllers
 		}
 
 		[HttpPost]
+		[Authorize(Roles ="Administrator")]
 		public virtual async Task<T> Insert([FromBody]TInsert insert)
 		{
 			return await _service.Insert(insert);
