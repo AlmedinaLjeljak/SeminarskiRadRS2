@@ -1,0 +1,37 @@
+version: '3'
+services:
+#mssql docker
+  xfit-sql:
+    image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu
+    restart: unless-stopped
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=QWElkj132!
+      - MSSQL_PID=Developer
+    ports:
+      - 1401:1433
+    expose:
+        - 1433
+    networks:
+      - xfitnet2022
+
+  xfit-api:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - ConnectionStrings:DefaultConnection=Server=xfit-sql,1433;Database=_xFit;User=sa;Password=QWElkj132!;ConnectRetryCount=0;TrustServerCertificate=True
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - 7138:7138
+    networks:
+      - xfitnet2022
+    links:
+      - xfit-sql
+    depends_on:
+      - xfit-sql
+      
+networks:
+  xfitnet2022:
+    driver: bridge      
