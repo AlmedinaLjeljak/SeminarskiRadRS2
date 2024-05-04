@@ -15,6 +15,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddTransient<IProizvodService, ProizvodService>();
 builder.Services.AddTransient<IKorisniciService, KorisniciService>();
 builder.Services.AddTransient<IService<xFit.Model.VrstaProizvodum,BaseSearchObject>, BaseSevice<xFit.Model.VrstaProizvodum, xFit.Services.Database.VrstaProizvodum,BaseSearchObject>>();
+builder.Services.AddTransient<INarudzbaService, NarudzbaService>();
+builder.Services.AddTransient<ITerminService, TerminService>();
+
+builder.Services.AddTransient<ITransakcijaService, TransakcijaService>();
+builder.Services.AddTransient<IStavkaNarudzbeService, StavkaNarudzbeService>();
+builder.Services.AddTransient<IGradService, GradService>();
 
 builder.Services.AddTransient<BaseState>();
 builder.Services.AddTransient<InitialProductState>();
