@@ -8,5 +8,7 @@ namespace xFit.Model.SearchObjects
 {
 	public class ProizvodSearchObject:BaseSearchObject
 	{
+		public string? FTS { get; set; }
+		public string? Sifra { get; set; }
 	}
 }

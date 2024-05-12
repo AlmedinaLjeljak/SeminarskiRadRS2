@@ -31,6 +31,14 @@ namespace xFit.Services
 			CreateMap<Model.Requests.StavkaNarudzbeInsertRequest, Database.StavkaNarudzbe>();
 			CreateMap<Model.Requests.StavkaNarudzbeUpdateRequest, Database.StavkaNarudzbe>();
 
+			CreateMap<Database.Recenzija, Model.Recenzija>();
+			CreateMap<Model.Requests.RecenzijaInsertRequest, Database.Recenzija>();
+			CreateMap<Model.Requests.RecenzijaUpdateRequest, Database.Recenzija>();
+
+
+			CreateMap<Database.Novost, Model.Novost>();
+			CreateMap<Model.Requests.NovostUpsertRequest, Database.Novost>();
+
 			CreateMap<Database.Transakcija, Model.Transakcija>();
 			CreateMap<Model.Requests.TransakcijaUpdateRequest, Database.Transakcija>();
 

@@ -21,6 +21,8 @@ builder.Services.AddTransient<ITerminService, TerminService>();
 builder.Services.AddTransient<ITransakcijaService, TransakcijaService>();
 builder.Services.AddTransient<IStavkaNarudzbeService, StavkaNarudzbeService>();
 builder.Services.AddTransient<IGradService, GradService>();
+builder.Services.AddTransient<IRecenzijaService, RecenzijaService>();
+builder.Services.AddTransient<INovostService, NovostService>();
 
 builder.Services.AddTransient<BaseState>();
 builder.Services.AddTransient<InitialProductState>();
