@@ -1,118 +1,84 @@
 import 'dart:html';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:xfit_admin/providers/product_provders.dart';
-import 'package:xfit_admin/screens/product_list_screen.dart';
 
-void main() {
-  runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(create: (_)=>ProductProvider())
-  ],
-  child:  MyApp(),));
+void main(){
+  runApp(const MyMaterialApp());
 }
+class MyApp extends StatelessWidget{
+  const MyApp({Key? key}): super(key:key);
 
-class MyApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return MaterialApp(
-      title: 'xFit Login',
-      theme: ThemeData(
-        primaryColor: Colors.blue,
+      title: 'Flutter Demo',
+
+      theme:ThemeData(
+        primarySwatch: Colors.blue
       ),
-      home: LoginPage(),
+      home:Text("Welcome"),
     );
   }
 }
 
-class LoginPage extends StatelessWidget {
-
-TextEditingController _usernameController=new TextEditingController();
-TextEditingController _passwordController=new TextEditingController();
-
-
+class MyMaterialApp extends StatelessWidget{
+  const MyMaterialApp({Key?key}):super(key:key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
+    return MaterialApp(
+      title: 'RS II Material app',
+      theme:ThemeData(primarySwatch: Colors.blue),
+      home:const LoginPage(),
+    );
+  }
+}
+
+
+
+class LoginPage extends StatelessWidget{
+  const LoginPage({Key?key}):super(key:key);
+
+  @override
+  Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
-        title: Text(''),
-      ),
-      body: Center(
-        child: Container(
-          padding: EdgeInsets.all(16.0),
-          width: MediaQuery.of(context).size.width * 0.8,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10.0),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: Offset(0, 3), 
-              ),
-            ],
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Container(
-                alignment: Alignment.center,
-                child:
-                Text(
-                  'xFit',
-                  style: TextStyle(
-                    fontSize: 36,
-                    color: Colors.blue,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              SizedBox(height: 30,width: 30,), 
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Username',
-                  prefixIcon: Icon(Icons.email),
-                  border: OutlineInputBorder(),
-                ),
-                controller: _usernameController,
-              ),
-              SizedBox(height: 20), 
-              TextFormField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                  prefixIcon: Icon(Icons.password),
-                  border: OutlineInputBorder(),
-                ),
-                controller: _passwordController,
-              ),
-              SizedBox(height: 20), 
-              ElevatedButton(
-                onPressed: () {
-                  var username=_usernameController.text;
-                  var password=_passwordController.text;
-                  print("login proceed $username $password");
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder:(context)=> const ProdcutListScreen(),)
-                  );
-                 
-                },
-                child: Text('Login'),
-              ),
-              SizedBox(height: 10), 
-              TextButton(
-                onPressed: () {
-                  
-                },
-                child: Text('Nemate korisnički račun? Napravite novi.'),
-              ),
-            ],
-          ),
+        title: Text("Login"),
         ),
-      ),
+        body:Center(
+          child: Container(
+            constraints: BoxConstraints(maxWidth: 400,maxHeight: 400),
+            child: Card(
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(children: [
+                  Image.network("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSo0MF_VELfZYivdtS2KnjBYE_kWhp_V2IbPiCKxNs90g&s",height: 100,width: 100,),
+                  SizedBox(height: 8),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: "Username",
+                      prefixIcon: Icon(Icons.email)
+                    ),
+                  ),
+                  SizedBox(height: 8,),
+                  TextField(
+                    decoration: InputDecoration( 
+                      labelText: "Password",
+                      prefixIcon: Icon(Icons.password)
+                    ),
+                  ),
+                  SizedBox(height: 8,),
+                  ElevatedButton(onPressed: (){
+                    print("Login proceed");
+                  }, child: Text("Login"))
+                ]),
+              ),
+            ),
+          ),)
     );
   }
 }
+
+
