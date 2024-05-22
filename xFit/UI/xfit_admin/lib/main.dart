@@ -2,6 +2,7 @@ import 'dart:html';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:xfit_admin/screens/product_list_screen.dart';
 
 void main(){
   runApp(const MyMaterialApp());
@@ -30,7 +31,7 @@ class MyMaterialApp extends StatelessWidget{
     return MaterialApp(
       title: 'RS II Material app',
       theme:ThemeData(primarySwatch: Colors.blue),
-      home:const LoginPage(),
+      home: LoginPage(),
     );
   }
 }
@@ -38,7 +39,10 @@ class MyMaterialApp extends StatelessWidget{
 
 
 class LoginPage extends StatelessWidget{
-  const LoginPage({Key?key}):super(key:key);
+    LoginPage({Key?key}):super(key:key);
+
+TextEditingController _usernameController=new TextEditingController();
+TextEditingController _passwordController=new TextEditingController();
 
   @override
   Widget build(BuildContext context){
@@ -54,13 +58,15 @@ class LoginPage extends StatelessWidget{
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(children: [
-                  Image.network("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSo0MF_VELfZYivdtS2KnjBYE_kWhp_V2IbPiCKxNs90g&s",height: 100,width: 100,),
+                  //Image.network("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSo0MF_VELfZYivdtS2KnjBYE_kWhp_V2IbPiCKxNs90g&s",height: 100,width: 100,),
+                  Image.asset("assets/images/logo1.png",height: 100,width: 100,),
                   SizedBox(height: 8),
                   TextField(
                     decoration: InputDecoration(
                       labelText: "Username",
                       prefixIcon: Icon(Icons.email)
                     ),
+                    controller: _usernameController,
                   ),
                   SizedBox(height: 8,),
                   TextField(
@@ -68,10 +74,19 @@ class LoginPage extends StatelessWidget{
                       labelText: "Password",
                       prefixIcon: Icon(Icons.password)
                     ),
+                    controller: _passwordController,
                   ),
                   SizedBox(height: 8,),
                   ElevatedButton(onPressed: (){
-                    print("Login proceed");
+                   
+                    var username=_usernameController.text;
+                    var password=_passwordController.text;
+                    _passwordController.text=username;
+                     print("Login proceed $username $password");
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder:(context)=>const ProductListScreen(), ),
+                    );
                   }, child: Text("Login"))
                 ]),
               ),
