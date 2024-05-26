@@ -24,6 +24,20 @@ namespace xFit.Services
 			_BaseState = baseState;
 		}
 
+		public override IQueryable<Database.Proizvod> AddFilter(IQueryable<Database.Proizvod> query, ProizvodSearchObject? search = null)
+		{
+			var filterQuery = base.AddFilter(query, search);
+			if(string.IsNullOrWhiteSpace(search?.FTS))
+			{
+				filterQuery = filterQuery.Where(x => x.Naziv.Contains(search.FTS) || x.Sifra.Contains(search.FTS));
+			}
+			if(!string.IsNullOrWhiteSpace(search?.Sifra))
+			{
+				filterQuery = filterQuery.Where(x => x.Sifra == search.Sifra);
+			}
+			return filterQuery;
+		}
+
 		public override Task<Model.Proizvod> Insert(PorizvodInsertRequest insert)
 		{
 			var state = _BaseState.Createstate("initial");

@@ -113,7 +113,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
   }
 
   String getQueryString(Map params,
-      {String prefix: '&', bool inRecursion: false}) {
+      {String prefix= '&', bool inRecursion= false}) {
     String query = '';
     params.forEach((key, value) {
       if (inRecursion) {

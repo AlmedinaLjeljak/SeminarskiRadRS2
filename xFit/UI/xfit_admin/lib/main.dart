@@ -2,10 +2,17 @@ import 'dart:html';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:xfit_admin/providers/product_provders.dart';
 import 'package:xfit_admin/screens/product_list_screen.dart';
+import 'package:xfit_admin/utils/util.dart';
 
 void main(){
-  runApp(const MyMaterialApp());
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (_)=>ProductProvider())
+  ],
+  child: const MyMaterialApp(),
+  ));
 }
 class MyApp extends StatelessWidget{
   const MyApp({Key? key}): super(key:key);
@@ -43,9 +50,11 @@ class LoginPage extends StatelessWidget{
 
 TextEditingController _usernameController=new TextEditingController();
 TextEditingController _passwordController=new TextEditingController();
+late ProductProvider _productProvider;
 
   @override
   Widget build(BuildContext context){
+    _productProvider=context.read<ProductProvider>();
     return Scaffold(
       appBar: AppBar(
         title: Text("Login"),
@@ -77,16 +86,36 @@ TextEditingController _passwordController=new TextEditingController();
                     controller: _passwordController,
                   ),
                   SizedBox(height: 8,),
-                  ElevatedButton(onPressed: (){
+                  ElevatedButton(onPressed: ()async{
                    
                     var username=_usernameController.text;
                     var password=_passwordController.text;
                     _passwordController.text=username;
                      print("Login proceed $username $password");
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder:(context)=>const ProductListScreen(), ),
-                    );
+                    
+                    //Authorization.username=username;
+                    //Authorization.password=password;
+
+                    
+
+                   // try {
+                      //await _productProvider.get();
+
+                            Navigator.of(context).push(
+                            MaterialPageRoute(
+                            builder:(context)=>const ProductListScreen(), ),
+                         );
+                    //} on Exception catch (e) {
+                      //showDialog(context: context,
+                       //builder: (BuildContext context)=>AlertDialog(
+                        //title: Text("Error"),
+                        //content: Text(e.toString()),
+                        //actions: [
+                        //TextButton(onPressed: ()=>Navigator.pop(context), child: Text("OK"))
+                       // ],
+                       //));
+
+                              //  }
                   }, child: Text("Login"))
                 ]),
               ),

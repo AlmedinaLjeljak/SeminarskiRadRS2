@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:xfit_admin/main.dart';
 import 'package:xfit_admin/screens/product_detail_screen.dart';
 import 'package:xfit_admin/screens/product_list_screen.dart';
 
@@ -26,8 +27,11 @@ class _MasterScreenWidgetState extends State<MasterScreenWidget>{
           ListTile(
             title:Text("Back"),
             onTap: (){
-              print("clicked");
-              Navigator.pop(context);
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context)=>LoginPage(),),
+              );
+             
+              
               
             },
           ),
@@ -46,7 +50,7 @@ class _MasterScreenWidgetState extends State<MasterScreenWidget>{
             onTap: (){
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder:(context)=>const ProdutcDetailScreen(),
+                  builder:(context)=> ProdutcDetailScreen(),
                 ),
               );
             },
