@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,6 +46,41 @@ namespace xFit.Services
 			await _context.SaveChangesAsync();
 			return _mapper.Map<T>(entity);
 
+		}
+
+		public virtual async Task<T> Delete(int id)
+		{
+			var set = _context.Set<TDb>();
+
+			foreach(var item in _context.OmiljeniProizvods)
+			{
+				if(id==item.ProizvodId)
+				{
+					_context.OmiljeniProizvods.Remove(item);
+				}
+			}
+
+			foreach(var item in _context.StavkaNarudzbes)
+			{
+				if(id==item.ProizvodId)
+				{
+					_context.StavkaNarudzbes.Remove(item);
+				}
+
+			}
+			foreach(var item in _context.Recenzijas)
+			{
+				if(id==item.ProizvodId)
+				{
+					_context.Recenzijas.Remove(item);
+				}
+			}
+
+			var entity = await set.FindAsync(id);
+
+			set.Remove(entity);
+			await _context.SaveChangesAsync();
+			return _mapper.Map<T>(entity);
 		}
 	}
 }

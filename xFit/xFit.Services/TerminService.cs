@@ -16,6 +16,19 @@ namespace xFit.Services
 		public TerminService(XFitContext context, IMapper mapper) : base(context, mapper)
 		{
 		}
+
+		public override IQueryable<Database.Termin> AddFilter(IQueryable<Database.Termin> query, TerminSearchObject? search = null)
+		{
+			var filteredQuery = base.AddFilter(query, search);
+
+			if (search.DatumVrijeme != null)
+			{
+				filteredQuery = filteredQuery.Where(x => x.DatumVrijeme.Value.Day == search.DatumVrijeme.Value.Day &&
+														x.DatumVrijeme.Value.Month == search.DatumVrijeme.Value.Month &&
+														x.DatumVrijeme.Value.Year == search.DatumVrijeme.Value.Year);
+			}
+			return filteredQuery;
+		}
 		public override Task<Model.Termin> Insert(TerminInsertRequest insert)
 		{
 			if (!insert.DatumVrijeme.HasValue)

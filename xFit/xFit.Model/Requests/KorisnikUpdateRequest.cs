@@ -12,7 +12,7 @@ namespace xFit.Model.Requests
 
 		public string? Prezime { get; set; }
 
-		//public int? GradId { get; set; }
+		public int? GradId { get; set; }
 
 	}
 }

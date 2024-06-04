@@ -27,7 +27,8 @@ namespace xFit.Services
 		public override IQueryable<Database.Proizvod> AddFilter(IQueryable<Database.Proizvod> query, ProizvodSearchObject? search = null)
 		{
 			var filterQuery = base.AddFilter(query, search);
-			if(string.IsNullOrWhiteSpace(search?.FTS))
+
+			if(!string.IsNullOrWhiteSpace(search?.FTS))
 			{
 				filterQuery = filterQuery.Where(x => x.Naziv.Contains(search.FTS) || x.Sifra.Contains(search.FTS));
 			}
@@ -43,6 +44,11 @@ namespace xFit.Services
 			var state = _BaseState.Createstate("initial");
 
 			return state.Insert(insert);
+		}
+
+		public override Task<Model.Proizvod> Delete(int id)
+		{
+			return base.Delete(id);
 		}
 
 		public override async Task<Model.Proizvod> Update(int id, ProizvodUpdateRequest update)

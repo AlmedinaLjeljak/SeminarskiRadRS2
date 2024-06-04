@@ -12,8 +12,11 @@ namespace xFit.Services
 {
 	public class StavkaNarudzbeService : BaseCRUDService<Model.StavkaNarudzbe, Database.StavkaNarudzbe, StavkaNarudzbeSearchObject, StavkaNarudzbeInsertRequest, StavkaNarudzbeUpdateRequest>, IStavkaNarudzbeService
 	{
+		
 		public StavkaNarudzbeService(XFitContext context, IMapper mapper) : base(context, mapper)
 		{
 		}
+
+		
 	}
 }

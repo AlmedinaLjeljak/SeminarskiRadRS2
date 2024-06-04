@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,24 @@ namespace xFit.Services
 	{
 		public GradService(XFitContext context, IMapper mapper) : base(context, mapper)
 		{
+		}
+
+		public async Task<List<Model.Grad>> AddFilter(string name)
+		{
+			if (string.IsNullOrWhiteSpace(name))
+			{
+				return new List<Model.Grad>();
+			}
+
+			var query = _context.Grads.AsQueryable();
+
+			if (!string.IsNullOrEmpty(name))
+			{
+				query = query.Where(g => g.Naziv.Contains(name));
+			}
+
+			var entities = await query.ToListAsync();
+			return _mapper.Map<List<Model.Grad>>(entities);
 		}
 	}
 }

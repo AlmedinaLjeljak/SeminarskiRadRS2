@@ -22,8 +22,11 @@ namespace xFit.Services
 		{
 
 		}
-		
-		
+		public override Task<Model.Korisnik> Delete(int id)
+		{
+			return base.Delete(id);
+		}
+
 		public override async Task BeforeInsert(Korisnik entity, KorisnikInsertRequest insert)
 		{
 			entity.LozinkaSalt = GenerateSalt();
@@ -78,6 +81,12 @@ namespace xFit.Services
 				return null;
 			}
 			return _mapper.Map<Model.Korisnik>(entitiy);
+		}
+
+		public override async Task<Model.Korisnik> Update(int id, KorisnikUpdateRequest update)
+		{
+			var entity = await _context.Korisniks.FindAsync(id);
+			return await base.Update(id, update);
 		}
 	}
 }

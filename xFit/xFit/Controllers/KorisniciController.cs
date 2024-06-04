@@ -10,6 +10,7 @@ namespace xFit.Controllers
 {
 	[ApiController]
 	[Route("[controller]")]
+	[AllowAnonymous]
 	public class KorisniciController : BaseCRUDController<Model.Korisnik, Model.SearchObjects.KorisnikSearchObject,Model.Requests.KorisnikInsertRequest,Model.Requests.KorisnikUpdateRequest>
 	{
 
@@ -20,7 +21,7 @@ namespace xFit.Controllers
 
 		}
 
-		[Authorize(Roles ="Administrator")]
+		[AllowAnonymous]
 		public override Task<Model.Korisnik> Insert([FromBody]KorisnikInsertRequest insert)
 		{
 			return base.Insert(insert);

@@ -10,9 +10,9 @@ namespace xFit.Controllers
 	[ApiController]
 	[Route("[controller]")]
 	[AllowAnonymous]
-	public class GradController : BaseCRUDController<Model.Grad, BaseSearchObject, GradUpsertRequest, GradUpsertRequest>
+	public class KlijentController : BaseCRUDController<Model.Klijent, KlijentSearchObject, KlijentInsertRequest, KlijentUpdateRequest>
 	{
-		public GradController(ILogger<BaseController<Model.Grad, BaseSearchObject>> logger, IGradService service) : base(logger, service)
+		public KlijentController(ILogger<BaseController<Model.Klijent, KlijentSearchObject>> logger, IKlijentService service) : base(logger, service)
 		{
 
 

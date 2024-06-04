@@ -16,6 +16,6 @@ namespace xFit.Model
 
 		public int? KlijentId { get; set; }
 
-		//public virtual Klijent? Klijent { get; set; }
+		public virtual Klijent? Klijent { get; set; }
 	}
 }
