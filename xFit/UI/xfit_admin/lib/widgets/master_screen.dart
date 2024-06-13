@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:xfit_admin/main.dart';
+import 'package:xfit_admin/screens/izvjestaj_screen.dart';
+import 'package:xfit_admin/screens/orders_screen.dart';
 import 'package:xfit_admin/screens/product_detail_screen.dart';
 import 'package:xfit_admin/screens/product_list_screen.dart';
+import 'package:xfit_admin/screens/termini_screen.dart';
 
 class MasterScreenWidget extends StatefulWidget{
   Widget? child;
@@ -20,11 +23,32 @@ class _MasterScreenWidgetState extends State<MasterScreenWidget>{
     return Scaffold(
       appBar: AppBar(
         title:widget.title_widget?? Text(widget.title??""),
+        /*actions:[
+          TextButton.icon(
+              onPressed: (() {
+                if (!ModalRoute.of(context)!.isFirst) {
+                  Navigator.pop(context,
+                      'reload2');
+                }
+              }),
+              icon: const Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+              ),
+              label: Text(
+                "Back",
+                style: const TextStyle(color: Colors.white),
+              )),
+
+        ],*/
       ),
       drawer: Drawer(
+        child:Container(
+          color: const Color.fromARGB(255, 236, 196, 209),
+        
         child:ListView(
          children: [
-          ListTile(
+         ListTile(
             title:Text("Back"),
             onTap: (){
               Navigator.of(context).push(
@@ -36,7 +60,7 @@ class _MasterScreenWidgetState extends State<MasterScreenWidget>{
             },
           ),
           ListTile(
-            title:Text("Proizvodi"),
+            title:Text("Products"),
             onTap: (){
               Navigator.of(context).push(
                 MaterialPageRoute(
@@ -46,19 +70,49 @@ class _MasterScreenWidgetState extends State<MasterScreenWidget>{
             },
           ),
           ListTile(
-            title:Text("Detalji"),
+            title:Text("Details"),
             onTap: (){
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder:(context)=> ProdutcDetailScreen(),
+                  builder:(context)=> ProductDetailScreen(),
                 ),
               );
             },
-          )
+          ),
+            ListTile(
+            title:Text("Orders"),
+            onTap: (){
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder:(context)=>const OrdersScreen(),
+                ),
+              );
+            },
+          ),
+           ListTile(
+            title:Text("Appointments"),
+            onTap: (){
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder:(context)=> TerminiScreen(),
+                ),
+              );
+            },
+          ),
+           ListTile(
+            title:Text("Reports"),
+            onTap: (){
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder:(context)=> IzvjestajScreen(),
+                ),
+              );
+            },
+          ),
          ],
           
         ),
-      ),
+      )),
       body: widget.child!,
     );
   }

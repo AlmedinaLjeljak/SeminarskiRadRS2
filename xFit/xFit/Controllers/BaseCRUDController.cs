@@ -29,6 +29,14 @@ namespace xFit.Controllers
 		{
 			return await _service.Update(id, update);
 		}
+		[HttpDelete("{id}")]
+		public async virtual Task<T> Delete(int id)
+		{
+			var result = _service.Delete(id);
+
+			return await result;
+
+		}
 
 	}
 }

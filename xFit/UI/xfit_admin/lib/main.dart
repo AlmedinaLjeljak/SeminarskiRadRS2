@@ -4,12 +4,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:xfit_admin/providers/product_provders.dart';
+import 'package:xfit_admin/providers/proizvod_provajder.dart';
 import 'package:xfit_admin/screens/product_list_screen.dart';
 import 'package:xfit_admin/utils/util.dart';
 
 void main(){
   runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(create: (_)=>ProductProvider())
+    ChangeNotifierProvider(create: (_)=>ProizvodProvajder())
   ],
   child: const MyMaterialApp(),
   ));
@@ -50,11 +51,11 @@ class LoginPage extends StatelessWidget{
 
 TextEditingController _usernameController=new TextEditingController();
 TextEditingController _passwordController=new TextEditingController();
-late ProductProvider _productProvider;
+late ProizvodProvajder _productProvider;
 
   @override
   Widget build(BuildContext context){
-    _productProvider=context.read<ProductProvider>();
+    _productProvider=context.read<ProizvodProvajder>();
     return Scaffold(
       appBar: AppBar(
         title: Text("Login"),

@@ -106,7 +106,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
 
     var headers = {
       "Content-Type": "application/json",
-      "Authorization": basicAuth
+      //"Authorization": basicAuth
     };
 
     return headers;
