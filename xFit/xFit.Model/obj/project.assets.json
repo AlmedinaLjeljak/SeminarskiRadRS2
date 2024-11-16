@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\HOME\\Desktop\\SeminarskiRadRS2\\SeminarskiRadRS2\\xFit\\xFit.Model\\xFit.Model.csproj",
+      "projectUniqueName": "C:\\Users\\HOME\\Desktop\\SeminarskiRS2\\SeminarskiRadRS2\\xFit\\xFit.Model\\xFit.Model.csproj",
       "projectName": "xFit.Model",
-      "projectPath": "C:\\Users\\HOME\\Desktop\\SeminarskiRadRS2\\SeminarskiRadRS2\\xFit\\xFit.Model\\xFit.Model.csproj",
+      "projectPath": "C:\\Users\\HOME\\Desktop\\SeminarskiRS2\\SeminarskiRadRS2\\xFit\\xFit.Model\\xFit.Model.csproj",
       "packagesPath": "C:\\Users\\HOME\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\HOME\\Desktop\\SeminarskiRadRS2\\SeminarskiRadRS2\\xFit\\xFit.Model\\obj\\",
+      "outputPath": "C:\\Users\\HOME\\Desktop\\SeminarskiRS2\\SeminarskiRadRS2\\xFit\\xFit.Model\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\HOME\\AppData\\Roaming\\NuGet\\NuGet.Config",

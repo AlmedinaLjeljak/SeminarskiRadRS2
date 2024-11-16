@@ -30,7 +30,7 @@ namespace xFit.Services
 		public override async Task BeforeInsert(Korisnik entity, KorisnikInsertRequest insert)
 		{
 			entity.LozinkaSalt = GenerateSalt();
-			entity.LozinkaHash = GenerateHash(entity.LozinkaHash, insert.Password);
+			entity.LozinkaHash = GenerateHash(entity.LozinkaSalt, insert.Password);
 		}
 		public static string GenerateSalt()
 		{
@@ -82,6 +82,7 @@ namespace xFit.Services
 			}
 			return _mapper.Map<Model.Korisnik>(entitiy);
 		}
+
 
 		public override async Task<Model.Korisnik> Update(int id, KorisnikUpdateRequest update)
 		{

@@ -2,11 +2,11 @@
 
 ### Desktop users:
   username: uposlenik                                                                                                                                               
-  password: test123
+  password: test
   
 
   
 ### Mobile user:
   username: klijent                                                                                                                                                     
-  password: test123
+  password: test
   

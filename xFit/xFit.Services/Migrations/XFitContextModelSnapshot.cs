@@ -36,6 +36,23 @@ namespace xFit.Services.Migrations
                     b.HasKey("GradId");
 
                     b.ToTable("Grad", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            GradId = 1,
+                            Naziv = "Mostar"
+                        },
+                        new
+                        {
+                            GradId = 2,
+                            Naziv = "Sarajevo"
+                        },
+                        new
+                        {
+                            GradId = 3,
+                            Naziv = "Beograd"
+                        });
                 });
 
             modelBuilder.Entity("xFit.Services.Database.Klijent", b =>
@@ -66,6 +83,16 @@ namespace xFit.Services.Migrations
                     b.HasIndex("KorisnikId");
 
                     b.ToTable("Klijent", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            KlijentId = 1,
+                            DatumRodjenja = new DateTime(2024, 11, 14, 21, 39, 31, 706, DateTimeKind.Local).AddTicks(4719),
+                            Ime = "Klijent",
+                            KorisnikId = 1,
+                            Prezime = "Klijent"
+                        });
                 });
 
             modelBuilder.Entity("xFit.Services.Database.Korisnik", b =>
@@ -115,6 +142,32 @@ namespace xFit.Services.Migrations
                     b.HasIndex("SpolId");
 
                     b.ToTable("Korisnik", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            KorisnikId = 1,
+                            DatumRodjenja = new DateTime(2024, 11, 15, 10, 0, 0, 0, DateTimeKind.Unspecified),
+                            GradId = 1,
+                            Ime = "Uposlenik",
+                            KorisnickoIme = "uposlenik",
+                            LozinkaHash = "c0d9c1bf6597d1f8246212f7d4efdc5a5a6b2c394d6fa0ea9c8ff634a1d2bcd2",
+                            LozinkaSalt = "3a5c7f12ab8d6e09c2f4a0b7d3e9f6a1",
+                            Prezime = "Uposlenik",
+                            SpolId = 1
+                        },
+                        new
+                        {
+                            KorisnikId = 2,
+                            DatumRodjenja = new DateTime(2024, 11, 15, 10, 0, 0, 0, DateTimeKind.Unspecified),
+                            GradId = 2,
+                            Ime = "Klijent",
+                            KorisnickoIme = "klijent",
+                            LozinkaHash = "c0d9c1bf6597d1f8246212f7d4efdc5a5a6b2c394d6fa0ea9c8ff634a1d2bcd2",
+                            LozinkaSalt = "3a5c7f12ab8d6e09c2f4a0b7d3e9f6a1",
+                            Prezime = "Klijent",
+                            SpolId = 2
+                        });
                 });
 
             modelBuilder.Entity("xFit.Services.Database.KorisnikUloga", b =>
@@ -141,6 +194,15 @@ namespace xFit.Services.Migrations
                     b.HasIndex("UlogaId");
 
                     b.ToTable("KorisnikUloga", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            KorisnikUlogaId = 1,
+                            DatumIzmjene = new DateTime(2024, 11, 14, 21, 39, 31, 706, DateTimeKind.Local).AddTicks(4777),
+                            KorisnikId = 1,
+                            UlogaId = 1
+                        });
                 });
 
             modelBuilder.Entity("xFit.Services.Database.Narudzba", b =>
@@ -172,6 +234,26 @@ namespace xFit.Services.Migrations
                     b.HasIndex("KorisnikId");
 
                     b.ToTable("Narudzba", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            NarudzbaId = 1,
+                            BrojNarudzbe = "#1",
+                            Datum = new DateTime(2024, 11, 14, 21, 39, 31, 706, DateTimeKind.Local).AddTicks(4886),
+                            Iznos = 17.0,
+                            KorisnikId = 1,
+                            Status = "Pending"
+                        },
+                        new
+                        {
+                            NarudzbaId = 2,
+                            BrojNarudzbe = "#2",
+                            Datum = new DateTime(2024, 11, 14, 21, 39, 31, 706, DateTimeKind.Local).AddTicks(4889),
+                            Iznos = 20.0,
+                            KorisnikId = 2,
+                            Status = "Pending"
+                        });
                 });
 
             modelBuilder.Entity("xFit.Services.Database.Novost", b =>
@@ -200,6 +282,16 @@ namespace xFit.Services.Migrations
                     b.HasIndex("KlijentId");
 
                     b.ToTable("Novost", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            NovostId = 1,
+                            DatumObjave = new DateTime(2024, 11, 14, 21, 39, 31, 706, DateTimeKind.Local).AddTicks(4860),
+                            KlijentId = 1,
+                            Naziv = "Novost",
+                            Sadzaj = "Sadrzaj novost"
+                        });
                 });
 
             modelBuilder.Entity("xFit.Services.Database.OmiljeniProizvod", b =>
@@ -226,6 +318,15 @@ namespace xFit.Services.Migrations
                     b.HasIndex("ProizvodId");
 
                     b.ToTable("OmiljeniProizvod", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            OmiljeniProizvodId = 1,
+                            DatumDodavanja = new DateTime(2024, 11, 14, 21, 39, 31, 706, DateTimeKind.Local).AddTicks(4874),
+                            KlijentId = 1,
+                            ProizvodId = 1
+                        });
                 });
 
             modelBuilder.Entity("xFit.Services.Database.Proizvod", b =>
@@ -262,6 +363,98 @@ namespace xFit.Services.Migrations
                     b.HasIndex("VrstaProizvodaId");
 
                     b.ToTable("Proizvod", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            ProizvodId = 1,
+                            Cijena = 20m,
+                            Naziv = "Rukavice",
+                            Sifra = "TR585",
+                            StateMachine = "active",
+                            VrstaProizvodaId = 2
+                        },
+                        new
+                        {
+                            ProizvodId = 2,
+                            Cijena = 30m,
+                            Naziv = "Whey",
+                            Sifra = "PL789",
+                            StateMachine = "active",
+                            VrstaProizvodaId = 1
+                        },
+                        new
+                        {
+                            ProizvodId = 3,
+                            Cijena = 20m,
+                            Naziv = "Trake",
+                            Sifra = "RF147",
+                            StateMachine = "active",
+                            VrstaProizvodaId = 2
+                        },
+                        new
+                        {
+                            ProizvodId = 4,
+                            Cijena = 50m,
+                            Naziv = "Kreatin",
+                            Sifra = "CD741",
+                            StateMachine = "active",
+                            VrstaProizvodaId = 1
+                        },
+                        new
+                        {
+                            ProizvodId = 5,
+                            Cijena = 100m,
+                            Naziv = "Sobni bicikl",
+                            Sifra = "TM741",
+                            StateMachine = "active",
+                            VrstaProizvodaId = 2
+                        },
+                        new
+                        {
+                            ProizvodId = 6,
+                            Cijena = 50m,
+                            Naziv = "Traka za trcanje",
+                            Sifra = "WE179",
+                            StateMachine = "active",
+                            VrstaProizvodaId = 2
+                        },
+                        new
+                        {
+                            ProizvodId = 7,
+                            Cijena = 50m,
+                            Naziv = "Steperi",
+                            Sifra = "CD741",
+                            StateMachine = "active",
+                            VrstaProizvodaId = 1
+                        },
+                        new
+                        {
+                            ProizvodId = 8,
+                            Cijena = 10m,
+                            Naziv = "Girje",
+                            Sifra = "RE789",
+                            StateMachine = "draft",
+                            VrstaProizvodaId = 2
+                        },
+                        new
+                        {
+                            ProizvodId = 9,
+                            Cijena = 50m,
+                            Naziv = "Plocasti utezi",
+                            Sifra = "QW736",
+                            StateMachine = "active",
+                            VrstaProizvodaId = 2
+                        },
+                        new
+                        {
+                            ProizvodId = 10,
+                            Cijena = 20m,
+                            Naziv = "Podloga za vjezbanje",
+                            Sifra = "QP459",
+                            StateMachine = "active",
+                            VrstaProizvodaId = 2
+                        });
                 });
 
             modelBuilder.Entity("xFit.Services.Database.Recenzija", b =>
@@ -292,6 +485,16 @@ namespace xFit.Services.Migrations
                     b.HasIndex("ProizvodId");
 
                     b.ToTable("Recenzija", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            RecenzijaId = 1,
+                            Datum = new DateTime(2024, 11, 14, 21, 39, 31, 706, DateTimeKind.Local).AddTicks(4833),
+                            KlijentId = 1,
+                            ProizvodId = 1,
+                            Sadrzaj = "sadrzaj"
+                        });
                 });
 
             modelBuilder.Entity("xFit.Services.Database.Rezervacija", b =>
@@ -328,6 +531,17 @@ namespace xFit.Services.Migrations
                     b.HasIndex("UposlenikId");
 
                     b.ToTable("Rezervacija", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            RezervacijaId = 1,
+                            Datum = new DateTime(2024, 11, 14, 21, 39, 31, 706, DateTimeKind.Local).AddTicks(4920),
+                            Email = "rezervacija@gmail.com",
+                            KlijentId = 1,
+                            TerminId = 1,
+                            UposlenikId = 1
+                        });
                 });
 
             modelBuilder.Entity("xFit.Services.Database.Spol", b =>
@@ -344,6 +558,18 @@ namespace xFit.Services.Migrations
                     b.HasKey("SpolId");
 
                     b.ToTable("Spol", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            SpolId = 1,
+                            Naziv = "Male"
+                        },
+                        new
+                        {
+                            SpolId = 2,
+                            Naziv = "Female"
+                        });
                 });
 
             modelBuilder.Entity("xFit.Services.Database.StavkaNarudzbe", b =>
@@ -370,6 +596,29 @@ namespace xFit.Services.Migrations
                     b.HasIndex("ProizvodId");
 
                     b.ToTable("StavkaNarudzbe", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            StavkaNarudzbeId = 1,
+                            Kolicina = 1,
+                            NarudzbaId = 1,
+                            ProizvodId = 1
+                        },
+                        new
+                        {
+                            StavkaNarudzbeId = 2,
+                            Kolicina = 1,
+                            NarudzbaId = 1,
+                            ProizvodId = 3
+                        },
+                        new
+                        {
+                            StavkaNarudzbeId = 3,
+                            Kolicina = 1,
+                            NarudzbaId = 1,
+                            ProizvodId = 4
+                        });
                 });
 
             modelBuilder.Entity("xFit.Services.Database.Termin", b =>
@@ -384,6 +633,13 @@ namespace xFit.Services.Migrations
                     b.HasKey("TerminId");
 
                     b.ToTable("Termin", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            TerminId = 1,
+                            DatumVrijeme = new DateTime(2024, 11, 14, 21, 39, 31, 706, DateTimeKind.Local).AddTicks(4845)
+                        });
                 });
 
             modelBuilder.Entity("xFit.Services.Database.Transakcija", b =>
@@ -404,6 +660,13 @@ namespace xFit.Services.Migrations
                     b.HasIndex("NarudzbaId");
 
                     b.ToTable("Transakcija", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            TransakcijaId = 1,
+                            Iznos = 50.0
+                        });
                 });
 
             modelBuilder.Entity("xFit.Services.Database.Uloga", b =>
@@ -420,6 +683,18 @@ namespace xFit.Services.Migrations
                     b.HasKey("UlogaId");
 
                     b.ToTable("Uloga", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UlogaId = 1,
+                            Naziv = "uposlenik"
+                        },
+                        new
+                        {
+                            UlogaId = 2,
+                            Naziv = "klijent"
+                        });
                 });
 
             modelBuilder.Entity("xFit.Services.Database.Uposlenik", b =>
@@ -448,6 +723,16 @@ namespace xFit.Services.Migrations
                     b.HasIndex("KorisnikId");
 
                     b.ToTable("Uposlenik", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UposlenikId = 1,
+                            DatumRodjenja = new DateTime(2024, 11, 14, 21, 39, 31, 706, DateTimeKind.Local).AddTicks(4791),
+                            Ime = "uposlenik",
+                            KorisnikId = 1,
+                            Prezime = "uposlenik"
+                        });
                 });
 
             modelBuilder.Entity("xFit.Services.Database.VrstaProizvodum", b =>
@@ -464,6 +749,18 @@ namespace xFit.Services.Migrations
                     b.HasKey("VrstaProizvodaId");
 
                     b.ToTable("VrstaProizvoda");
+
+                    b.HasData(
+                        new
+                        {
+                            VrstaProizvodaId = 1,
+                            Naziv = "Suplementi"
+                        },
+                        new
+                        {
+                            VrstaProizvodaId = 2,
+                            Naziv = "Oprema"
+                        });
                 });
 
             modelBuilder.Entity("xFit.Services.Database.Klijent", b =>
