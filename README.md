@@ -1,12 +1,12 @@
 # Credentials
 
 ### Desktop users:
-  username: uposlenik                                                                                                                                               
+  username: desktop                                                                                                                                               
   password: test
   
 
   
 ### Mobile user:
-  username: klijent                                                                                                                                                     
+  username: mobile                                                                                                                                                     
   password: test
   

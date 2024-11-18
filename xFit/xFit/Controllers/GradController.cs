@@ -9,7 +9,7 @@ namespace xFit.Controllers
 {
 	[ApiController]
 	[Route("[controller]")]
-	//[AllowAnonymous]
+	[AllowAnonymous]
 	public class GradController : BaseCRUDController<Model.Grad, BaseSearchObject, GradUpsertRequest, GradUpsertRequest>
 	{
 		public GradController(ILogger<BaseController<Model.Grad, BaseSearchObject>> logger, IGradService service) : base(logger, service)

@@ -12,7 +12,7 @@ using xFit.Services.Database;
 namespace xFit.Services.Migrations
 {
     [DbContext(typeof(XFitContext))]
-    [Migration("20241114203931_InitialCreate")]
+    [Migration("20241118211510_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -28,8 +28,11 @@ namespace xFit.Services.Migrations
             modelBuilder.Entity("xFit.Services.Database.Grad", b =>
                 {
                     b.Property<int>("GradId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("GradID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GradId"));
 
                     b.Property<string>("Naziv")
                         .HasMaxLength(20)
@@ -61,8 +64,11 @@ namespace xFit.Services.Migrations
             modelBuilder.Entity("xFit.Services.Database.Klijent", b =>
                 {
                     b.Property<int>("KlijentId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("KlijentID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("KlijentId"));
 
                     b.Property<DateTime?>("DatumRodjenja")
                         .HasColumnType("date");
@@ -91,7 +97,7 @@ namespace xFit.Services.Migrations
                         new
                         {
                             KlijentId = 1,
-                            DatumRodjenja = new DateTime(2024, 11, 14, 21, 39, 31, 706, DateTimeKind.Local).AddTicks(4719),
+                            DatumRodjenja = new DateTime(2024, 11, 18, 22, 15, 10, 640, DateTimeKind.Local).AddTicks(4750),
                             Ime = "Klijent",
                             KorisnikId = 1,
                             Prezime = "Klijent"
@@ -101,8 +107,11 @@ namespace xFit.Services.Migrations
             modelBuilder.Entity("xFit.Services.Database.Korisnik", b =>
                 {
                     b.Property<int>("KorisnikId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("KorisnikID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("KorisnikId"));
 
                     b.Property<DateTime?>("DatumRodjenja")
                         .HasColumnType("date");
@@ -152,11 +161,11 @@ namespace xFit.Services.Migrations
                             KorisnikId = 1,
                             DatumRodjenja = new DateTime(2024, 11, 15, 10, 0, 0, 0, DateTimeKind.Unspecified),
                             GradId = 1,
-                            Ime = "Uposlenik",
-                            KorisnickoIme = "uposlenik",
-                            LozinkaHash = "c0d9c1bf6597d1f8246212f7d4efdc5a5a6b2c394d6fa0ea9c8ff634a1d2bcd2",
-                            LozinkaSalt = "3a5c7f12ab8d6e09c2f4a0b7d3e9f6a1",
-                            Prezime = "Uposlenik",
+                            Ime = "korisnik",
+                            KorisnickoIme = "desktop",
+                            LozinkaHash = "zQrh4zsUE+z35ztss7lj7YMOW6w=",
+                            LozinkaSalt = "ZsCgm8wyDPs7RIqUszVNwg==",
+                            Prezime = "korisnik",
                             SpolId = 1
                         },
                         new
@@ -164,11 +173,11 @@ namespace xFit.Services.Migrations
                             KorisnikId = 2,
                             DatumRodjenja = new DateTime(2024, 11, 15, 10, 0, 0, 0, DateTimeKind.Unspecified),
                             GradId = 2,
-                            Ime = "Klijent",
-                            KorisnickoIme = "klijent",
-                            LozinkaHash = "c0d9c1bf6597d1f8246212f7d4efdc5a5a6b2c394d6fa0ea9c8ff634a1d2bcd2",
-                            LozinkaSalt = "3a5c7f12ab8d6e09c2f4a0b7d3e9f6a1",
-                            Prezime = "Klijent",
+                            Ime = "novi",
+                            KorisnickoIme = "mobile",
+                            LozinkaHash = "tXvOHjvV9skoEdo/IB+EJ5f/rrk=",
+                            LozinkaSalt = "8rp4QQCjoi/gQ+0RKgKuWQ==",
+                            Prezime = "korisnik",
                             SpolId = 2
                         });
                 });
@@ -176,8 +185,11 @@ namespace xFit.Services.Migrations
             modelBuilder.Entity("xFit.Services.Database.KorisnikUloga", b =>
                 {
                     b.Property<int>("KorisnikUlogaId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("KorisnikUlogaID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("KorisnikUlogaId"));
 
                     b.Property<DateTime?>("DatumIzmjene")
                         .HasColumnType("date");
@@ -202,7 +214,7 @@ namespace xFit.Services.Migrations
                         new
                         {
                             KorisnikUlogaId = 1,
-                            DatumIzmjene = new DateTime(2024, 11, 14, 21, 39, 31, 706, DateTimeKind.Local).AddTicks(4777),
+                            DatumIzmjene = new DateTime(2024, 11, 18, 22, 15, 10, 640, DateTimeKind.Local).AddTicks(4813),
                             KorisnikId = 1,
                             UlogaId = 1
                         });
@@ -211,8 +223,11 @@ namespace xFit.Services.Migrations
             modelBuilder.Entity("xFit.Services.Database.Narudzba", b =>
                 {
                     b.Property<int>("NarudzbaId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("NarudzbaID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NarudzbaId"));
 
                     b.Property<string>("BrojNarudzbe")
                         .HasMaxLength(50)
@@ -243,7 +258,7 @@ namespace xFit.Services.Migrations
                         {
                             NarudzbaId = 1,
                             BrojNarudzbe = "#1",
-                            Datum = new DateTime(2024, 11, 14, 21, 39, 31, 706, DateTimeKind.Local).AddTicks(4886),
+                            Datum = new DateTime(2024, 11, 18, 22, 15, 10, 640, DateTimeKind.Local).AddTicks(4923),
                             Iznos = 17.0,
                             KorisnikId = 1,
                             Status = "Pending"
@@ -252,7 +267,7 @@ namespace xFit.Services.Migrations
                         {
                             NarudzbaId = 2,
                             BrojNarudzbe = "#2",
-                            Datum = new DateTime(2024, 11, 14, 21, 39, 31, 706, DateTimeKind.Local).AddTicks(4889),
+                            Datum = new DateTime(2024, 11, 18, 22, 15, 10, 640, DateTimeKind.Local).AddTicks(4927),
                             Iznos = 20.0,
                             KorisnikId = 2,
                             Status = "Pending"
@@ -262,8 +277,11 @@ namespace xFit.Services.Migrations
             modelBuilder.Entity("xFit.Services.Database.Novost", b =>
                 {
                     b.Property<int>("NovostId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("NovostID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NovostId"));
 
                     b.Property<DateTime?>("DatumObjave")
                         .HasColumnType("date");
@@ -290,7 +308,7 @@ namespace xFit.Services.Migrations
                         new
                         {
                             NovostId = 1,
-                            DatumObjave = new DateTime(2024, 11, 14, 21, 39, 31, 706, DateTimeKind.Local).AddTicks(4860),
+                            DatumObjave = new DateTime(2024, 11, 18, 22, 15, 10, 640, DateTimeKind.Local).AddTicks(4898),
                             KlijentId = 1,
                             Naziv = "Novost",
                             Sadzaj = "Sadrzaj novost"
@@ -300,8 +318,11 @@ namespace xFit.Services.Migrations
             modelBuilder.Entity("xFit.Services.Database.OmiljeniProizvod", b =>
                 {
                     b.Property<int>("OmiljeniProizvodId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("OmiljeniProizvodID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OmiljeniProizvodId"));
 
                     b.Property<DateTime?>("DatumDodavanja")
                         .HasColumnType("date");
@@ -326,7 +347,7 @@ namespace xFit.Services.Migrations
                         new
                         {
                             OmiljeniProizvodId = 1,
-                            DatumDodavanja = new DateTime(2024, 11, 14, 21, 39, 31, 706, DateTimeKind.Local).AddTicks(4874),
+                            DatumDodavanja = new DateTime(2024, 11, 18, 22, 15, 10, 640, DateTimeKind.Local).AddTicks(4908),
                             KlijentId = 1,
                             ProizvodId = 1
                         });
@@ -335,8 +356,11 @@ namespace xFit.Services.Migrations
             modelBuilder.Entity("xFit.Services.Database.Proizvod", b =>
                 {
                     b.Property<int>("ProizvodId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("ProizvodID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProizvodId"));
 
                     b.Property<decimal?>("Cijena")
                         .HasColumnType("decimal(10, 2)");
@@ -463,8 +487,11 @@ namespace xFit.Services.Migrations
             modelBuilder.Entity("xFit.Services.Database.Recenzija", b =>
                 {
                     b.Property<int>("RecenzijaId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("RecenzijaID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RecenzijaId"));
 
                     b.Property<DateTime?>("Datum")
                         .HasColumnType("date");
@@ -493,7 +520,7 @@ namespace xFit.Services.Migrations
                         new
                         {
                             RecenzijaId = 1,
-                            Datum = new DateTime(2024, 11, 14, 21, 39, 31, 706, DateTimeKind.Local).AddTicks(4833),
+                            Datum = new DateTime(2024, 11, 18, 22, 15, 10, 640, DateTimeKind.Local).AddTicks(4871),
                             KlijentId = 1,
                             ProizvodId = 1,
                             Sadrzaj = "sadrzaj"
@@ -503,8 +530,11 @@ namespace xFit.Services.Migrations
             modelBuilder.Entity("xFit.Services.Database.Rezervacija", b =>
                 {
                     b.Property<int>("RezervacijaId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("RezervacijaID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RezervacijaId"));
 
                     b.Property<DateTime?>("Datum")
                         .HasColumnType("date");
@@ -539,7 +569,7 @@ namespace xFit.Services.Migrations
                         new
                         {
                             RezervacijaId = 1,
-                            Datum = new DateTime(2024, 11, 14, 21, 39, 31, 706, DateTimeKind.Local).AddTicks(4920),
+                            Datum = new DateTime(2024, 11, 18, 22, 15, 10, 640, DateTimeKind.Local).AddTicks(4961),
                             Email = "rezervacija@gmail.com",
                             KlijentId = 1,
                             TerminId = 1,
@@ -550,8 +580,11 @@ namespace xFit.Services.Migrations
             modelBuilder.Entity("xFit.Services.Database.Spol", b =>
                 {
                     b.Property<int>("SpolId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("SpolID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SpolId"));
 
                     b.Property<string>("Naziv")
                         .HasMaxLength(10)
@@ -578,8 +611,11 @@ namespace xFit.Services.Migrations
             modelBuilder.Entity("xFit.Services.Database.StavkaNarudzbe", b =>
                 {
                     b.Property<int>("StavkaNarudzbeId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("StavkaNarudzbeID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StavkaNarudzbeId"));
 
                     b.Property<int?>("Kolicina")
                         .HasColumnType("int");
@@ -627,8 +663,11 @@ namespace xFit.Services.Migrations
             modelBuilder.Entity("xFit.Services.Database.Termin", b =>
                 {
                     b.Property<int>("TerminId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("TerminID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TerminId"));
 
                     b.Property<DateTime?>("DatumVrijeme")
                         .HasColumnType("datetime");
@@ -641,15 +680,18 @@ namespace xFit.Services.Migrations
                         new
                         {
                             TerminId = 1,
-                            DatumVrijeme = new DateTime(2024, 11, 14, 21, 39, 31, 706, DateTimeKind.Local).AddTicks(4845)
+                            DatumVrijeme = new DateTime(2024, 11, 18, 22, 15, 10, 640, DateTimeKind.Local).AddTicks(4885)
                         });
                 });
 
             modelBuilder.Entity("xFit.Services.Database.Transakcija", b =>
                 {
                     b.Property<int>("TransakcijaId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("TransakcijaID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TransakcijaId"));
 
                     b.Property<double?>("Iznos")
                         .HasColumnType("float");
@@ -675,8 +717,11 @@ namespace xFit.Services.Migrations
             modelBuilder.Entity("xFit.Services.Database.Uloga", b =>
                 {
                     b.Property<int>("UlogaId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("UlogaID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UlogaId"));
 
                     b.Property<string>("Naziv")
                         .HasMaxLength(20)
@@ -703,8 +748,11 @@ namespace xFit.Services.Migrations
             modelBuilder.Entity("xFit.Services.Database.Uposlenik", b =>
                 {
                     b.Property<int>("UposlenikId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("UposlenikID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UposlenikId"));
 
                     b.Property<DateTime?>("DatumRodjenja")
                         .HasColumnType("date");
@@ -731,7 +779,7 @@ namespace xFit.Services.Migrations
                         new
                         {
                             UposlenikId = 1,
-                            DatumRodjenja = new DateTime(2024, 11, 14, 21, 39, 31, 706, DateTimeKind.Local).AddTicks(4791),
+                            DatumRodjenja = new DateTime(2024, 11, 18, 22, 15, 10, 640, DateTimeKind.Local).AddTicks(4828),
                             Ime = "uposlenik",
                             KorisnikId = 1,
                             Prezime = "uposlenik"
@@ -741,8 +789,11 @@ namespace xFit.Services.Migrations
             modelBuilder.Entity("xFit.Services.Database.VrstaProizvodum", b =>
                 {
                     b.Property<int>("VrstaProizvodaId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("VrstaProizvodaID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("VrstaProizvodaId"));
 
                     b.Property<string>("Naziv")
                         .HasMaxLength(20)

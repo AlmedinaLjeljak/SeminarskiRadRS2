@@ -28,4 +28,8 @@
     <ProjectReference Include="..\xFit.Model\xFit.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

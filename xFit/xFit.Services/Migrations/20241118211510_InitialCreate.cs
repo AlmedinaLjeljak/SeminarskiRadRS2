@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace xFit.Services.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,7 +17,8 @@ namespace xFit.Services.Migrations
                 name: "Grad",
                 columns: table => new
                 {
-                    GradID = table.Column<int>(type: "int", nullable: false),
+                    GradID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Naziv = table.Column<string>(type: "nchar(20)", fixedLength: true, maxLength: 20, nullable: true)
                 },
                 constraints: table =>
@@ -27,7 +30,8 @@ namespace xFit.Services.Migrations
                 name: "Spol",
                 columns: table => new
                 {
-                    SpolID = table.Column<int>(type: "int", nullable: false),
+                    SpolID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Naziv = table.Column<string>(type: "nchar(10)", fixedLength: true, maxLength: 10, nullable: true)
                 },
                 constraints: table =>
@@ -39,7 +43,8 @@ namespace xFit.Services.Migrations
                 name: "Termin",
                 columns: table => new
                 {
-                    TerminID = table.Column<int>(type: "int", nullable: false),
+                    TerminID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     DatumVrijeme = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
@@ -51,7 +56,8 @@ namespace xFit.Services.Migrations
                 name: "Uloga",
                 columns: table => new
                 {
-                    UlogaID = table.Column<int>(type: "int", nullable: false),
+                    UlogaID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Naziv = table.Column<string>(type: "nchar(20)", fixedLength: true, maxLength: 20, nullable: true)
                 },
                 constraints: table =>
@@ -63,7 +69,8 @@ namespace xFit.Services.Migrations
                 name: "VrstaProizvoda",
                 columns: table => new
                 {
-                    VrstaProizvodaID = table.Column<int>(type: "int", nullable: false),
+                    VrstaProizvodaID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Naziv = table.Column<string>(type: "nchar(20)", fixedLength: true, maxLength: 20, nullable: true)
                 },
                 constraints: table =>
@@ -75,7 +82,8 @@ namespace xFit.Services.Migrations
                 name: "Korisnik",
                 columns: table => new
                 {
-                    KorisnikID = table.Column<int>(type: "int", nullable: false),
+                    KorisnikID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Ime = table.Column<string>(type: "nchar(20)", fixedLength: true, maxLength: 20, nullable: true),
                     Prezime = table.Column<string>(type: "nchar(20)", fixedLength: true, maxLength: 20, nullable: true),
                     DatumRodjenja = table.Column<DateTime>(type: "date", nullable: true),
@@ -106,7 +114,8 @@ namespace xFit.Services.Migrations
                 name: "Proizvod",
                 columns: table => new
                 {
-                    ProizvodID = table.Column<int>(type: "int", nullable: false),
+                    ProizvodID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Naziv = table.Column<string>(type: "nchar(20)", fixedLength: true, maxLength: 20, nullable: true),
                     Sifra = table.Column<string>(type: "nchar(10)", fixedLength: true, maxLength: 10, nullable: true),
                     Cijena = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
@@ -128,7 +137,8 @@ namespace xFit.Services.Migrations
                 name: "Klijent",
                 columns: table => new
                 {
-                    KlijentID = table.Column<int>(type: "int", nullable: false),
+                    KlijentID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Ime = table.Column<string>(type: "nchar(20)", fixedLength: true, maxLength: 20, nullable: true),
                     Prezime = table.Column<string>(type: "nchar(20)", fixedLength: true, maxLength: 20, nullable: true),
                     DatumRodjenja = table.Column<DateTime>(type: "date", nullable: true),
@@ -148,7 +158,8 @@ namespace xFit.Services.Migrations
                 name: "KorisnikUloga",
                 columns: table => new
                 {
-                    KorisnikUlogaID = table.Column<int>(type: "int", nullable: false),
+                    KorisnikUlogaID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     KorisnikID = table.Column<int>(type: "int", nullable: true),
                     UlogaID = table.Column<int>(type: "int", nullable: true),
                     DatumIzmjene = table.Column<DateTime>(type: "date", nullable: true)
@@ -172,7 +183,8 @@ namespace xFit.Services.Migrations
                 name: "Narudzba",
                 columns: table => new
                 {
-                    NarudzbaID = table.Column<int>(type: "int", nullable: false),
+                    NarudzbaID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     BrojNarudzbe = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Datum = table.Column<DateTime>(type: "date", nullable: true),
                     Status = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
@@ -193,7 +205,8 @@ namespace xFit.Services.Migrations
                 name: "Uposlenik",
                 columns: table => new
                 {
-                    UposlenikID = table.Column<int>(type: "int", nullable: false),
+                    UposlenikID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Ime = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Prezime = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     DatumRodjenja = table.Column<DateTime>(type: "date", nullable: true),
@@ -213,7 +226,8 @@ namespace xFit.Services.Migrations
                 name: "Novost",
                 columns: table => new
                 {
-                    NovostID = table.Column<int>(type: "int", nullable: false),
+                    NovostID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Naziv = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Sadzaj = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     DatumObjave = table.Column<DateTime>(type: "date", nullable: true),
@@ -233,7 +247,8 @@ namespace xFit.Services.Migrations
                 name: "OmiljeniProizvod",
                 columns: table => new
                 {
-                    OmiljeniProizvodID = table.Column<int>(type: "int", nullable: false),
+                    OmiljeniProizvodID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     DatumDodavanja = table.Column<DateTime>(type: "date", nullable: true),
                     ProizvodID = table.Column<int>(type: "int", nullable: true),
                     KlijentID = table.Column<int>(type: "int", nullable: true)
@@ -257,7 +272,8 @@ namespace xFit.Services.Migrations
                 name: "Recenzija",
                 columns: table => new
                 {
-                    RecenzijaID = table.Column<int>(type: "int", nullable: false),
+                    RecenzijaID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Sadrzaj = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Datum = table.Column<DateTime>(type: "date", nullable: true),
                     ProizvodID = table.Column<int>(type: "int", nullable: true),
@@ -282,7 +298,8 @@ namespace xFit.Services.Migrations
                 name: "StavkaNarudzbe",
                 columns: table => new
                 {
-                    StavkaNarudzbeID = table.Column<int>(type: "int", nullable: false),
+                    StavkaNarudzbeID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Kolicina = table.Column<int>(type: "int", nullable: true),
                     NarudzbaID = table.Column<int>(type: "int", nullable: true),
                     ProizvodID = table.Column<int>(type: "int", nullable: true)
@@ -306,7 +323,8 @@ namespace xFit.Services.Migrations
                 name: "Transakcija",
                 columns: table => new
                 {
-                    TransakcijaID = table.Column<int>(type: "int", nullable: false),
+                    TransakcijaID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Iznos = table.Column<double>(type: "float", nullable: true),
                     NarudzbaID = table.Column<int>(type: "int", nullable: true)
                 },
@@ -324,7 +342,8 @@ namespace xFit.Services.Migrations
                 name: "Rezervacija",
                 columns: table => new
                 {
-                    RezervacijaID = table.Column<int>(type: "int", nullable: false),
+                    RezervacijaID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Datum = table.Column<DateTime>(type: "date", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     UposlenikID = table.Column<int>(type: "int", nullable: true),
@@ -349,6 +368,133 @@ namespace xFit.Services.Migrations
                         column: x => x.UposlenikID,
                         principalTable: "Uposlenik",
                         principalColumn: "UposlenikID");
+                });
+
+            migrationBuilder.InsertData(
+                table: "Grad",
+                columns: new[] { "GradID", "Naziv" },
+                values: new object[,]
+                {
+                    { 1, "Mostar" },
+                    { 2, "Sarajevo" },
+                    { 3, "Beograd" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Spol",
+                columns: new[] { "SpolID", "Naziv" },
+                values: new object[,]
+                {
+                    { 1, "Male" },
+                    { 2, "Female" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Termin",
+                columns: new[] { "TerminID", "DatumVrijeme" },
+                values: new object[] { 1, new DateTime(2024, 11, 18, 22, 15, 10, 640, DateTimeKind.Local).AddTicks(4885) });
+
+            migrationBuilder.InsertData(
+                table: "Transakcija",
+                columns: new[] { "TransakcijaID", "Iznos", "NarudzbaID" },
+                values: new object[] { 1, 50.0, null });
+
+            migrationBuilder.InsertData(
+                table: "Uloga",
+                columns: new[] { "UlogaID", "Naziv" },
+                values: new object[,]
+                {
+                    { 1, "uposlenik" },
+                    { 2, "klijent" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "VrstaProizvoda",
+                columns: new[] { "VrstaProizvodaID", "Naziv" },
+                values: new object[,]
+                {
+                    { 1, "Suplementi" },
+                    { 2, "Oprema" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Korisnik",
+                columns: new[] { "KorisnikID", "DatumRodjenja", "GradID", "Ime", "KorisnickoIme", "LozinkaHash", "LozinkaSalt", "Prezime", "SpolID" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2024, 11, 15, 10, 0, 0, 0, DateTimeKind.Unspecified), 1, "korisnik", "desktop", "zQrh4zsUE+z35ztss7lj7YMOW6w=", "ZsCgm8wyDPs7RIqUszVNwg==", "korisnik", 1 },
+                    { 2, new DateTime(2024, 11, 15, 10, 0, 0, 0, DateTimeKind.Unspecified), 2, "novi", "mobile", "tXvOHjvV9skoEdo/IB+EJ5f/rrk=", "8rp4QQCjoi/gQ+0RKgKuWQ==", "korisnik", 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Proizvod",
+                columns: new[] { "ProizvodID", "Cijena", "Naziv", "Sifra", "Slika", "StateMachine", "VrstaProizvodaID" },
+                values: new object[,]
+                {
+                    { 1, 20m, "Rukavice", "TR585", null, "active", 2 },
+                    { 2, 30m, "Whey", "PL789", null, "active", 1 },
+                    { 3, 20m, "Trake", "RF147", null, "active", 2 },
+                    { 4, 50m, "Kreatin", "CD741", null, "active", 1 },
+                    { 5, 100m, "Sobni bicikl", "TM741", null, "active", 2 },
+                    { 6, 50m, "Traka za trcanje", "WE179", null, "active", 2 },
+                    { 7, 50m, "Steperi", "CD741", null, "active", 1 },
+                    { 8, 10m, "Girje", "RE789", null, "draft", 2 },
+                    { 9, 50m, "Plocasti utezi", "QW736", null, "active", 2 },
+                    { 10, 20m, "Podloga za vjezbanje", "QP459", null, "active", 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Klijent",
+                columns: new[] { "KlijentID", "DatumRodjenja", "Ime", "KorisnikID", "Prezime" },
+                values: new object[] { 1, new DateTime(2024, 11, 18, 22, 15, 10, 640, DateTimeKind.Local).AddTicks(4750), "Klijent", 1, "Klijent" });
+
+            migrationBuilder.InsertData(
+                table: "KorisnikUloga",
+                columns: new[] { "KorisnikUlogaID", "DatumIzmjene", "KorisnikID", "UlogaID" },
+                values: new object[] { 1, new DateTime(2024, 11, 18, 22, 15, 10, 640, DateTimeKind.Local).AddTicks(4813), 1, 1 });
+
+            migrationBuilder.InsertData(
+                table: "Narudzba",
+                columns: new[] { "NarudzbaID", "BrojNarudzbe", "Datum", "Iznos", "KorisnikID", "Status" },
+                values: new object[,]
+                {
+                    { 1, "#1", new DateTime(2024, 11, 18, 22, 15, 10, 640, DateTimeKind.Local).AddTicks(4923), 17.0, 1, "Pending" },
+                    { 2, "#2", new DateTime(2024, 11, 18, 22, 15, 10, 640, DateTimeKind.Local).AddTicks(4927), 20.0, 2, "Pending" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Uposlenik",
+                columns: new[] { "UposlenikID", "DatumRodjenja", "Ime", "KorisnikID", "Prezime" },
+                values: new object[] { 1, new DateTime(2024, 11, 18, 22, 15, 10, 640, DateTimeKind.Local).AddTicks(4828), "uposlenik", 1, "uposlenik" });
+
+            migrationBuilder.InsertData(
+                table: "Novost",
+                columns: new[] { "NovostID", "DatumObjave", "KlijentID", "Naziv", "Sadzaj" },
+                values: new object[] { 1, new DateTime(2024, 11, 18, 22, 15, 10, 640, DateTimeKind.Local).AddTicks(4898), 1, "Novost", "Sadrzaj novost" });
+
+            migrationBuilder.InsertData(
+                table: "OmiljeniProizvod",
+                columns: new[] { "OmiljeniProizvodID", "DatumDodavanja", "KlijentID", "ProizvodID" },
+                values: new object[] { 1, new DateTime(2024, 11, 18, 22, 15, 10, 640, DateTimeKind.Local).AddTicks(4908), 1, 1 });
+
+            migrationBuilder.InsertData(
+                table: "Recenzija",
+                columns: new[] { "RecenzijaID", "Datum", "KlijentID", "ProizvodID", "Sadrzaj" },
+                values: new object[] { 1, new DateTime(2024, 11, 18, 22, 15, 10, 640, DateTimeKind.Local).AddTicks(4871), 1, 1, "sadrzaj" });
+
+            migrationBuilder.InsertData(
+                table: "Rezervacija",
+                columns: new[] { "RezervacijaID", "Datum", "Email", "KlijentID", "TerminID", "UposlenikID" },
+                values: new object[] { 1, new DateTime(2024, 11, 18, 22, 15, 10, 640, DateTimeKind.Local).AddTicks(4961), "rezervacija@gmail.com", 1, 1, 1 });
+
+            migrationBuilder.InsertData(
+                table: "StavkaNarudzbe",
+                columns: new[] { "StavkaNarudzbeID", "Kolicina", "NarudzbaID", "ProizvodID" },
+                values: new object[,]
+                {
+                    { 1, 1, 1, 1 },
+                    { 2, 1, 1, 3 },
+                    { 3, 1, 1, 4 }
                 });
 
             migrationBuilder.CreateIndex(

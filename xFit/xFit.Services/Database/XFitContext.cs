@@ -61,7 +61,7 @@ public partial class XFitContext : DbContext
             entity.ToTable("Grad");
 
             entity.Property(e => e.GradId)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("GradID");
             entity.Property(e => e.Naziv)
                 .HasMaxLength(20)
@@ -73,7 +73,7 @@ public partial class XFitContext : DbContext
             entity.ToTable("Klijent");
 
             entity.Property(e => e.KlijentId)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("KlijentID");
             entity.Property(e => e.DatumRodjenja).HasColumnType("date");
             entity.Property(e => e.Ime)
@@ -94,7 +94,7 @@ public partial class XFitContext : DbContext
             entity.ToTable("Korisnik");
 
             entity.Property(e => e.KorisnikId)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("KorisnikID");
             entity.Property(e => e.DatumRodjenja).HasColumnType("date");
             entity.Property(e => e.GradId).HasColumnName("GradID");
@@ -123,7 +123,7 @@ public partial class XFitContext : DbContext
             entity.ToTable("KorisnikUloga");
 
             entity.Property(e => e.KorisnikUlogaId)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("KorisnikUlogaID");
             entity.Property(e => e.DatumIzmjene).HasColumnType("date");
             entity.Property(e => e.KorisnikId).HasColumnName("KorisnikID");
@@ -143,7 +143,7 @@ public partial class XFitContext : DbContext
             entity.ToTable("Narudzba");
 
             entity.Property(e => e.NarudzbaId)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("NarudzbaID");
             entity.Property(e => e.BrojNarudzbe).HasMaxLength(50);
             entity.Property(e => e.Datum).HasColumnType("date");
@@ -160,7 +160,7 @@ public partial class XFitContext : DbContext
             entity.ToTable("Novost");
 
             entity.Property(e => e.NovostId)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("NovostID");
             entity.Property(e => e.DatumObjave).HasColumnType("date");
             entity.Property(e => e.KlijentId).HasColumnName("KlijentID");
@@ -177,7 +177,7 @@ public partial class XFitContext : DbContext
             entity.ToTable("OmiljeniProizvod");
 
             entity.Property(e => e.OmiljeniProizvodId)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("OmiljeniProizvodID");
             entity.Property(e => e.DatumDodavanja).HasColumnType("date");
             entity.Property(e => e.KlijentId).HasColumnName("KlijentID");
@@ -197,7 +197,7 @@ public partial class XFitContext : DbContext
             entity.ToTable("Proizvod");
 
             entity.Property(e => e.ProizvodId)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("ProizvodID");
             entity.Property(e => e.Cijena).HasColumnType("decimal(10, 2)");
             entity.Property(e => e.Naziv)
@@ -219,7 +219,7 @@ public partial class XFitContext : DbContext
             entity.ToTable("Recenzija");
 
             entity.Property(e => e.RecenzijaId)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("RecenzijaID");
             entity.Property(e => e.Datum).HasColumnType("date");
             entity.Property(e => e.KlijentId).HasColumnName("KlijentID");
@@ -240,7 +240,7 @@ public partial class XFitContext : DbContext
             entity.ToTable("Rezervacija");
 
             entity.Property(e => e.RezervacijaId)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("RezervacijaID");
             entity.Property(e => e.Datum).HasColumnType("date");
             entity.Property(e => e.Email).HasMaxLength(50);
@@ -266,7 +266,7 @@ public partial class XFitContext : DbContext
             entity.ToTable("Spol");
 
             entity.Property(e => e.SpolId)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("SpolID");
             entity.Property(e => e.Naziv)
                 .HasMaxLength(10)
@@ -278,7 +278,7 @@ public partial class XFitContext : DbContext
             entity.ToTable("StavkaNarudzbe");
 
             entity.Property(e => e.StavkaNarudzbeId)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("StavkaNarudzbeID");
             entity.Property(e => e.NarudzbaId).HasColumnName("NarudzbaID");
             entity.Property(e => e.ProizvodId).HasColumnName("ProizvodID");
@@ -297,7 +297,7 @@ public partial class XFitContext : DbContext
             entity.ToTable("Termin");
 
             entity.Property(e => e.TerminId)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("TerminID");
             entity.Property(e => e.DatumVrijeme).HasColumnType("datetime");
         });
@@ -307,7 +307,7 @@ public partial class XFitContext : DbContext
             entity.ToTable("Transakcija");
 
             entity.Property(e => e.TransakcijaId)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("TransakcijaID");
             entity.Property(e => e.NarudzbaId).HasColumnName("NarudzbaID");
 
@@ -321,7 +321,7 @@ public partial class XFitContext : DbContext
             entity.ToTable("Uloga");
 
             entity.Property(e => e.UlogaId)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("UlogaID");
             entity.Property(e => e.Naziv)
                 .HasMaxLength(20)
@@ -333,7 +333,7 @@ public partial class XFitContext : DbContext
             entity.ToTable("Uposlenik");
 
             entity.Property(e => e.UposlenikId)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("UposlenikID");
             entity.Property(e => e.DatumRodjenja).HasColumnType("date");
             entity.Property(e => e.Ime).HasMaxLength(50);
@@ -350,7 +350,7 @@ public partial class XFitContext : DbContext
             entity.HasKey(e => e.VrstaProizvodaId);
 
             entity.Property(e => e.VrstaProizvodaId)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("VrstaProizvodaID");
             entity.Property(e => e.Naziv)
                 .HasMaxLength(20)

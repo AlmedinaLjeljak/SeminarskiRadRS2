@@ -56,26 +56,26 @@ namespace xFit.Services.Database
 				new Korisnik()
 				{
 					KorisnikId = 1,
-					Ime = "Uposlenik",
-					Prezime = "Uposlenik",
+					Ime = "korisnik",
+					Prezime = "korisnik",
 					DatumRodjenja = new DateTime(2024, 11, 15, 10, 0, 0),
-					KorisnickoIme = "uposlenik",
+					KorisnickoIme = "desktop",
 					GradId = 1,
 					SpolId = 1,
-					LozinkaHash = "c0d9c1bf6597d1f8246212f7d4efdc5a5a6b2c394d6fa0ea9c8ff634a1d2bcd2",
-					LozinkaSalt = "3a5c7f12ab8d6e09c2f4a0b7d3e9f6a1"
+					LozinkaHash = "zQrh4zsUE+z35ztss7lj7YMOW6w=",
+					LozinkaSalt = "ZsCgm8wyDPs7RIqUszVNwg=="
 				},
 				new Korisnik()
 				{
 					KorisnikId = 2,
-					Ime = "Klijent",
-					Prezime = "Klijent",
+					Ime = "novi",
+					Prezime = "korisnik",
 					DatumRodjenja = new DateTime(2024, 11, 15, 10, 0, 0),
-					KorisnickoIme = "klijent",
+					KorisnickoIme = "mobile",
 					GradId = 2,
 					SpolId = 2,
-					LozinkaHash = "c0d9c1bf6597d1f8246212f7d4efdc5a5a6b2c394d6fa0ea9c8ff634a1d2bcd2",
-					LozinkaSalt = "3a5c7f12ab8d6e09c2f4a0b7d3e9f6a1"
+					LozinkaHash = "tXvOHjvV9skoEdo/IB+EJ5f/rrk=",
+					LozinkaSalt = "8rp4QQCjoi/gQ+0RKgKuWQ=="
 				}
 
 				);
