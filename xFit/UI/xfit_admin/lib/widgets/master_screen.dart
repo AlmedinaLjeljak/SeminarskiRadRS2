@@ -74,7 +74,7 @@ class _MasterScreenWidgetState extends State<MasterScreenWidget>{
             onTap: (){
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder:(context)=> ProductDetailScreen(),
+                  builder:(context)=> ProdutcDetailScreen(),
                 ),
               );
             },

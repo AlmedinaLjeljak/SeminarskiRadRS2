@@ -1,4 +1,4 @@
-/*import 'dart:async';
+import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -161,13 +161,18 @@ class _ProductDetailScreenState extends State<ProdutcDetailScreen> {
     );
   }
 }
-*/
 
+
+
+
+/*
 import 'package:flutter/cupertino.dart';
+import 'package:xfit_admin/models/product.dart';
 import 'package:xfit_admin/widgets/master_screen.dart';
 
 class ProductDetailScreen extends StatefulWidget{
-  const ProductDetailScreen({Key?key}):super(key:key);
+  Product? product;
+  const ProductDetailScreen({Key?key,this.product}):super(key:key);
 
 
 @override
@@ -182,4 +187,4 @@ class _ProductDetailScreenState extends State<ProductDetailScreen>{
       child: Text("Details"),
     );
   }
-}
+}*/

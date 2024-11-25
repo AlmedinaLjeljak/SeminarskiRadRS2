@@ -4,12 +4,12 @@ import 'package:provider/provider.dart';
 import 'package:xfit_admin/models/product.dart';
 import 'package:xfit_admin/models/search_result.dart';
 import 'package:xfit_admin/providers/product_provders.dart';
-import 'package:xfit_admin/providers/proizvod_provajder.dart';
 import 'package:xfit_admin/screens/product_detail_screen.dart';
 import 'package:xfit_admin/utils/util.dart';
 import 'package:xfit_admin/widgets/master_screen.dart';
 
-/*class ProductListScreen extends StatefulWidget {
+
+class ProductListScreen extends StatefulWidget {
   const ProductListScreen({Key? key}) : super(key: key);
 
   @override
@@ -86,7 +86,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => ProdutcDetailScreen(product: null),
+                  builder: (context) => ProdutcDetailScreen(product:null),
                 ),
               );
             },
@@ -149,7 +149,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                 if (selected == true) {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => ProdutcDetailScreen(product: e),
+                      builder: (context) => ProdutcDetailScreen(product:e),
                     ),
                   );
                 }
@@ -168,100 +168,6 @@ class _ProductListScreenState extends State<ProductListScreen> {
       ),
     );
   }
-}*/
-
-/*
-class ProductListScreen extends StatefulWidget{
-  const ProductListScreen({Key?key}):super(key:key);
-
-  @override
-  State<ProductListScreen> createState()=>_ProductListScreenState();
-
 }
 
-class _ProductListScreenState extends State<ProductListScreen>{
-  
-  late ProizvodProvajder _productProvider;
 
-  @override
-  void didChangeDependencies(){
-    super.didChangeDependencies();
-    _productProvider=context.read<ProizvodProvajder>();
-  }
-  
-  @override
-  Widget build(BuildContext context){
-    return MasterScreenWidget(
-      title_widget: Text("Product list"),
-      child: Container(
-        child: Column(children: [
-          Text("Test"),
-          SizedBox(
-            height: 8,
-          ),
-          ElevatedButton(
-            onPressed: () async{
-              print("login proceed");
-              //Navigator.of(context).pop();
-
-              var data=await _productProvider.get();
-              print("data: $data");
-             
-            },
-           child: Text("Login"))
-        ]),
-      )
-
-    );
-  }
-}*/
-class ProductListScreen extends StatefulWidget {
-  const ProductListScreen({Key? key}) : super(key: key);
-
-  @override
-  State<ProductListScreen> createState() => _ProductListScreenState();
-}
-
-class _ProductListScreenState extends State<ProductListScreen> {
-  late ProizvodProvajder _productProvider;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    try {
-      _productProvider = context.read<ProizvodProvajder>();
-      print("ProizvodProvajder initialized successfully");
-    } catch (e) {
-      print("Error initializing ProizvodProvajder: $e");
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return MasterScreenWidget(
-      title_widget: Text("Product list"),
-      child: Container(
-        child: Column(
-          children: [
-            Text("Test"),
-            SizedBox(
-              height: 8,
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                print("login proceed");
-                try {
-                  var data = await _productProvider.get();
-                  print("data: $data");
-                } catch (e) {
-                  print("Error during get request: $e");
-                }
-              },
-              child: Text("Login"),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
