@@ -10,7 +10,7 @@ namespace xFit.Controllers
 {
 	[ApiController]
 	[Route("[controller]")]
-	[AllowAnonymous]
+
 	
 	public class ProizvodController : BaseCRUDController<Model.Proizvod, Model.SearchObjects.ProizvodSearchObject,Model.Requests.PorizvodInsertRequest,Model.Requests.ProizvodUpdateRequest>
 	{

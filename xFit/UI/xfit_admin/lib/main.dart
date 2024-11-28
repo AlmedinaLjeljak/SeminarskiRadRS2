@@ -1,5 +1,5 @@
 //import 'dart:html';
-import 'dart:io' if (dart.library.html) 'dart:html';
+/*import 'dart:io' if (dart.library.html) 'dart:html';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +45,7 @@ class MyMaterialApp extends StatelessWidget{
 }
 
 
-/*
+
 class LoginPage extends StatelessWidget{
     LoginPage({Key?key}):super(key:key);
 
@@ -85,6 +85,7 @@ late ProductProvider _productProvider;
                       prefixIcon: Icon(Icons.password)
                     ),
                     controller: _passwordController,
+                    obscureText: true,
                   ),
                   SizedBox(height: 8,),
                   ElevatedButton(onPressed: ()async{
@@ -125,9 +126,37 @@ late ProductProvider _productProvider;
     );
   }
 }
-
 */
 
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:xfit_admin/providers/product_provders.dart';
+import 'package:xfit_admin/screens/product_list_screen.dart';
+import 'package:xfit_admin/utils/util.dart';
+
+void main() {
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (_) => ProductProvider())
+    ],
+    child: const MyMaterialApp(),
+  ));
+}
+
+class MyMaterialApp extends StatelessWidget {
+  const MyMaterialApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'RS II Material App',
+      theme: ThemeData(
+        primarySwatch: Colors.blue, // Plava boja za AppBar i osnovne komponente
+      ),
+      home: LoginPage(),
+    );
+  }
+}
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -141,7 +170,8 @@ class LoginPage extends StatelessWidget {
     _productProvider = context.read<ProductProvider>();
     return Scaffold(
       appBar: AppBar(
-        title: Text("Login"),
+        title: Text('Login'),
+        backgroundColor: Color.fromARGB(255, 186, 231, 240), // Postavljanje plave boje na AppBar
       ),
       body: Center(
         child: Container(
@@ -152,7 +182,7 @@ class LoginPage extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  // Image.asset("assets/images/logo1.png", height: 100, width: 100),
+                  Image.asset("assets/images/logo1.png", height: 100, width: 100),
                   SizedBox(height: 8),
                   TextField(
                     decoration: InputDecoration(
@@ -168,41 +198,36 @@ class LoginPage extends StatelessWidget {
                       prefixIcon: Icon(Icons.password),
                     ),
                     controller: _passwordController,
+                    obscureText: true, // Skrivene cifre u šifri
                   ),
                   SizedBox(height: 8),
                   ElevatedButton(
                     onPressed: () async {
-                      // COMMENT OUT the Authorization part
-                      // var username = _usernameController.text;
-                      // var password = _passwordController.text;
-                      // Authorization.username = username;
-                      // Authorization.password = password;
+                      var username = _usernameController.text;
+                      var password = _passwordController.text;
+                      _passwordController.text = username;
+                      print("Login proceed $username $password");
 
-                      // COMMENT OUT the API call for now
-                      // try {
-                      //   await _productProvider.get();
-                      // } on Exception catch (e) {
-                      //   showDialog(
-                      //     context: context,
-                      //     builder: (BuildContext context) => AlertDialog(
-                      //       title: Text("Error"),
-                      //       content: Text(e.toString()),
-                      //       actions: [
-                      //         TextButton(
-                      //           onPressed: () => Navigator.pop(context),
-                      //           child: Text("OK"),
-                      //         ),
-                      //       ],
-                      //     ),
-                      //   );
-                      // }
+                      Authorization.username = username;
+                      Authorization.password = password;
 
-                      // Directly navigate to ProductListScreen without login
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const ProductListScreen(),
-                        ),
-                      );
+                      try {
+                        await _productProvider.get();
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => const ProductListScreen()),
+                        );
+                      } on Exception catch (e) {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: Text("Error"),
+                            content: Text(e.toString()),
+                            actions: [
+                              TextButton(onPressed: () => Navigator.pop(context), child: Text("OK")),
+                            ],
+                          ),
+                        );
+                      }
                     },
                     child: Text("Login"),
                   ),

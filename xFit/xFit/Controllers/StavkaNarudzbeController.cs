@@ -11,7 +11,7 @@ namespace xFit.Controllers
 
 	[ApiController]
 	[Route("[controller]")]
-	[AllowAnonymous]
+	
 	public class StavkaNarudzbeController : BaseCRUDController<Model.StavkaNarudzbe, StavkaNarudzbeSearchObject, StavkaNarudzbeInsertRequest, StavkaNarudzbeUpdateRequest>
 	{
 		public StavkaNarudzbeController(ILogger<BaseController<Model.StavkaNarudzbe, Model.SearchObjects.StavkaNarudzbeSearchObject>> logger, IStavkaNarudzbeService service) : base(logger, service)

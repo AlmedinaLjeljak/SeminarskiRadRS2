@@ -10,7 +10,7 @@ namespace xFit.Controllers
 {
 	[ApiController]
 	[Route("[controller]")]
-	[AllowAnonymous]
+
 	public class KorisniciController : BaseCRUDController<Model.Korisnik, Model.SearchObjects.KorisnikSearchObject,Model.Requests.KorisnikInsertRequest,Model.Requests.KorisnikUpdateRequest>
 	{
 

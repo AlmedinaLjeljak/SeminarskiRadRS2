@@ -9,7 +9,7 @@ namespace xFit.Controllers
 {
 	[ApiController]
 	[Route("[controller]")]
-	[AllowAnonymous]
+	
 	public class NovostController : BaseCRUDController<Model.Novost, NovostSearchObject, NovostUpsertRequest, NovostUpsertRequest>
 	{
 		public NovostController(ILogger<BaseController<Model.Novost, Model.SearchObjects.NovostSearchObject>> logger, INovostService service) : base(logger, service)

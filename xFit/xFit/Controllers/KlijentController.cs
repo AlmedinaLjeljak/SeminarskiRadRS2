@@ -9,7 +9,7 @@ namespace xFit.Controllers
 {
 	[ApiController]
 	[Route("[controller]")]
-	[AllowAnonymous]
+	
 	public class KlijentController : BaseCRUDController<Model.Klijent, KlijentSearchObject, KlijentInsertRequest, KlijentUpdateRequest>
 	{
 		public KlijentController(ILogger<BaseController<Model.Klijent, KlijentSearchObject>> logger, IKlijentService service) : base(logger, service)

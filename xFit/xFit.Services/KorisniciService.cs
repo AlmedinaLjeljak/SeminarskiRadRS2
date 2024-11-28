@@ -61,7 +61,7 @@ namespace xFit.Services
 		{
 			if(search?.isUlogeIncluded==true)
 			{
-				query = query.Include("KorisnikUlogas.Uloga");
+				query = query.Include(x=>x.KorisnikUlogas);
 			}
 			return base.AddInclude(query, search);
 		}
@@ -69,14 +69,14 @@ namespace xFit.Services
 		public async Task<Model.Korisnik> Login(string username, string password)
 		{
 			var entitiy = await _context.Korisniks.Include("KorisnikUlogas.Uloga").FirstOrDefaultAsync(x => x.KorisnickoIme == username);
-			var hash = GenerateHash(entitiy.LozinkaSalt, password);
+			
 			
 			if(entitiy==null)
 			{
 				return null;
 			}
-
-			if(hash!=entitiy.LozinkaHash)
+			var hash = GenerateHash(entitiy.LozinkaSalt, password);
+			if (hash!=entitiy.LozinkaHash)
 			{
 				return null;
 			}

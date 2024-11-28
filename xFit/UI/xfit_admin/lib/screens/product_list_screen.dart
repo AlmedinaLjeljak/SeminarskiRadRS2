@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:xfit_admin/models/product.dart';
@@ -7,7 +6,6 @@ import 'package:xfit_admin/providers/product_provders.dart';
 import 'package:xfit_admin/screens/product_detail_screen.dart';
 import 'package:xfit_admin/utils/util.dart';
 import 'package:xfit_admin/widgets/master_screen.dart';
-
 
 class ProductListScreen extends StatefulWidget {
   const ProductListScreen({Key? key}) : super(key: key);
@@ -26,6 +24,22 @@ class _ProductListScreenState extends State<ProductListScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     _productProvider = context.read<ProductProvider>();
+    _loadData();  
+  }
+
+  
+  Future<void> _loadData({String fts = '', String sifra = ''}) async {
+    try {
+      var data = await _productProvider.get(filter: {
+        'fts': fts,
+        'sifra': sifra,
+      });
+      setState(() {
+        result = data;
+      });
+    } catch (e) {
+      print("Error during API call: $e");
+    }
   }
 
   @override
@@ -41,6 +55,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
     );
   }
 
+ 
   Widget _buildSearch() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -50,6 +65,12 @@ class _ProductListScreenState extends State<ProductListScreen> {
             child: TextField(
               decoration: InputDecoration(labelText: "Naziv ili sifra"),
               controller: _ftsController,
+              onChanged: (value) {
+                _loadData(
+                  fts: value, 
+                  sifra: _sifraController.text,
+                );
+              },
             ),
           ),
           SizedBox(width: 8),
@@ -57,46 +78,20 @@ class _ProductListScreenState extends State<ProductListScreen> {
             child: TextField(
               decoration: InputDecoration(labelText: "Sifra"),
               controller: _sifraController,
+              onChanged: (value) {
+                _loadData(
+                  fts: _ftsController.text,
+                  sifra: value,
+                );
+              },
             ),
-          ),
-          ElevatedButton(
-            onPressed: () async {
-              print("Search button pressed");
-              print("fts: ${_ftsController.text}, sifra: ${_sifraController.text}");
-
-              try {
-                var data = await _productProvider.get(filter: {
-                  'fts': _ftsController.text,
-                  'sifra': _sifraController.text,
-                });
-
-                print("API call successful. Data received: ${data.result}");
-
-                setState(() {
-                  result = data;
-                });
-              } catch (e) {
-                print("Error during API call: $e");
-              }
-            },
-            child: Text("Pretraga"),
-          ),
-          SizedBox(width: 8),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => ProdutcDetailScreen(product:null),
-                ),
-              );
-            },
-            child: Text("Dodaj"),
           ),
         ],
       ),
     );
   }
 
+  
   Widget _buildDataListView() {
     return Expanded(
       child: SingleChildScrollView(
@@ -149,7 +144,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                 if (selected == true) {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => ProdutcDetailScreen(product:e),
+                      builder: (context) => ProdutcDetailScreen(product: e),
                     ),
                   );
                 }
@@ -169,5 +164,8 @@ class _ProductListScreenState extends State<ProductListScreen> {
     );
   }
 }
+
+
+
 
 

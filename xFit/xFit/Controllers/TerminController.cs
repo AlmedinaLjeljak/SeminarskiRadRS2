@@ -9,7 +9,7 @@ namespace xFit.Controllers
 {
 	[ApiController]
 	[Route("[controller]")]
-	[AllowAnonymous]
+
 	public class TerminController : BaseCRUDController<Model.Termin, TerminSearchObject, TerminInsertRequest, TerminUpdateRequest>
 	{
 		public TerminController(ILogger<BaseController<Model.Termin, Model.SearchObjects.TerminSearchObject>> logger, ITerminService service) : base(logger, service)
