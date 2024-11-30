@@ -107,7 +107,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                     var refresh = await Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) =>
-                            OrderDetailScreen(),
+                            OrderDetailScreen(narudzba: narudzba,),
                       ),
                     );
                     if (refresh == 'reload') {
