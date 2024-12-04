@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/pdf.dart';
@@ -152,7 +151,7 @@ class _IzvjestajScreenState extends State<IzvjestajScreen> {
           return pw.Center(
             child: pw.Column(
               children: [
-                pw.Text('Izvještaj', style: pw.TextStyle(fontSize: 20)),
+                pw.Text('Izvjestaji', style: pw.TextStyle(fontSize: 20)),
                 pw.SizedBox(height: 20),
                 _generatePDFContent(),
               ],
@@ -175,7 +174,8 @@ class _IzvjestajScreenState extends State<IzvjestajScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Izvještaji'),
+        title: Text('Reports'),
+        backgroundColor: const Color.fromARGB(255, 186, 231, 240),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),

@@ -317,7 +317,11 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Order Details ${widget.narudzba.brojNarudzbe ?? ''}'),
+        backgroundColor: const Color.fromARGB(255, 186, 231, 240), 
+        title: Text(
+          'Order Details ${widget.narudzba.brojNarudzbe ?? ''}',
+          style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)), 
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -552,4 +556,3 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
     });
   }
 }
-
