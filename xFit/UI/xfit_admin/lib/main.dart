@@ -131,6 +131,7 @@ late ProductProvider _productProvider;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:xfit_admin/providers/narudzba_provider.dart';
+import 'package:xfit_admin/providers/novosti_provider.dart';
 import 'package:xfit_admin/providers/product_provders.dart';
 import 'package:xfit_admin/screens/product_list_screen.dart';
 import 'package:xfit_admin/utils/util.dart';
@@ -140,6 +141,7 @@ void main() {
     providers: [
       ChangeNotifierProvider(create: (_) => ProductProvider()),
       ChangeNotifierProvider(create: (_) => OrdersProvider()),
+      ChangeNotifierProvider(create: (_) => NovostiProvider()),
     ],
     child: const MyMaterialApp(),
   ));

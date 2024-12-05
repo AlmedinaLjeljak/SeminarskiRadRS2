@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:xfit_admin/main.dart';
+import 'package:xfit_admin/screens/home_page_screen.dart';
 import 'package:xfit_admin/screens/izvjestaj_screen.dart';
+import 'package:xfit_admin/screens/novost_screen.dart';
 import 'package:xfit_admin/screens/orders_screen.dart';
 import 'package:xfit_admin/screens/product_detail_screen.dart';
 import 'package:xfit_admin/screens/product_list_screen.dart';
@@ -57,6 +59,26 @@ class _MasterScreenWidgetState extends State<MasterScreenWidget>{
              
               
               
+            },
+          ),
+          ListTile(
+            title:Text("Home"),
+            onTap: (){
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder:(context)=>const HomePageScreen(),
+                ),
+              );
+            },
+          ),
+            ListTile(
+            title:Text("Novost"),
+            onTap: (){
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder:(context)=> NovostDetailScreen(),
+                ),
+              );
             },
           ),
           ListTile(

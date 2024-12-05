@@ -166,6 +166,9 @@ class _ProductListScreenState extends State<ProductListScreen> {
 }*/
 
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:xfit_admin/models/product.dart';
@@ -212,12 +215,12 @@ class _ProductListScreenState extends State<ProductListScreen> {
   @override
   Widget build(BuildContext context) {
     return MasterScreenWidget(
-      title_widget: Text("Product list"),
-      child: Container(
-        child: Column(children: [
+      title_widget: const Text("Product list"),
+      child: Column(
+        children: [
           _buildSearch(),
           _buildDataListView(),
-        ]),
+        ],
       ),
     );
   }
@@ -229,7 +232,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
         children: [
           Expanded(
             child: TextField(
-              decoration: InputDecoration(labelText: "Naziv ili sifra"),
+              decoration: const InputDecoration(labelText: "Naziv ili sifra"),
               controller: _ftsController,
               onChanged: (value) {
                 _loadData(
@@ -239,10 +242,10 @@ class _ProductListScreenState extends State<ProductListScreen> {
               },
             ),
           ),
-          SizedBox(width: 8),
+          const SizedBox(width: 8),
           Expanded(
             child: TextField(
-              decoration: InputDecoration(labelText: "Sifra"),
+              decoration: const InputDecoration(labelText: "Sifra"),
               controller: _sifraController,
               onChanged: (value) {
                 _loadData(
@@ -260,12 +263,12 @@ class _ProductListScreenState extends State<ProductListScreen> {
   Widget _buildDataListView() {
     return Expanded(
       child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal, // Omogućava horizontalno pomeranje
+        scrollDirection: Axis.horizontal, // Enables horizontal scrolling
         child: SizedBox(
-          width: MediaQuery.of(context).size.width, 
+          width: MediaQuery.of(context).size.width,
           child: SingleChildScrollView(
             child: DataTable(
-              columns: [
+              columns: const [
                 DataColumn(
                   label: Expanded(
                     child: Text(
@@ -306,6 +309,14 @@ class _ProductListScreenState extends State<ProductListScreen> {
                     ),
                   ),
                 ),
+                DataColumn(
+                  label: Expanded(
+                    child: Text(
+                      '',
+                      style: TextStyle(fontStyle: FontStyle.italic),
+                    ),
+                  ),
+                ),
               ],
               rows: result?.result.asMap().entries.map((entry) {
                 int index = entry.key;
@@ -316,31 +327,49 @@ class _ProductListScreenState extends State<ProductListScreen> {
                     (Set<MaterialState> states) {
                       return index.isEven
                           ? Colors.white
-                          : Color.fromARGB(255, 209, 233, 235);
+                          : const Color.fromARGB(255, 209, 233, 235);
                     },
                   ),
                   onSelectChanged: (selected) {
                     if (selected == true) {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => ProdutcDetailScreen(product: e),
+                          builder: (context) =>
+                              ProdutcDetailScreen(product: e),
                         ),
                       );
                     }
                   },
                   cells: [
                     DataCell(Text(e.proizvodId?.toString() ?? "")),
-                    DataCell(Text(e.sifra.toString() ?? "")),
+                    DataCell(Text(e.sifra ?? "")),
                     DataCell(Text(e.naziv ?? "")),
                     DataCell(Text(formatNumber(e.cijena))),
                     DataCell(
-                      e.slika != ""
+                      e.slika != null && e.slika!.isNotEmpty
                           ? Container(
                               width: 100,
                               height: 100,
                               child: imageFromBase64String(e.slika!),
                             )
-                          : Text(""),
+                          : Container(
+                              width: 100,
+                              height: 100,
+                              child: imageFromBase64String(
+                                base64Encode(
+                                  File('assets/images/no_image.jpg')
+                                      .readAsBytesSync(),
+                                ),
+                              ),
+                            ),
+                    ),
+                    DataCell(
+                      IconButton(
+                        icon: const Icon(Icons.delete),
+                        onPressed: () {
+                          _showDeleteConfirmationDialog(e);
+                        },
+                      ),
                     ),
                   ],
                 );
@@ -352,9 +381,51 @@ class _ProductListScreenState extends State<ProductListScreen> {
       ),
     );
   }
+
+  void _showDeleteConfirmationDialog(Product e) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirm Delete'),
+          content: const Text('Are you sure you want to delete this item?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () async {
+                await _deleteProduct(e);
+                Navigator.of(context).pop();
+              },
+              child: const Text('Delete'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _deleteProduct(Product product) async {
+    try {
+      await _productProvider.delete(product.proizvodId);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Product deleted successfully.'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+      _loadData(); // Reload data after deletion
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Failed to delete product.'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }
+  }
 }
-
-
-
-
-
