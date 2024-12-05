@@ -130,18 +130,50 @@ late ProductProvider _productProvider;
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:xfit_admin/providers/korisnici_provider.dart';
 import 'package:xfit_admin/providers/narudzba_provider.dart';
 import 'package:xfit_admin/providers/novosti_provider.dart';
 import 'package:xfit_admin/providers/product_provders.dart';
+import 'package:xfit_admin/providers/stavka_narudzbe_provider.dart';
+import 'package:xfit_admin/providers/termini_provider.dart';
+import 'package:xfit_admin/providers/vrsta_provider.dart';
 import 'package:xfit_admin/screens/product_list_screen.dart';
 import 'package:xfit_admin/utils/util.dart';
 
+
+class OrderDetailState extends ChangeNotifier {
+  Map<String, dynamic>? _orderDetails;
+
+  Map<String, dynamic>? get orderDetails => _orderDetails;
+
+  void updateOrderDetails(Map<String, dynamic> newOrderDetails) {
+    _orderDetails = Map<String, dynamic>.from(newOrderDetails);
+    notifyListeners();
+  }
+}
+
+class ProductDetailState extends ChangeNotifier {
+  Map<String, dynamic>? _productDetails;
+
+  Map<String, dynamic>? get productDetails => _productDetails;
+
+  void updateProductDetails(Map<String, dynamic> newProductDetails) {
+    _productDetails = Map<String, dynamic>.from(newProductDetails);
+    notifyListeners();
+  }
+}
 void main() {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => ProductProvider()),
       ChangeNotifierProvider(create: (_) => OrdersProvider()),
       ChangeNotifierProvider(create: (_) => NovostiProvider()),
+      ChangeNotifierProvider(create: (_) => VrstaProizvodaProvider()),
+      ChangeNotifierProvider(create: (_) => TerminiProvider()),
+      ChangeNotifierProvider(create: (_) => KorisnisiProvider()),
+      ChangeNotifierProvider(create: (_) => StavkaNarudzbeProvider()),
+      ChangeNotifierProvider(create: (_) => ProductDetailState()),
+      ChangeNotifierProvider(create: (_) => OrderDetailState()),
     ],
     child: const MyMaterialApp(),
   ));
@@ -175,7 +207,7 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Login'),
-        backgroundColor: Color.fromARGB(255, 186, 231, 240), // Postavljanje plave boje na AppBar
+        backgroundColor: Color.fromARGB(255, 186, 231, 240), 
       ),
       body: Center(
         child: Container(

@@ -12,8 +12,7 @@ namespace xFit.Model.Requests
 		[Required(AllowEmptyStrings = false)]
 		public string? Naziv { get; set; }
 		[Required(AllowEmptyStrings =false,ErrorMessage ="Sifra je obavezna ")]
-		[MinLength(1)]
-		[MaxLength(10)]
+		
 		public string? Sifra { get; set; }
 		[Required]
 		[Range(0,10000)]

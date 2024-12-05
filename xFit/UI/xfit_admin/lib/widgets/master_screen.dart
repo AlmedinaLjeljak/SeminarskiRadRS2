@@ -66,17 +66,7 @@ class _MasterScreenWidgetState extends State<MasterScreenWidget>{
             onTap: (){
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder:(context)=>const HomePageScreen(),
-                ),
-              );
-            },
-          ),
-            ListTile(
-            title:Text("Novost"),
-            onTap: (){
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder:(context)=> NovostDetailScreen(),
+                  builder:(context)=> HomePageScreen(),
                 ),
               );
             },
@@ -96,7 +86,7 @@ class _MasterScreenWidgetState extends State<MasterScreenWidget>{
             onTap: (){
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder:(context)=> ProdutcDetailScreen(),
+                  builder:(context)=> ProductDetailScreen(),
                 ),
               );
             },
