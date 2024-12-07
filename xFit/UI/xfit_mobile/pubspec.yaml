@@ -51,8 +51,11 @@ dependencies:
   syncfusion_flutter_datepicker: ^24.1.41
 
 dev_dependencies:
+  json_serializable: ^6.7.0
+  build_runner: ^2.4.4
   flutter_test:
     sdk: flutter
+  table_calendar: ^3.0.9
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
