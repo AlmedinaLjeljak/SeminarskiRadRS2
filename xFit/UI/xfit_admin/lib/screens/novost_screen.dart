@@ -23,30 +23,30 @@ class _NovostDetailScreenState extends State<NovostDetailScreen> {
   @override
   void initState() {
     super.initState();
-
+print("content from novost:${widget.novost?.sadrzaj}");
     // Initialize the initial values for the form
     _initialValue = {
       'naziv': widget.novost?.naziv,
-      'sadrzaj': widget.novost?.sadrzaj,
+      'sadrzaj':widget.novost?.sadrzaj,
       'datumObjave': widget.novost?.datumObjave,
     };
 
-    // Assign the provider instance
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+   
+  
       _novostProvider = context.read<NovostiProvider>();
       _initializeForm();
-    });
+    
   }
 
-  /// Sets the current date in the date controller
+
   void _setCurrentDate() {
     final currentDate = DateTime.now();
     final formattedDate = DateFormat('yyyy-MM-dd').format(currentDate);
     _dateController.text = formattedDate;
   }
 
-  /// Initializes the form and sets the loading flag
-  Future<void> _initializeForm() async {
+
+  Future _initializeForm() async {
     _setCurrentDate();
     setState(() {
       isLoading = false;
@@ -57,10 +57,10 @@ class _NovostDetailScreenState extends State<NovostDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 186, 231, 240), // Light green background
+        backgroundColor: const Color.fromARGB(255, 186, 231, 240), 
         title: Text(
           widget.novost?.naziv ?? "News",
-          style: const TextStyle(color: Colors.black), // Black text
+          style: const TextStyle(color: Colors.black), 
         ),
       ),
       body: Column(
@@ -76,7 +76,7 @@ class _NovostDetailScreenState extends State<NovostDetailScreen> {
     );
   }
 
-  /// Builds the form with input fields
+ 
   FormBuilder _buildForm() {
     return FormBuilder(
       key: _formKey,

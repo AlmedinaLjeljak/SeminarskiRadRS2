@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:xfit_admin/main.dart';
+import 'package:xfit_admin/providers/korisnici_provider.dart';
 import 'package:xfit_admin/screens/home_page_screen.dart';
 import 'package:xfit_admin/screens/izvjestaj_screen.dart';
 import 'package:xfit_admin/screens/novost_screen.dart';
@@ -81,16 +83,6 @@ class _MasterScreenWidgetState extends State<MasterScreenWidget>{
               );
             },
           ),
-          ListTile(
-            title:Text("Details"),
-            onTap: (){
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder:(context)=> ProductDetailScreen(),
-                ),
-              );
-            },
-          ),
             ListTile(
             title:Text("Orders"),
             onTap: (){
@@ -106,7 +98,7 @@ class _MasterScreenWidgetState extends State<MasterScreenWidget>{
             onTap: (){
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder:(context)=> TerminiScreen(),
+                  builder:(context)=> TerminScreen(),
                 ),
               );
             },
@@ -116,11 +108,24 @@ class _MasterScreenWidgetState extends State<MasterScreenWidget>{
             onTap: (){
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder:(context)=> IzvjestajScreen(),
+                  builder:(context)=>const IzvjestajScreen(),
                 ),
               );
             },
           ),
+          ListTile(
+        title: Text('Log Out'),
+        onTap: () {
+          final korisniciProvider = Provider.of<KorisnisiProvider>(context, listen: false);
+          korisniciProvider.logout();
+
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) =>  LoginPage()),
+            (route) => false,
+          );
+        },
+      )
          ],
           
         ),

@@ -25,176 +25,102 @@ class _TerminiScreenState extends State<TerminiScreen>{
 
 
 import 'package:flutter/material.dart';
-import 'package:xfit_admin/widgets/master_screen.dart';
+import 'package:xfit_admin/models/termin.dart';
+import 'package:xfit_admin/providers/termini_provider.dart';
+import 'package:provider/provider.dart';
 
-class TerminiScreen extends StatefulWidget {
-  const TerminiScreen({Key? key}) : super(key: key);
-
+class TerminScreen extends StatefulWidget {
   @override
-  State<TerminiScreen> createState() => _TerminiScreenState();
+  _TerminScreenState createState() => _TerminScreenState();
 }
 
-class _TerminiScreenState extends State<TerminiScreen> {
-  final TextEditingController _dateController = TextEditingController();
-  final TextEditingController _timeController = TextEditingController();
-  String? _selectedTrainer;
-  final List<String> _trainers = ["Trainer 1", "Trainer 2", "Trainer 3"];
-  final List<String> _trainingTypes = ["Yoga", "Cardio", "Strength Training"];
-  String? _selectedTrainingType;
+class _TerminScreenState extends State<TerminScreen> {
+  late TerminiProvider _terminProvider;
+  List<Termin> termini = [];
 
-  void _pickDate(BuildContext context) async {
-    DateTime? selectedDate = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime(2100),
-    );
+  @override
+  void initState() {
+    super.initState();
+    _terminProvider = context.read<TerminiProvider>();
+    _loadTermini();
+  }
 
-    if (selectedDate != null) {
+  Future<void> _loadTermini() async {
+    try {
+      final searchResult = await _terminProvider.get();
       setState(() {
-        _dateController.text = "${selectedDate.toLocal()}".split(' ')[0];
+        termini = searchResult.result;
       });
+    } catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Error loading termini: $e")));
     }
   }
 
-  void _pickTime(BuildContext context) async {
-    TimeOfDay? selectedTime = await showTimePicker(
-      context: context,
-      initialTime: TimeOfDay.now(),
-    );
-
-    if (selectedTime != null) {
-      setState(() {
-        _timeController.text = selectedTime.format(context);
-      });
-    }
+  void _editTermin(Termin termin) {
+    // Open edit form for the termin
+    print("Editing termin: ${termin.terminId}");
   }
 
-  void _submitAppointment() {
-    if (_dateController.text.isEmpty ||
-        _timeController.text.isEmpty ||
-        _selectedTrainer == null ||
-        _selectedTrainingType == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text("Please fill all fields."),
-          backgroundColor: Colors.red,
-        ),
-      );
-      return;
+  Future<void> _deleteTermin(int terminId) async {
+    try {
+      await _terminProvider.delete(terminId);
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Termin deleted")));
+      _loadTermini();
+    } catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Error deleting termin: $e")));
     }
-
-    // Here you would send data to your API or database
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          "Appointment booked successfully!",
-        ),
-        backgroundColor: Colors.green,
-      ),
-    );
-
-    // Reset the form
-    setState(() {
-      _dateController.clear();
-      _timeController.clear();
-      _selectedTrainer = null;
-      _selectedTrainingType = null;
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return MasterScreenWidget(
-      title_widget: Text("Appointments"),
-      child: Padding(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Termini"),
+      ),
+      body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Schedule a Training Appointment",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        child: DataTable(
+          columns: const [
+            DataColumn(label: Text("ID")),
+            DataColumn(label: Text("Datum i Vrijeme")),
+            DataColumn(label: Text("Akcije")),
+          ],
+          rows: termini.map((termin) {
+            return DataRow(cells: [
+              DataCell(Text(termin.terminId?.toString() ?? "-")),
+              DataCell(
+                Text(termin.datumVrijeme != null
+                    ? "${termin.datumVrijeme}"
+                    : "-"),
               ),
-              SizedBox(height: 16),
-              TextField(
-                controller: _dateController,
-                readOnly: true,
-                decoration: InputDecoration(
-                  labelText: "Select Date",
-                  border: OutlineInputBorder(),
-                  suffixIcon: Icon(Icons.calendar_today),
-                ),
-                onTap: () => _pickDate(context),
-              ),
-              SizedBox(height: 16),
-              TextField(
-                controller: _timeController,
-                readOnly: true,
-                decoration: InputDecoration(
-                  labelText: "Select Time",
-                  border: OutlineInputBorder(),
-                  suffixIcon: Icon(Icons.access_time),
-                ),
-                onTap: () => _pickTime(context),
-              ),
-              SizedBox(height: 16),
-              DropdownButtonFormField<String>(
-                value: _selectedTrainer,
-                items: _trainers
-                    .map((trainer) => DropdownMenuItem(
-                          value: trainer,
-                          child: Text(trainer),
-                        ))
-                    .toList(),
-                decoration: InputDecoration(
-                  labelText: "Select Trainer",
-                  border: OutlineInputBorder(),
-                ),
-                onChanged: (value) {
-                  setState(() {
-                    _selectedTrainer = value;
-                  });
-                },
-              ),
-              SizedBox(height: 16),
-              DropdownButtonFormField<String>(
-                value: _selectedTrainingType,
-                items: _trainingTypes
-                    .map((type) => DropdownMenuItem(
-                          value: type,
-                          child: Text(type),
-                        ))
-                    .toList(),
-                decoration: InputDecoration(
-                  labelText: "Select Training Type",
-                  border: OutlineInputBorder(),
-                ),
-                onChanged: (value) {
-                  setState(() {
-                    _selectedTrainingType = value;
-                  });
-                },
-              ),
-              SizedBox(height: 16),
-              Center(
-                child: ElevatedButton(
-                  onPressed: _submitAppointment,
-                  child: Text("Book Appointment"),
+              DataCell(
+                Row(
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.edit),
+                      onPressed: () => _editTermin(termin),
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.delete),
+                      onPressed: () => _deleteTermin(termin.terminId!),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ]);
+          }).toList(),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Handle add new termin
+          print("Adding new termin");
+        },
+        child: Icon(Icons.add),
       ),
     );
   }
 }
-
-
-
-
-
-  
-
