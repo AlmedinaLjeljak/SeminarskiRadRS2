@@ -113,6 +113,49 @@ class _CartScreenState extends State<CartScreen> {
   );
 }
 
+  Future<int> getKlijentId() async {
+      final klijent = await _korisniciProvider.get(filter: {
+        'tipKorisnika': 'klijent',
+      });
+
+      /*final klijent = klijent.result.firstWhere((korisnik) => korisnik.username== Authorization.username);*/
+
+      return klijent.korisnikId;
+    }
+
+
+  
+
+   /* Future<String> getPatientLastName() async {
+      final pacijenti = await _korisniciProvider.get(filter: {
+        'tipKorisnika': 'pacijent',
+      });
+
+      final pacijent = pacijenti.result.firstWhere((korisnik) => korisnik.username == Authorization.username);
+
+      return pacijent.prezime!;
+    }
+
+     Future<String> getPatientAddress() async {
+      final pacijenti = await _korisniciProvider.get(filter: {
+        'tipKorisnika': 'pacijent',
+      });
+
+      final pacijent = pacijenti.result.firstWhere((korisnik) => korisnik.username == Authorization.username);
+
+      return pacijent.adresa!;
+    }
+
+    
+     Future<String> getPatientPhone() async {
+      final pacijenti = await _korisniciProvider.get(filter: {
+        'tipKorisnika': 'pacijent',
+      });
+
+      final pacijent = pacijenti.result.firstWhere((korisnik) => korisnik.username == Authorization.username);
+
+      return pacijent.telefon!;
+    }*/
 Widget _buildBuyButton() {
   return TextButton(
     child: Text("Buy"),
@@ -126,17 +169,17 @@ Widget _buildBuyButton() {
       _cartProvider.cart.items.forEach((item) {
         items.add(
           {
-            "proizvodID": item.product.proizvodId,
+            "proizvodId": item.product.proizvodId,
             "kolicina": item.count,
           },
         );
       });
-      //int patientId = await getPatientId();
+      int klijentId = await getKlijentId();
       
 
       Map<String, dynamic> order = {
         "items": items,
-       // "korisnikId": await getPatientId(),
+         "korisnikId": await getKlijentId(),
       };
 
       var response = await _orderProvider.insert(order);
@@ -146,10 +189,10 @@ Widget _buildBuyButton() {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (context) => PaymentScreen(
-            //items: items,
-            //korisnikId: patientId,
-            //narudzbaId: response.narudzbaId,
-            //iznos:response.iznos
+            items: items,
+            korisnikId: klijentId,
+            narudzbaId: response.narudzbaId,
+            iznos:response.iznos
           )),
       );
     },
