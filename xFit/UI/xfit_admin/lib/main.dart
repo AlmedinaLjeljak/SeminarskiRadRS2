@@ -234,7 +234,7 @@ class LoginPage extends StatelessWidget {
                       prefixIcon: Icon(Icons.password),
                     ),
                     controller: _passwordController,
-                    obscureText: true, // Skrivene cifre u šifri
+                    obscureText: true, 
                   ),
                   SizedBox(height: 8),
                   ElevatedButton(

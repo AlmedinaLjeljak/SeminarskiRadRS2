@@ -1,125 +1,386 @@
+
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:xfit_mobile/providers/cart_provider.dart';
+import 'package:xfit_mobile/providers/korisnik_providder.dart';
+import 'package:xfit_mobile/providers/narudzba_provider.dart';
+import 'package:xfit_mobile/providers/novosti_provider.dart';
+import 'package:xfit_mobile/providers/omiljeni_proizvod_provider.dart';
+import 'package:xfit_mobile/providers/omiljeni_proizvod_provider.dart'; 
+import 'package:xfit_mobile/providers/product_provider.dart';
+import 'package:xfit_mobile/providers/termini_provider.dart';
+import 'package:xfit_mobile/screens/product_list_screen.dart';
+import 'package:xfit_mobile/utils/util.dart';
+import 'package:xfit_mobile/widgets/master_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(MyMaterialApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class ProductDetailState extends ChangeNotifier {
+  Map<String, dynamic>? _productDetails;
 
-  // This widget is the root of your application.
+  Map<String, dynamic>? get productDetails => _productDetails;
+
+  void updateProductDetails(Map<String, dynamic> newProductDetails) {
+    _productDetails = Map<String, dynamic>.from(newProductDetails);
+    notifyListeners();
+  }
+}
+
+class MyMaterialApp extends StatelessWidget {
+  const MyMaterialApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ProductProvider()),
+        ChangeNotifierProvider(create: (_) => NovostiProvider()),
+        ChangeNotifierProvider(create: (_) => TerminiProvider()),
+        ChangeNotifierProvider(create: (_) => KorisnisiProvider()),
+        ChangeNotifierProvider(create: (_) => CartProvider()),
+        ChangeNotifierProvider(create: (_) => OmiljeniProizvodProvider()),
+        ChangeNotifierProvider(create: (_) => OrdersProvider()),
+        ChangeNotifierProvider(create: (_) => ProductDetailState()),
+        //ChangeNotifierProvider(create: (_) => VrsteProizvodaProvider()),
+        //ChangeNotifierProvider(create: (_) => DojamProvider()),
+        //ChangeNotifierProvider(create: (_) => RecenzijaProvider()),
+        //ChangeNotifierProvider(create: (_) => ZdravstveniKartonProvider()),
+        //ChangeNotifierProvider(create: (_) => TransakcijaProvider()),
+       // ChangeNotifierProvider(create: (_) => RecommendResultProvider()),
+      ],
+      child: MaterialApp(
+        title: 'RS II Material app',
+        theme: ThemeData(primarySwatch: Colors.blue),
+        home: Welcome(),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    );
+}
+}
+
+class Welcome extends StatelessWidget {
+  const Welcome({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size; 
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Container(
+          height: size.height,
+          width: double.infinity,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Center(
+                child: Text('WELCOME TO X-FIT', style: TextStyle(fontFamily: 'YourCustomFont', fontWeight: FontWeight.bold, fontSize: 24, color: Color.fromARGB(255, 28, 202, 211),),),
+              ),
+
+              SizedBox(height: size.height * 0.02),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => LoginPage()));
+                  },
+                  child: Text("LOGIN"),
+                  ),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => SignUpPage()));
+                  },
+                  child: Text("SIGN UP"),
+                  )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+class LoginPage extends StatelessWidget {
+   LoginPage({super.key});
+
+   TextEditingController _usernameController = new TextEditingController();
+   TextEditingController _passwordController = new TextEditingController();
+   late ProductProvider _productProvider;
+
+  @override
+  Widget build(BuildContext context) {
+    _productProvider = context.read<ProductProvider>();
+    return Scaffold(
+      appBar: AppBar(title: Text("Login"),),
+      body: Center( 
+        child: Container(
+          constraints: BoxConstraints(maxHeight: 800, maxWidth: 400), 
+          child: Card(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(children: [
+                Image.asset("assets/images/logo.png", height: 150,width: 300,),
+
+                TextField(
+                  decoration: InputDecoration(
+                    labelText: "Username",
+                    prefixIcon: Icon(Icons.email)
+                  ),
+                  controller: _usernameController,
+                ),
+                SizedBox(height: 8,),
+                TextField(
+                  decoration: InputDecoration(
+                    labelText: "Password",
+                    prefixIcon: Icon(Icons.password)
+                  ),
+                  controller: _passwordController,
+                   obscureText: true,
+                ),
+                SizedBox(height: 8,),
+                ElevatedButton(onPressed: () async{
+                  var username = _usernameController.text;
+                  var password = _passwordController.text;
+
+                  print("login proceed $username $password");
+
+                  Authorization.username = username;
+                  Authorization.password = password;
+
+                  try {
+                    await _productProvider.get();
+  
+                    Navigator.of(context).push( 
+                    MaterialPageRoute(builder: (context) => ProductListScreen()
+                    ),
+                    );
+                  } on Exception catch (e) {
+                    showDialog(
+                          context: context, 
+                          builder: (BuildContext context) => AlertDialog(
+                           title: Text("Error"),
+                           content: Text(e.toString()),
+                           actions: [
+                            TextButton(onPressed: ()=> Navigator.pop(context), child: Text("OK"))
+                           ],
+                          ));
+                  }
+                }, child: Text("Login"))
+              ]),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class SignUpPage extends StatelessWidget {
+  SignUpPage({super.key});
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
+   TextEditingController _firstnameController=new TextEditingController();
+  TextEditingController _lastnameController=new TextEditingController();
+  TextEditingController _usernameController=new TextEditingController();
+  TextEditingController _emailController=new TextEditingController();
+  TextEditingController _phoneController=new TextEditingController();
+  TextEditingController _addressController=new TextEditingController();
+  TextEditingController _genderController=new TextEditingController();
+  TextEditingController _passwordController=new TextEditingController();
+  TextEditingController _confirmPasswordController=new TextEditingController();
 
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
+  late KorisnisiProvider _korisniciProvider;
 
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+        _korisniciProvider = Provider.of<KorisnisiProvider>(context, listen: false);
+
+
     return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
+      appBar: AppBar(title: Text("Sign Up")),
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+        child: Container(
+          constraints: BoxConstraints(maxHeight: 600, maxWidth: 400),
+          child: Card(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: ListView(
+                children: [
+              Image.asset("assets/images/logo.png", height: 150,width: 300,),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: "First Name",
+                      prefixIcon: Icon(Icons.person),
+                    ),
+                    controller: _firstnameController,
+                  ),
+                  SizedBox(height: 8),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: "Last Name",
+                      prefixIcon: Icon(Icons.person),
+                    ),
+                    controller: _lastnameController,
+                  ),
+                  SizedBox(height: 8),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: "Username",
+                      prefixIcon: Icon(Icons.account_circle),
+                    ),
+                    controller: _usernameController,
+                  ),
+                  SizedBox(height: 8),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: "Email",
+                      prefixIcon: Icon(Icons.email),
+                    ),
+                    controller: _emailController,
+                  ),
+                  SizedBox(height: 8),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: "Phone",
+                      prefixIcon: Icon(Icons.phone),
+                    ),
+                    controller: _phoneController,
+                  ),
+                  SizedBox(height: 8),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: "Address",
+                      prefixIcon: Icon(Icons.location_on),
+                    ),
+                    controller: _addressController,
+                  ),
+                  SizedBox(height: 8),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: "Select gender: 1-MALE, 2-FEMALE",
+                      prefixIcon: Icon(Icons.transgender),
+                    ),
+                    controller: _genderController,
+                  ),
+                  SizedBox(height: 8),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: "Password",
+                      prefixIcon: Icon(Icons.lock),
+                    ),
+                    controller: _passwordController,
+                     obscureText: true,
+                  ),
+                  SizedBox(height: 8),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: "Confirm Password",
+                      prefixIcon: Icon(Icons.lock),
+                    ),
+                    controller: _confirmPasswordController,
+                     obscureText: true,
+                  ),
+                  SizedBox(height: 8),
+                 ElevatedButton(
+              onPressed: () async {
+                if (_firstnameController.text.isEmpty ||
+                    _lastnameController.text.isEmpty ||
+                    _emailController.text.isEmpty ||
+                    _phoneController.text.isEmpty ||
+                    _addressController.text.isEmpty ||
+                    _usernameController.text.isEmpty ||
+                    _passwordController.text.isEmpty ||
+                    _confirmPasswordController.text.isEmpty ||
+                    _genderController.text.isEmpty) {
+                  showDialog(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: Text("Error"),
+                            content: Text("All fields are required!"),
+                            actions: [
+                              TextButton(onPressed: () => Navigator.pop(context), child: Text("OK")),
+                            ],
+                          ),
+                        );
+                }else if(_genderController.text.toUpperCase() != '1' && _genderController.text.toUpperCase() != '2')
+                     showDialog(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: Text("Error"),
+                            content: Text("Please enter '1' or '2' for gender."),
+                            actions: [
+                              TextButton(onPressed: () => Navigator.pop(context), child: Text("OK")),
+                            ],
+                          ),
+                        );
+                 else if (_passwordController.text !=_confirmPasswordController.text) {
+                  showDialog(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: Text("Error"),
+                            content: Text("Password needs to match the confirmation password."),
+                            actions: [
+                              TextButton(onPressed: () => Navigator.pop(context), child: Text("OK")),
+                            ],
+                          ),
+                        );
+                } else if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(_emailController.text)) {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: Text("Error"),
+                            content: Text("Incorrect email format."),
+                            actions: [
+                              TextButton(onPressed: () => Navigator.pop(context), child: Text("OK")),
+                            ],
+                          ),
+                        );
+                } else if (!RegExp(r"^(?:\+?\d{10}|\d{9})$").hasMatch(_phoneController.text)) {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: Text("Error"),
+                            content: Text("Incorrect phone format."),
+                            actions: [
+                              TextButton(onPressed: () => Navigator.pop(context), child: Text("OK")),
+                            ],
+                          ),
+                        );
+                } else {
+                  Map order = {
+                    "ime": _firstnameController.text,
+                    "prezime": _lastnameController.text,
+                    "username": _usernameController.text,
+                    "email": _emailController.text,
+                    "telefon": _phoneController.text,
+                    "adresa": _addressController.text,
+                    "password": _passwordController.text,
+                    "passwordPotvrda": _confirmPasswordController.text,
+                    "spolId": _genderController.text,
+                    "tipKorisnikaId": 1
+                  };
+
+                  var x = await _korisniciProvider.SignUp(order);
+                  print(x);
+                  if (x != null) {
+                    Authorization.username = _usernameController.text;
+                    Authorization.password = _passwordController.text;
+
+                    Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) =>  ProductListScreen()
+                    ),
+                    );
+                  }
+                }
+              },
+              child: Center(child: Text("Sign up")),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+                ],
+              ),
             ),
-          ],
+          ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
