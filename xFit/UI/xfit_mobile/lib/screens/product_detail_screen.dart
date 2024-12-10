@@ -1,53 +1,145 @@
 import 'package:flutter/material.dart';
 import 'package:xfit_mobile/models/product.dart';
 
-class ProductDetailScreen extends StatelessWidget {
+import 'package:flutter/material.dart';
+import '../models/product.dart';
+import '../models/recenzija.dart';
+import '../models/search_result.dart';
+import '../providers/recenzija_provider.dart';
+import '../utils/util.dart';
+
+class ProductDetailsScreen extends StatefulWidget {
   final Product product;
 
-  const ProductDetailScreen({Key? key, required this.product}) : super(key: key);
+  ProductDetailsScreen(this.product);
+
+  @override
+  _ProductDetailsScreenState createState() => _ProductDetailsScreenState();
+}
+
+class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
+  late RecenzijaProvider _recenzijaProvider;
+  TextEditingController _reviewController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _recenzijaProvider = RecenzijaProvider();
+  }
+
+  void postReview() async {
+    // S obzirom da smo izbacili autorizaciju, pretpostavljamo da
+    // nije potrebno dohvatiti korisnika za unos recenzije.
+    // Možeš postaviti neki statički korisnik ID ili ga ukloniti u potpunosti.
+
+    await _recenzijaProvider.insert({
+      "sadrzaj": _reviewController.text,
+      "datum": DateTime.now().toIso8601String(),
+      "korisnikId": 1, // Zamijeniti s odgovarajućim ID-om korisnika, ako je potrebno
+      "proizvodId": widget.product.proizvodId,
+    });
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Review posted"),
+      backgroundColor: Colors.green,),
+    );
+    setState(() {
+      _reviewController.clear();
+    });
+  }
+
+  Future<List<Recenzija>> fetchRecenzije(int proizvodId) async{
+    final recenzijeResult = await _recenzijaProvider.get(filter: {
+      "proizvodId" : proizvodId
+    });
+
+    return recenzijeResult.result.toList();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(product.naziv ?? "Product Details"),
+        title: Text(widget.product.naziv ?? "Product Details"),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            product.slika != null
-                ? Image.network(
-                    product.slika!,
-                    height: 200,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) =>
-                        Icon(Icons.image, size: 200),
-                  )
-                : Icon(Icons.image, size: 200),
-            SizedBox(height: 16),
-            Text(
-              product.naziv ?? "No Name",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 8),
-            Text(
-              "Cijena: \KM${product.cijena?.toStringAsFixed(2) ?? "0.00"}",
-              style: TextStyle(fontSize: 18, color: Colors.green),
-            ),
-            SizedBox(height: 8),
-            Text(
-              "Sifra: ${product.sifra ?? "N/A"}",
-              style: TextStyle(fontSize: 16, color: Colors.grey),
-            ),
-            SizedBox(height: 16),
-            Text(
-              "More details about this product can be added here.",
-              style: TextStyle(fontSize: 14),
-            ),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 100,
+                height: 100,
+                child: widget.product.slika != ""
+                    ? imageFromBase64String(widget.product.slika!)
+                    : Text("No Image"),
+              ),
+              SizedBox(height: 16),
+              Text(
+                widget.product.naziv ?? "",
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 8),
+              Text(
+                "Cijena: ${formatNumber(widget.product.cijena) + " KM"}",
+                style: TextStyle(fontSize: 18),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              SizedBox(height: 20,),
+              Text("Recenzije:", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              FutureBuilder<SearchResult<Recenzija>>(
+                future: _recenzijaProvider.get(filter: {"proizvodId": widget.product.proizvodId}),
+                builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return CircularProgressIndicator();
+                } else if (snapshot.hasError) {
+                  return Text("Error: ${snapshot.error}");
+                } else if (!snapshot.hasData || snapshot.data!.result.isEmpty) {
+                  return Text("Nema recenzija za ovaj proizvod.");
+                } else {
+                  final recenzijeList = snapshot.data!.result;
+                return Column(
+                  children: recenzijeList.map((recenzija) {
+                    return Card( 
+                      elevation: 3, 
+                      margin: EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+                      child: ListTile(
+                      title: Text(recenzija.sadrzaj!),
+                      ),
+                    );
+                  }).toList(),
+                );
+              }},),
+
+              SizedBox(height: 30),
+              Container(
+                width: double.infinity, 
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                padding: EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    TextField(
+                      controller: _reviewController,
+                      maxLines: 3,
+                      decoration: InputDecoration(
+                        hintText: "Write a review...",
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    ElevatedButton(
+                      onPressed: postReview,
+                      child: Text("Post"),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

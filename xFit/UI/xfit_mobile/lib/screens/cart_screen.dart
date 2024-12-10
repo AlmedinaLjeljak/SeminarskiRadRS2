@@ -113,7 +113,7 @@ class _CartScreenState extends State<CartScreen> {
   );
 }
 
-  Future<int> getKlijentId() async {
+  /*Future<int> getKlijentId() async {
       final klijent = await _korisniciProvider.get(filter: {
         'tipKorisnika': 'klijent',
       });
@@ -121,7 +121,7 @@ class _CartScreenState extends State<CartScreen> {
       /*final klijent = klijent.result.firstWhere((korisnik) => korisnik.username== Authorization.username);*/
 
       return klijent.korisnikId;
-    }
+    }*/
 
 
   
@@ -174,7 +174,7 @@ Widget _buildBuyButton() {
           },
         );
       });
-      int klijentId = await getKlijentId();
+      /*int klijentId = await getKlijentId();
       
 
       Map<String, dynamic> order = {
@@ -194,7 +194,7 @@ Widget _buildBuyButton() {
             narudzbaId: response.narudzbaId,
             iznos:response.iznos
           )),
-      );
+      );*/
     },
   );
 }

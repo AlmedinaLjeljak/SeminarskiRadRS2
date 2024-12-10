@@ -9,7 +9,9 @@ import 'package:xfit_mobile/providers/novosti_provider.dart';
 import 'package:xfit_mobile/providers/omiljeni_proizvod_provider.dart';
 import 'package:xfit_mobile/providers/omiljeni_proizvod_provider.dart'; 
 import 'package:xfit_mobile/providers/product_provider.dart';
+import 'package:xfit_mobile/providers/recenzija_provider.dart';
 import 'package:xfit_mobile/providers/termini_provider.dart';
+import 'package:xfit_mobile/providers/vrsta_proizvoda_provider.dart';
 import 'package:xfit_mobile/screens/product_list_screen.dart';
 import 'package:xfit_mobile/utils/util.dart';
 import 'package:xfit_mobile/widgets/master_screen.dart';
@@ -45,9 +47,9 @@ class MyMaterialApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => OmiljeniProizvodProvider()),
         ChangeNotifierProvider(create: (_) => OrdersProvider()),
         ChangeNotifierProvider(create: (_) => ProductDetailState()),
-        //ChangeNotifierProvider(create: (_) => VrsteProizvodaProvider()),
+        ChangeNotifierProvider(create: (_) => VrstaProizvodaProvider()),
         //ChangeNotifierProvider(create: (_) => DojamProvider()),
-        //ChangeNotifierProvider(create: (_) => RecenzijaProvider()),
+        ChangeNotifierProvider(create: (_) => RecenzijaProvider()),
         //ChangeNotifierProvider(create: (_) => ZdravstveniKartonProvider()),
         //ChangeNotifierProvider(create: (_) => TransakcijaProvider()),
        // ChangeNotifierProvider(create: (_) => RecommendResultProvider()),

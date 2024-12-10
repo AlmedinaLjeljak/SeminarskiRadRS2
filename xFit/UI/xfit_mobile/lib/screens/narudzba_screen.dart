@@ -1,93 +1,135 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:xfit_mobile/models/narudzba.dart';
+import 'package:xfit_mobile/providers/korisnik_providder.dart';
+import 'package:xfit_mobile/providers/narudzba_provider.dart';
 
-class OrderScreen extends StatefulWidget {
-  OrderScreen({Key? key}) : super(key: key);
+class OrdersScreen extends StatefulWidget {
+  const OrdersScreen({Key? key}) : super(key: key);
 
   @override
-  State<OrderScreen> createState() => _OrderScreenState();
+  State<OrdersScreen> createState() => _OrdersScreenState();
 }
 
-class _OrderScreenState extends State<OrderScreen> {
-  // Example user data (you can replace this with actual user data from a model or API)
-  String username = "John Doe";
-  String email = "johndoe@example.com";
-  String bio = "This is the user's bio. It's a short description about the user.";
-  String profileImageUrl = "https://www.example.com/profile.jpg"; // Replace with an actual URL or local image path
+class _OrdersScreenState extends State<OrdersScreen> {
+  final OrdersProvider _ordersProvider = OrdersProvider();
+  late KorisnisiProvider _korisniciProvider;
+
+  List<Narudzba> _narudzba = [];
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _korisniciProvider = Provider.of<KorisnisiProvider>(context, listen: false);
+    _fetchNarudzbe();
+  }
+
+  Future<void> _fetchNarudzbe() async {
+    try {
+      var result = await _ordersProvider.get(); 
+      setState(() {
+        _narudzba = result.result;
+        isLoading = false;
+      });
+    } catch (e) {
+      print(e);
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("My Profile"),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.edit),
-            onPressed: () {
-              // Navigate to edit profile screen (you can create an EditProfileScreen if necessary)
-              print("Edit profile clicked");
-            },
-          ),
+        title: Text('Orders'),
+      ),
+      body: Column(
+        children: [
+          _buildDataListView(),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Profile Picture
-            Center(
-              child: CircleAvatar(
-                radius: 60,
-                backgroundImage: NetworkImage(profileImageUrl), // You can replace with an AssetImage if you use a local image
-              ),
-            ),
-            SizedBox(height: 20),
-            // Username
-            Text(
-              username,
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 8),
-            // Email
-            Text(
-              email,
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey[600],
-              ),
-            ),
-            SizedBox(height: 20),
-            // Bio Section
-            Text(
-              "Bio:",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 8),
-            Text(
-              bio,
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey[700],
-              ),
-            ),
-            SizedBox(height: 20),
-            // Optionally add buttons or other actions
-            ElevatedButton(
-              onPressed: () {
-                // Navigate to some other screen, e.g., to edit profile
-                print("Save changes or go to another screen");
-              },
-              child: Text("Save Changes"),
-            ),
-          ],
+    );
+  }
+
+  Widget _buildDataListView() {
+    if (isLoading) {
+      return Expanded(
+        child: Center(
+          child: CircularProgressIndicator(),
         ),
+      );
+    }
+
+    if (_narudzba.isEmpty) {
+      return Expanded(
+        child: Center(
+          child: Text('No orders found.'),
+        ),
+      );
+    }
+
+    return Expanded(
+      child: ListView.builder(
+        itemCount: _narudzba.length,
+        itemBuilder: (context, index) {
+          var narudzba = _narudzba[index];
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: Card(
+                elevation: 2,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: ListTile(
+                  title: Text(narudzba.brojNarudzbe ?? ''),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(narudzba.iznos.toString()),
+                      SizedBox(height: 8),
+                      Text(
+                        'Created on: ${narudzba.datum != null ? DateFormat('yyyy-MM-dd').format(narudzba.datum!) : 'Unknown Date'}',
+                        style: TextStyle(fontStyle: FontStyle.italic),
+                      ),
+                    ],
+                  ),
+                  trailing: Container(
+                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    decoration: BoxDecoration(
+                      color: _getStatusColor(narudzba.status),
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(8),
+                        bottomRight: Radius.circular(8),
+                      ),
+                    ),
+                    child: Text(
+                      narudzba.status ?? 'Unknown Status',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
+  }
+
+  _getStatusColor(String? status) {
+    if (status == 'Pending') {
+      return Colors.orange;
+    } else if (status == 'Completed') {
+      return Colors.green;
+    } else if (status == 'Cancelled') {
+      return Colors.red;
+    }
+    return Colors.grey;
   }
 }

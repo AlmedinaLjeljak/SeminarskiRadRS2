@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:xfit_mobile/main.dart';
+import 'package:xfit_mobile/models/korisnik.dart';
 import 'package:xfit_mobile/providers/korisnik_providder.dart';
 import 'package:xfit_mobile/screens/cart_screen.dart';
 import 'package:xfit_mobile/screens/home_page_screen.dart';
@@ -8,6 +9,7 @@ import 'package:xfit_mobile/screens/my_profile_screen.dart';
 import 'package:xfit_mobile/screens/narudzba_screen.dart';
 import 'package:xfit_mobile/screens/omiljeni_proizvodi_screen.dart';
 import 'package:xfit_mobile/screens/product_list_screen.dart';
+import 'package:xfit_mobile/screens/recenzija_screen.dart';
 import 'package:xfit_mobile/screens/termin_screen.dart';
 
 class MasterScreenWidget extends StatefulWidget {
@@ -93,7 +95,7 @@ class _MasterScreenWidgetState extends State<MasterScreenWidget> {
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => OrderScreen(),
+                      builder: (context) =>const OrdersScreen(),
                     ),
                   );
                 },
@@ -128,6 +130,7 @@ class _MasterScreenWidgetState extends State<MasterScreenWidget> {
                   );
                 },
               ),
+            
               ListTile(
                 title: const Text('Log Out'),
                 onTap: () {
