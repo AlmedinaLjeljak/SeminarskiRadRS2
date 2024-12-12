@@ -44,8 +44,8 @@ public partial class XFitContext : DbContext
     public virtual DbSet<Transakcija> Transakcijas { get; set; }
 
     public virtual DbSet<Uloga> Ulogas { get; set; }
-
-    public virtual DbSet<Uposlenik> Uposleniks { get; set; }
+	public virtual DbSet<RecommendResult> RecommendResults { get; set; }
+	public virtual DbSet<Uposlenik> Uposleniks { get; set; }
 
     public virtual DbSet<VrstaProizvodum> VrstaProizvoda { get; set; }
 

@@ -340,3 +340,4 @@ C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\xFit\obj\Debug\net6.0\
 C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\xFit\obj\Debug\net6.0\xFit.pdb
 C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\xFit\obj\Debug\net6.0\xFit.genruntimeconfig.cache
 C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\xFit\obj\Debug\net6.0\ref\xFit.dll
+C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\xFit\bin\Debug\net6.0\xFit.staticwebassets.runtime.json

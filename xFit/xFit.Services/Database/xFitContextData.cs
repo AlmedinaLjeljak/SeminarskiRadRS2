@@ -129,6 +129,7 @@ namespace xFit.Services.Database
 					Naziv = "Rukavice",
 					Sifra = "TR585",
 					Cijena = 20,
+					Slika=ConvertImageToByteArray("wwwroot/images","image2.jpg"),
 					VrstaProizvodaId = 2,
 					StateMachine = "active"
 				},
@@ -138,6 +139,7 @@ namespace xFit.Services.Database
 					Naziv = "Whey",
 					Sifra = "PL789",
 					Cijena = 30,
+					Slika = ConvertImageToByteArray("wwwroot/images", "image1.jpg"),
 					VrstaProizvodaId = 1,
 					StateMachine = "active"
 				},
@@ -147,6 +149,7 @@ namespace xFit.Services.Database
 					Naziv = "Trake",
 					Sifra = "RF147",
 					Cijena = 20,
+					Slika = ConvertImageToByteArray("wwwroot/images", "image3.jpg"),
 					VrstaProizvodaId = 2,
 					StateMachine = "active"
 				},
@@ -156,6 +159,7 @@ namespace xFit.Services.Database
 					Naziv = "Kreatin",
 					Sifra = "CD741",
 					Cijena = 50,
+					Slika = ConvertImageToByteArray("wwwroot/images", "image4.jpg"),
 					VrstaProizvodaId = 1,
 					StateMachine = "active"
 				},
@@ -165,6 +169,7 @@ namespace xFit.Services.Database
 					Naziv = "Sobni bicikl",
 					Sifra = "TM741",
 					Cijena = 100,
+					Slika = ConvertImageToByteArray("wwwroot/images", "image5.jpg"),
 					VrstaProizvodaId = 2,
 					StateMachine = "active"
 				},
@@ -174,6 +179,7 @@ namespace xFit.Services.Database
 					Naziv = "Traka za trcanje",
 					Sifra = "WE179",
 					Cijena = 50,
+					Slika = ConvertImageToByteArray("wwwroot/images", "image6.jpg"),
 					VrstaProizvodaId = 2,
 					StateMachine = "active"
 				},
@@ -183,6 +189,7 @@ namespace xFit.Services.Database
 					Naziv = "Steperi",
 					Sifra = "CD741",
 					Cijena = 50,
+					Slika = ConvertImageToByteArray("wwwroot/images", "image7.jpg"),
 					VrstaProizvodaId = 1,
 					StateMachine = "active"
 				},
@@ -192,6 +199,7 @@ namespace xFit.Services.Database
 					Naziv = "Girje",
 					Sifra = "RE789",
 					Cijena = 10,
+					Slika = ConvertImageToByteArray("wwwroot/images", "image8.jpg"),
 					VrstaProizvodaId = 2,
 					StateMachine = "draft"
 				},
@@ -201,6 +209,7 @@ namespace xFit.Services.Database
 					Naziv = "Plocasti utezi",
 					Sifra = "QW736",
 					Cijena = 50,
+					Slika = ConvertImageToByteArray("wwwroot/images", "image9.jpg"),
 					VrstaProizvodaId = 2,
 					StateMachine = "active"
 				},
@@ -210,6 +219,7 @@ namespace xFit.Services.Database
 					Naziv = "Podloga za vjezbanje",
 					Sifra = "QP459",
 					Cijena = 20,
+					Slika = ConvertImageToByteArray("wwwroot/images", "image10.jpg"),
 					VrstaProizvodaId = 2,
 					StateMachine = "active"
 				}
@@ -228,7 +238,9 @@ namespace xFit.Services.Database
 				new Termin()
 				{
 					TerminId = 1,
-					DatumVrijeme = DateTime.Now
+					DatumVrijeme = DateTime.Now,
+					UposlenikId=1,
+					KlijentId=1
 				}
 				);
 			modelBuilder.Entity<Novost>().HasData(
@@ -298,7 +310,8 @@ namespace xFit.Services.Database
 				new Transakcija()
 				{
 					TransakcijaId = 1,
-					Iznos = 50
+					Iznos = 50,
+					NarudzbaId=1
 				}
 			);
 			modelBuilder.Entity<Rezervacija>().HasData(
@@ -312,6 +325,25 @@ namespace xFit.Services.Database
 					TerminId = 1
 				}
 				);
+
+
 		}
+		private byte[] ConvertImageToByteArray(string folderPath, string fileName)
+		{
+			// Koristi apsolutnu putanju zasnovanu na trenutnom radnom direktorijumu
+			string projectDirectory = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).FullName, "xFit");
+			string fullPath = Path.Combine(projectDirectory, folderPath, fileName);
+
+			Console.WriteLine(fullPath); // Dodaću ispis kako biste videli putanju
+			if (!File.Exists(fullPath))
+				throw new FileNotFoundException($"File {fileName} not found in {fullPath}");
+
+			return File.ReadAllBytes(fullPath);
+		}
+
+
+
+
+
 	}
 }

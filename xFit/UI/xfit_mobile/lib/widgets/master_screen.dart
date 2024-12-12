@@ -9,7 +9,6 @@ import 'package:xfit_mobile/screens/my_profile_screen.dart';
 import 'package:xfit_mobile/screens/narudzba_screen.dart';
 import 'package:xfit_mobile/screens/omiljeni_proizvodi_screen.dart';
 import 'package:xfit_mobile/screens/product_list_screen.dart';
-import 'package:xfit_mobile/screens/recenzija_screen.dart';
 import 'package:xfit_mobile/screens/termin_screen.dart';
 
 class MasterScreenWidget extends StatefulWidget {
