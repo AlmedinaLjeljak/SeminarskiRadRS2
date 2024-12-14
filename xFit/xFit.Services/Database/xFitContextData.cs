@@ -86,7 +86,7 @@ namespace xFit.Services.Database
 					Ime = "Klijent",
 					Prezime = "Klijent",
 					DatumRodjenja = DateTime.Now,
-					KorisnikId = 1
+					KorisnikId = 2
 				}
 
 				);
@@ -110,7 +110,15 @@ namespace xFit.Services.Database
 					UlogaId = 1,
 					DatumIzmjene = DateTime.Now
 
-				}
+				},
+				new KorisnikUloga()
+					{
+						KorisnikUlogaId = 2,
+						KorisnikId = 2,
+						UlogaId = 2,
+						DatumIzmjene = DateTime.Now
+
+					}
 				);
 			modelBuilder.Entity<Uposlenik>().HasData(
 				new Uposlenik()
@@ -330,11 +338,11 @@ namespace xFit.Services.Database
 		}
 		private byte[] ConvertImageToByteArray(string folderPath, string fileName)
 		{
-			// Koristi apsolutnu putanju zasnovanu na trenutnom radnom direktorijumu
+		
 			string projectDirectory = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).FullName, "xFit");
 			string fullPath = Path.Combine(projectDirectory, folderPath, fileName);
 
-			Console.WriteLine(fullPath); // Dodaću ispis kako biste videli putanju
+			Console.WriteLine(fullPath); 
 			if (!File.Exists(fullPath))
 				throw new FileNotFoundException($"File {fileName} not found in {fullPath}");
 

@@ -13,6 +13,7 @@ namespace xFit.Services
 {
 	public class TerminService : BaseCRUDService<Model.Termin, Database.Termin, TerminSearchObject, TerminInsertRequest, TerminUpdateRequest>, ITerminService
 	{
+
 		public TerminService(XFitContext context, IMapper mapper) : base(context, mapper)
 		{
 		}
@@ -20,7 +21,7 @@ namespace xFit.Services
 		public override IQueryable<Database.Termin> AddFilter(IQueryable<Database.Termin> query, TerminSearchObject? search = null)
 		{
 			var filteredQuery = base.AddFilter(query, search);
-
+		
 			if (search.DatumVrijeme != null)
 			{
 				filteredQuery = filteredQuery.Where(x => x.DatumVrijeme.Value.Day == search.DatumVrijeme.Value.Day &&

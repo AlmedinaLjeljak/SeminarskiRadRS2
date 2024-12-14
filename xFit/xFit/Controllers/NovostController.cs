@@ -10,9 +10,9 @@ namespace xFit.Controllers
 	[ApiController]
 	[Route("[controller]")]
 	
-	public class UposlenikController : BaseCRUDController<Model.Uposlenik, UposlenikSearchObject, UposlenikInsertRequest, UposlenikUpdateRequest>
+	public class NovostController : BaseCRUDController<Model.Novost, NovostSearchObject, NovostUpsertRequest, NovostUpsertRequest>
 	{
-		public UposlenikController(ILogger<BaseController<Model.Uposlenik, Model.SearchObjects.UposlenikSearchObject>> logger, IUposlenikService service) : base(logger, service)
+		public NovostController(ILogger<BaseController<Model.Novost, Model.SearchObjects.NovostSearchObject>> logger, INovostService service) : base(logger, service)
 		{
 
 

@@ -196,7 +196,7 @@ class _TerminiScreenState extends State<TerminScreen> {
       );
     }
   }
-}*/
+}
 
 
 

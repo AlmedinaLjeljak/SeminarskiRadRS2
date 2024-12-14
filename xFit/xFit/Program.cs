@@ -123,6 +123,7 @@ builder.Services.AddTransient<INovostService, NovostService>();
 builder.Services.AddTransient<IKlijentService, KlijentService>();
 builder.Services.AddTransient<IUposlenikService, UposlenikService>();
 builder.Services.AddTransient<IOmiljeniProizvodService, OmiljeniProizvodService>();
+builder.Services.AddTransient<IRecommendResultService, RecommendResultService>();
 
 builder.Services.AddTransient<BaseState>();
 builder.Services.AddTransient<InitialProductState>();

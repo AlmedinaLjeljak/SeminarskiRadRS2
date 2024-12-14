@@ -11,6 +11,7 @@ import 'package:xfit_mobile/providers/omiljeni_proizvod_provider.dart';
 import 'package:xfit_mobile/providers/product_provider.dart';
 import 'package:xfit_mobile/providers/recenzija_provider.dart';
 import 'package:xfit_mobile/providers/termini_provider.dart';
+import 'package:xfit_mobile/providers/transakcija_provider.dart';
 import 'package:xfit_mobile/providers/vrsta_proizvoda_provider.dart';
 import 'package:xfit_mobile/screens/product_list_screen.dart';
 import 'package:xfit_mobile/utils/util.dart';
@@ -48,11 +49,9 @@ class MyMaterialApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => OrdersProvider()),
         ChangeNotifierProvider(create: (_) => ProductDetailState()),
         ChangeNotifierProvider(create: (_) => VrstaProizvodaProvider()),
-        //ChangeNotifierProvider(create: (_) => DojamProvider()),
         ChangeNotifierProvider(create: (_) => RecenzijaProvider()),
-        //ChangeNotifierProvider(create: (_) => ZdravstveniKartonProvider()),
-        //ChangeNotifierProvider(create: (_) => TransakcijaProvider()),
-       // ChangeNotifierProvider(create: (_) => RecommendResultProvider()),
+        ChangeNotifierProvider(create: (_) => TransakcijaProvider()),
+       //ChangeNotifierProvider(create: (_) => RecommendResultProvider()),
       ],
       child: MaterialApp(
         title: 'RS II Material app',
@@ -352,14 +351,14 @@ class SignUpPage extends StatelessWidget {
                   Map order = {
                     "ime": _firstnameController.text,
                     "prezime": _lastnameController.text,
-                    "username": _usernameController.text,
+                    "korisnickoIme": _usernameController.text,
                     "email": _emailController.text,
                     "telefon": _phoneController.text,
                     "adresa": _addressController.text,
                     "password": _passwordController.text,
                     "passwordPotvrda": _confirmPasswordController.text,
                     "spolId": _genderController.text,
-                    "tipKorisnikaId": 1
+                  
                   };
 
                   var x = await _korisniciProvider.SignUp(order);
