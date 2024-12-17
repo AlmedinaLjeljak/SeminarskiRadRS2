@@ -1,5 +1,3 @@
-
-/*
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -85,7 +83,7 @@ class _TerminDetailScreenState extends State<TerminDetailScreen> {
   Future<void> _fetchKlijent() async {
     try {
       var data = await _korisniciProvider.get(filter: {
-        'korisnikUloga': 'klijent',
+        'korisnikUlogas': 'klijent',
       });
 
       setState(() {
@@ -291,10 +289,10 @@ ElevatedButton(
     }
   }
 
-  /*void _saveNewTermin() async {
+  void _saveNewTermin() async {
     Future<int> getUposlenikId() async {
       final uposleniks = await _korisniciProvider.get(filter: {
-        'korisnikUloga': 'uposlenik',
+        'korisnikUlogas': 'uposlenik',
       });
 
       final uposlenik = uposleniks.result
@@ -326,10 +324,10 @@ ElevatedButton(
       );
     } else {
       final newTermin = Termin(
-        //null,
-        //uposlenik,
-        //_selectedKlijent,
-        //_modifiedDatum,
+        null,
+        _modifiedDatum,
+        _selectedKlijent,
+        uposlenik,
       );
 
       try {
@@ -346,70 +344,19 @@ ElevatedButton(
         print(e);
       }
     }
-  }*/
-
-  void _saveNewTermin() async {
-  Future<int> getUposlenikId() async {
-    final uposleniks = await _korisniciProvider.get(filter: {
-      'korisnikUloga': 'uposlenik',
-    });
-
-    final uposlenik = uposleniks.result
-        .firstWhere((korisnik) => korisnik.korisnickoIme == Authorization.username);
-
-    return uposlenik.korisnikId!;
   }
 
-  final uposlenik = await getUposlenikId();
-  final selectedDateTime = _modifiedDatum;
+ 
 
-  if (_isDateTimeOccupied(selectedDateTime)) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Date and Time Occupied'),
-          content: Text('The selected date and time are already occupied.'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('OK'),
-            ),
-          ],
-        );
-      },
-    );
-  } else {
-    // Zakomentareni deo:
-    // final newTermin = Termin(
-    //   uposlenikId: uposlenik,
-    //   klijentId: _selectedKlijent,
-    //   datumVrijeme: _modifiedDatum,
-    // );
-
-    try {
-      // Umesto insertovanja, možete samo testirati kako aplikacija reaguje bez dodavanja termina:
-      // final insertedTermin = await TerminiProvider().insert(newTermin);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Appointment successfully added.'),  // Ovaj deo možete promeniti da odgovara testiranju
-          backgroundColor: Colors.green,
-        ),
-      );
-      // Nakon testiranja, možete implementirati dalje akcije:
-      // Navigator.pop(context, insertedTermin);
-    } catch (e) {
-      print(e);
-    }
-  }
 }
 
-}*/
 
 
-import 'package:flutter/material.dart';
+
+
+
+
+/*import 'package:flutter/material.dart';
 
 class TerminDetailScreen extends StatelessWidget {
   final String? terminId;
@@ -431,4 +378,4 @@ class TerminDetailScreen extends StatelessWidget {
     );
   }
 }
-
+*/

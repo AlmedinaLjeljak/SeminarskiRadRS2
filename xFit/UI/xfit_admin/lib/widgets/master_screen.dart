@@ -98,7 +98,7 @@ class _MasterScreenWidgetState extends State<MasterScreenWidget>{
             onTap: (){
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder:(context)=> TerminScreen(),
+                  builder:(context)=> const TerminScreen(),
                 ),
               );
             },

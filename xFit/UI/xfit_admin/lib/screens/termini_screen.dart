@@ -56,7 +56,7 @@ class _TerminiScreenState extends State<TerminScreen> {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
-                _navigateToTerminDetailScreen(null); 
+                _navigateToTerminDetailScreen(null,null); 
               },
               child: Text('Add Appointment'),
             ),
@@ -97,7 +97,7 @@ class _TerminiScreenState extends State<TerminScreen> {
                   DataCell(IconButton(
                     icon: Icon(Icons.edit),
                     onPressed: () {
-                      _navigateToTerminDetailScreen(null);
+                      _navigateToTerminDetailScreen(termin,termin.klijentId);
                     },
                   )),
                   DataCell(IconButton(
@@ -115,7 +115,7 @@ class _TerminiScreenState extends State<TerminScreen> {
     );
   }
 
-  /*void _navigateToTerminDetailScreen(Termin? termin, int? selectedKlijent) async {
+  void _navigateToTerminDetailScreen(Termin? termin, int? selectedKlijent) async {
     final modifiedTermin = await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => TerminDetailScreen(termin: termin, selectedKlijent: selectedKlijent),
@@ -132,9 +132,9 @@ class _TerminiScreenState extends State<TerminScreen> {
         }
       });
     }
-  }*/
+  }
 
-  void _navigateToTerminDetailScreen(String? terminId) async {
+ /* void _navigateToTerminDetailScreen(String? terminId) async {
   final modifiedTermin = await Navigator.of(context).push(
     MaterialPageRoute(
       builder: (context) => TerminDetailScreen(terminId: terminId),
@@ -148,7 +148,7 @@ class _TerminiScreenState extends State<TerminScreen> {
     print('Modified Termin: $modifiedTermin');
   }
 }
-
+*/
 
   void _showDeleteConfirmationDialog(Termin termin) {
     showDialog(

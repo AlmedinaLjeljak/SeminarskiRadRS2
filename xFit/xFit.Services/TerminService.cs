@@ -30,7 +30,7 @@ namespace xFit.Services
 			}
 			return filteredQuery;
 		}
-		public override Task<Model.Termin> Insert(TerminInsertRequest insert)
+		/*public override Task<Model.Termin> Insert(TerminInsertRequest insert)
 		{
 			if (!insert.DatumVrijeme.HasValue)
 			{
@@ -54,6 +54,6 @@ namespace xFit.Services
 			}
 
 			return base.Insert(insert);
-		}
+		}*/
 	}
 }
