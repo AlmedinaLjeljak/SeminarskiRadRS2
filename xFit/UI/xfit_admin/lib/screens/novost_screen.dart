@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:intl/intl.dart';
@@ -25,13 +26,12 @@ class _NovostDetailScreenState extends State<NovostDetailScreen> {
     super.initState();
 print("content from novost:${widget.novost?.sadrzaj}");
     // Initialize the initial values for the form
-    _initialValue = {
-      'naziv': widget.novost?.naziv,
-      'sadrzaj':widget.novost?.sadrzaj,
-      'datumObjave': widget.novost?.datumObjave,
-    };
+   _initialValue = {
+  'naziv': widget.novost?.naziv ?? '',
+  'sadrzaj': widget.novost?.sadrzaj ?? '',  // dodajte default vrednost ako je null
+  'datumObjave': widget.novost?.datumObjave ?? '',
+};
 
-   
   
       _novostProvider = context.read<NovostiProvider>();
       _initializeForm();
@@ -96,6 +96,7 @@ print("content from novost:${widget.novost?.sadrzaj}");
                 child: FormBuilderTextField(
                   decoration: const InputDecoration(labelText: "Content"),
                   name: 'sadrzaj',
+                  initialValue: _initialValue['sadrzaj'], // Dodajte initialValue ako je potrebno
                 ),
               ),
             ],
@@ -172,5 +173,7 @@ print("content from novost:${widget.novost?.sadrzaj}");
     );
   }
 }
+
+
 
 

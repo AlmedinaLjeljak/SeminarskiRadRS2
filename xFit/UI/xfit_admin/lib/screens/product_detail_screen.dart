@@ -1,5 +1,4 @@
 
-
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
@@ -47,7 +46,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     });
   }
 
-  Future<void> _saveProduct() async {
+ /* Future<void> _saveProduct() async {
     final isValid = _formKey.currentState?.saveAndValidate() ?? false;
     if (!isValid) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -93,7 +92,58 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         ),
       );
     }
+  }*/
+
+
+ Future<void> _saveProduct() async {
+  final isValid = _formKey.currentState?.saveAndValidate() ?? false;
+  if (!isValid) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Please fix all required fields before saving.'),
+        backgroundColor: Colors.red,
+      ),
+    );
+    return;
   }
+
+  if (_base64Image == null || _base64Image!.isEmpty) {
+    _base64Image = base64Encode(File('assets/images/no_image.jpg').readAsBytesSync());
+  }
+
+  final request = Map.from(_formKey.currentState!.value);
+  request['slika'] = _base64Image;
+
+  try {
+    if (widget.product == null) {
+      await _productProvider.insert(request);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Product successfully added.'), backgroundColor: Colors.green),
+      );
+      _formKey.currentState?.reset();
+      Navigator.pop(context, 'reload');  // Signaliziraj osvežavanje
+    } else {
+      await _productProvider.update(widget.product!.proizvodId!, request);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Product successfully updated.'), backgroundColor: Colors.green),
+      );
+      Navigator.pop(context, 'reload');  // Signaliziraj osvežavanje
+    }
+  } catch (e) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text("Error"),
+        content: Text(e.toString()),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(context), child: Text("OK"))
+        ],
+      ),
+    );
+  }
+}
+
+
 
   Future<void> _pickImage() async {
     final result = await FilePicker.platform.pickFiles(type: FileType.image);

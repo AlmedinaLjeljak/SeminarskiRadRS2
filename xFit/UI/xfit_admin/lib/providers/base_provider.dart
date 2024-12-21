@@ -73,6 +73,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
     var response = await http.post(uri, headers: headers, body: jsonRequest);
 
     if (isValidResponse(response)) {
+      print("response: ${response.request}");
       var data = jsonDecode(response.body);
       return fromJson(data);
     } else {
@@ -89,6 +90,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
     var response = await http.put(uri, headers: headers, body: jsonRequest);
 
     if (isValidResponse(response)) {
+        print("response: ${response.request}");
       var data = jsonDecode(response.body);
       return fromJson(data);
     } else {
