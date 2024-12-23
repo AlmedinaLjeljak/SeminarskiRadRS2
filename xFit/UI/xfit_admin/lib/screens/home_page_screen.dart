@@ -178,7 +178,7 @@ Widget build(BuildContext context) {
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(novost.sadrzaj ?? ''),
+                      Text(novost.sadzaj ?? ''),
                       SizedBox(height: 8),
                       Text(
                         'Published on: ${DateFormat('yyyy-MM-dd').format(novost.datumObjave ?? DateTime.now())}',
