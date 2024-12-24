@@ -27,7 +27,7 @@ class _TerminiScreenState extends State<TerminScreen> {
     try {
       var result = await _terminiProvider.get(
         filter: {
-          'uposlenik': Authorization.username.toString(),
+          'desktop': Authorization.username.toString(),
         },
       );
       setState(() {
@@ -134,21 +134,6 @@ class _TerminiScreenState extends State<TerminScreen> {
     }
   }
 
- /* void _navigateToTerminDetailScreen(String? terminId) async {
-  final modifiedTermin = await Navigator.of(context).push(
-    MaterialPageRoute(
-      builder: (context) => TerminDetailScreen(terminId: terminId),
-    ),
-  );
-
-  // Ako želite da vratite podatke nakon što se ekran zatvori, možete obraditi tu logiku ovde.
-  // Ali za testiranje samo, ne morate ništa dodatno raditi.
-  if (modifiedTermin != null) {
-    // Ovdje možete obraditi vraćene podatke, ako ih ima
-    print('Modified Termin: $modifiedTermin');
-  }
-}
-*/
 
   void _showDeleteConfirmationDialog(Termin termin) {
     showDialog(

@@ -7,7 +7,6 @@ import 'package:xfit_admin/models/termin.dart';
 import 'package:xfit_admin/providers/korisnici_provider.dart';
 import 'package:xfit_admin/providers/termini_provider.dart';
 import 'package:xfit_admin/screens/date_screen.dart';
-import 'package:xfit_admin/utils/util.dart';
 
 class TerminDetailScreen extends StatefulWidget {
   final Termin? termin;
@@ -16,8 +15,7 @@ class TerminDetailScreen extends StatefulWidget {
   TerminDetailScreen({this.termin, this.selectedKlijent});
 
   @override
-  _TerminDetailScreenState createState() =>
-      _TerminDetailScreenState();
+  _TerminDetailScreenState createState() => _TerminDetailScreenState();
 }
 
 class _TerminDetailScreenState extends State<TerminDetailScreen> {
@@ -41,8 +39,7 @@ class _TerminDetailScreenState extends State<TerminDetailScreen> {
   @override
   void initState() {
     super.initState();
-    _korisniciProvider =
-        Provider.of<KorisnisiProvider>(context, listen: false);
+    _korisniciProvider = Provider.of<KorisnisiProvider>(context, listen: false);
     _terminiProvider = TerminiProvider();
 
     _modifiedDatum = widget.termin?.datumVrijeme ?? DateTime.now();
@@ -51,10 +48,10 @@ class _TerminDetailScreenState extends State<TerminDetailScreen> {
 
     _fetchKlijent();
     _fetchTerminiForKlijent(_selectedKlijent ?? _modifiedKlijentId ?? -1);
-    _fetchOcuppiedAppointments();
+    _fetchOccupiedAppointments();
   }
 
-  Future<void> _fetchOcuppiedAppointments() async {
+  Future<void> _fetchOccupiedAppointments() async {
     try {
       var data = await _terminiProvider.get(filter: {
         'datumVrijeme': _modifiedDatum.toIso8601String(),
@@ -112,6 +109,26 @@ class _TerminDetailScreenState extends State<TerminDetailScreen> {
     }
   }
 
+  Future<int?> getUposlenikId() async {
+  try {
+    final korisnici = await _korisniciProvider.get(filter: {
+      'korisnickoIme': 'desktop', 
+    });
+
+    if (korisnici.result.isEmpty) {
+      print('Korisnik sa korisničkim imenom "desktop" nije pronađen.');
+      return null;
+    }
+
+    final korisnik = korisnici.result.first;
+    return korisnik.korisnikId;
+  } catch (e) {
+    print('Greška pri preuzimanju ID-a ulogovanog korisnika: $e');
+    return null;
+  }
+}
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -166,28 +183,26 @@ class _TerminDetailScreenState extends State<TerminDetailScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-ElevatedButton(
-  onPressed: () async {
-    var terminDatum = await Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => DateTest(),
-      ),
-    );
+                      ElevatedButton(
+                        onPressed: () async {
+                          var terminDatum = await Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => DateTest(),
+                            ),
+                          );
 
-    if (terminDatum != null && terminDatum is DateTime) {
-      setState(() {
-        _modifiedDatum = terminDatum;
-        _isDateModified = true;
-        _isSaveButtonEnabled = true;
-      });
+                          if (terminDatum != null && terminDatum is DateTime) {
+                            setState(() {
+                              _modifiedDatum = terminDatum;
+                              _isDateModified = true;
+                              _isSaveButtonEnabled = true;
+                            });
 
-      await _fetchOcuppiedAppointments();
-    }
-  },
-  child: Text('Select Date and Time'),
-),
-
-
+                            await _fetchOccupiedAppointments();
+                          }
+                        },
+                        child: Text('Select Date and Time'),
+                      ),
                       ElevatedButton(
                         onPressed: _isSaveButtonEnabled
                             ? () {
@@ -290,18 +305,18 @@ ElevatedButton(
   }
 
   void _saveNewTermin() async {
-    Future<int> getUposlenikId() async {
-      final uposleniks = await _korisniciProvider.get(filter: {
-        'korisnikUlogas': 'uposlenik',
-      });
+    final uposlenikId = await getUposlenikId();
 
-      final uposlenik = uposleniks.result
-          .firstWhere((korisnik) => korisnik.korisnickoIme == Authorization.username);
-
-      return uposlenik.korisnikId!;
+    if (uposlenikId == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Unable to fetch your ID or role is not valid.'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
     }
 
-    final uposlenik = await getUposlenikId();
     final selectedDateTime = _modifiedDatum;
 
     if (_isDateTimeOccupied(selectedDateTime)) {
@@ -327,12 +342,11 @@ ElevatedButton(
         null,
         _modifiedDatum,
         _selectedKlijent,
-        uposlenik,
+        uposlenikId,
       );
 
       try {
-        final insertedTermin =
-            await TerminiProvider().insert(newTermin);
+        final insertedTermin = await TerminiProvider().insert(newTermin);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Appointment successfully added.'),
@@ -345,37 +359,5 @@ ElevatedButton(
       }
     }
   }
-
- 
-
 }
 
-
-
-
-
-
-
-/*import 'package:flutter/material.dart';
-
-class TerminDetailScreen extends StatelessWidget {
-  final String? terminId;
-
-  TerminDetailScreen({this.terminId});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Termin Detail'),
-      ),
-      body: Center(
-        child: Text(
-          'Termin ID: ${terminId ?? 'No Termin ID'}',
-          style: TextStyle(fontSize: 20),
-        ),
-      ),
-    );
-  }
-}
-*/
