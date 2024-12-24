@@ -17,6 +17,16 @@ namespace xFit.Services
 		{
 		}
 
-		
+		/*public override IQueryable<StavkaNarudzbe> AddFilter(IQueryable<StavkaNarudzbe> query, StavkaNarudzbeSearchObject? search = null)
+		{
+			if (search?.NarudzbaId != 0)
+			{
+				query = query.Where(x => x.NarudzbaId == search.NarudzbaId);
+			}
+
+			return base.AddFilter(query, search);
+		}*/
+
+
 	}
 }
