@@ -361,3 +361,6 @@ class _TerminDetailScreenState extends State<TerminDetailScreen> {
   }
 }
 
+
+
+

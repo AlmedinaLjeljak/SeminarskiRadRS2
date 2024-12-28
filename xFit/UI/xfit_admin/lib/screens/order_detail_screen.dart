@@ -1,6 +1,5 @@
 
-
-
+/*
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:xfit_admin/models/stavkaNarudzbe.dart';
@@ -286,19 +285,17 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
       stavkeNarudzbe.removeWhere((s) => s.stavkaNarudzbeId == stavkaId);
     });
   }
-}
+}*/
 
 
 
 
 
 
-/*
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:xfit_admin/main.dart';
 import 'package:xfit_admin/models/stavkaNarudzbe.dart';
 import 'package:xfit_admin/providers/narudzba_provider.dart';
 import 'package:xfit_admin/providers/stavka_narudzbe_provider.dart';
@@ -307,9 +304,9 @@ import 'package:xfit_admin/models/narudzba.dart';
 import 'package:xfit_admin/widgets/master_screen.dart';
 
 class OrderDetailScreen extends StatefulWidget {
-  Narudzba? narudzba;
+  final Narudzba? narudzba;
 
-  OrderDetailScreen({super.key, this.narudzba});
+  OrderDetailScreen({Key? key, this.narudzba}) : super(key: key);
 
   @override
   State<OrderDetailScreen> createState() => _OrderDetailScreenState();
@@ -318,32 +315,22 @@ class OrderDetailScreen extends StatefulWidget {
 class _OrderDetailScreenState extends State<OrderDetailScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
   Map<String, dynamic> _initialValue = {};
-  late OrdersProvider _ordersProvider;
-  late StavkaNarudzbeProvider stavkaNarudzbeProvider;
-  late ProductProvider productProvider;
-  List<StavkaNarudzbe> stavkeNarudzbe = [];
-
+  late StavkaNarudzbeProvider _stavkaNarudzbeProvider;
+  late ProductProvider _productProvider;
+  List<StavkaNarudzbe> _stavkeNarudzbe = [];
   bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    _initialValue = {
-      'brojNarudzbe': widget.narudzba?.brojNarudzbe,
-      'status': widget.narudzba?.status,
-      'datum': widget.narudzba?.datum.toString(),
-      'iznos': widget.narudzba?.iznos.toString()
-    };
-    _ordersProvider = context.read<OrdersProvider>();
-    stavkaNarudzbeProvider = StavkaNarudzbeProvider();
-    productProvider = ProductProvider();
+    _stavkaNarudzbeProvider = StavkaNarudzbeProvider();
+    _productProvider = ProductProvider();
     _fetchStavkeNarudzbe();
-
-    initForm();
+    _initializeForm();
   }
 
   Future<void> _fetchStavkeNarudzbe() async {
-    if (widget.narudzba == null) {
+    if (widget.narudzba == null || widget.narudzba!.narudzbaId == null) {
       setState(() {
         isLoading = false;
       });
@@ -351,235 +338,121 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
     }
 
     try {
-      var narudzbaId = widget.narudzba?.narudzbaId;
-      if (narudzbaId != null) {
-        var result = await stavkaNarudzbeProvider.getStavkeNarudzbeByNarudzbaId(narudzbaId);
-        setState(() {
-          stavkeNarudzbe = result;
-          isLoading = false;
-        });
-      }
+      print('Fetching stavke for narudzbaId: ${widget.narudzba!.narudzbaId}');
+      var result = await _stavkaNarudzbeProvider.getStavkeNarudzbeByNarudzbaId(
+        widget.narudzba!.narudzbaId!,
+      );
+      setState(() {
+        _stavkeNarudzbe = result.where((s) => s.narudzbaId == widget.narudzba!.narudzbaId).toList();
+        isLoading = false;
+      });
     } catch (e) {
-      // Handle error
-      print(e);
+      print('Error fetching stavke: $e');
       setState(() {
         isLoading = false;
       });
     }
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
-
-  Future initForm() async {
+  void _initializeForm() {
+    _initialValue = {
+      'brojNarudzbe': widget.narudzba?.brojNarudzbe,
+      'status': widget.narudzba?.status,
+      'datum': widget.narudzba?.datum.toString(),
+      'iznos': widget.narudzba?.iznos.toString(),
+    };
     setState(() {
       isLoading = false;
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    var orderDetailState = Provider.of<OrderDetailState>(context, listen: false);
-
-    return MasterScreenWidget(
-      child: Center(
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.grey),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          padding: EdgeInsets.all(16),
-          child: isLoading ? Container() : SingleChildScrollView(
-            child: _buildForm(),
-          ) ,
-        ),
-      ),
-      title: "Order ${this.widget.narudzba?.brojNarudzbe}" ?? "Order details",
-    );
+  Future<void> _deleteStavka(int? stavkaId) async {
+    try {
+      // Pozivanje delete metode iz base providera
+      await _stavkaNarudzbeProvider.delete(stavkaId);
+      setState(() {
+        _stavkeNarudzbe.removeWhere((stavka) => stavka.stavkaNarudzbeId == stavkaId);
+      });
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Item deleted')));
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to delete item')));
+    }
   }
 
-  FormBuilder _buildForm() {
-    return FormBuilder(
-      key: _formKey,
-      initialValue: _initialValue,
-      child: Column(
-        children: [
-          FormBuilderTextField(
-            decoration: InputDecoration(labelText: "Order number"),
-            name: 'brojNarudzbe',
-            readOnly: true,
-          ),
-          SizedBox(height: 10),
-          FormBuilderTextField(
-            decoration: InputDecoration(labelText: "Status"),
-            name: 'status',
-            onChanged: (value) {
-             final currentValue = _initialValue['status'];
-             print(currentValue);
-            },
-            validator: (value) {
-                if (value != null && value.isNotEmpty) {
-                  final currentValue = _initialValue['status'];
-                  final newValue = value;
-
-                  final allowedTransitions = {
-        'Pending': ['Completed', 'Cancelled'],
-        'Cancelled': ['Pending'],
-      };
-
-      if (currentValue != newValue) {
-        if (allowedTransitions.containsKey(currentValue) &&
-            allowedTransitions[currentValue] != null &&
-            !allowedTransitions[currentValue]!.contains(newValue)) {
-          return "Invalid status transition (Allowed transitions: Pending -> Completed/Cancelled; Cancelled -> Pending)";
-        }
-      }
-    }
-    return null;
-            },
-          ),
-          SizedBox(height: 10),
-          FormBuilderTextField(
-            decoration: InputDecoration(labelText: "Total amount"),
-            name: 'iznos',
-            readOnly: true,
-          ),
-          SizedBox(height: 10),
-          FormBuilderTextField(
-            decoration: InputDecoration(labelText: "Order date"),
-            name: 'datum',
-            readOnly: true,
-          ),
-          SizedBox(height: 20),
-
-        Text(
-          'Order details :',
-          style: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.normal,
-          ),
-)       ,
-         
-    if (stavkeNarudzbe.isNotEmpty)
-    ...stavkeNarudzbe.asMap().entries.map((entry) {
-    final index = entry.key;
-    final stavka = entry.value;
-
-    return Column(
-      children: [
-        FormBuilderTextField(
-          decoration: InputDecoration(labelText: 'Quantity'),
-          name: 'kolicina',
-          readOnly: true,
-          initialValue: stavka.kolicina.toString(),
-        ),
-        FutureBuilder<String>(
-          future: _getProductName(stavka.proizvodId),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              return FormBuilderTextField(
-                decoration: InputDecoration(labelText: 'Product name'),
-                name: 'nazivProizvoda_$index',
-                readOnly: true,
-                initialValue: snapshot.data ?? 'N/A',
-              );
-            } else {
-              return CircularProgressIndicator();
-            }
-          },
-        ),
-        SizedBox(height: 20),
-      ],
-    );
-  }).toList(),
-
-          SizedBox(height: 20),
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              ElevatedButton(
-                onPressed: () async {
-                  if (_formKey.currentState?.validate() ?? false) {
-                    _formKey.currentState?.save();
-                    print(_formKey.currentState?.value);
-
-                    var request = Map<String, dynamic>.from(_formKey.currentState!.value);
-
-                    try {
-                      if (widget.narudzba == null) {
-                        await _ordersProvider.insert(request);
-                      } 
-                      else {
-                        var currentStatus = _initialValue['status'];
-                        var newStatus = request['status'];
-
-                        if(currentStatus == 'Completed'){
-                             showDialog(
-            context: context,
-            builder: (BuildContext context) => AlertDialog(
-              title: Text("Error"),
-              content: Text("Cannot transition from 'Completed' status."),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: Text("OK"),
-                ),
-              ],
-            ),
-          );
-                        }else{
-                          await _ordersProvider.update(
-                          widget.narudzba!.narudzbaId!,
-                          request,
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('Order status successfully updated.'),
-                            backgroundColor: Colors.green,
-                          ));
-                          Navigator.pop(context, 'reload');
-                      //}
-                      }
-                      }
-                    } on Exception catch (e) {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) => AlertDialog(
-                          title: Text("Error"),
-                          content: Text(e.toString()),
-                          actions: [
-                            TextButton(
-                              onPressed: () => Navigator.pop(context),
-                              child: Text("OK"),
+  @override
+  Widget build(BuildContext context) {
+    return MasterScreenWidget(
+      title: "Order ${widget.narudzba?.brojNarudzbe ?? "Details"}",
+      child: isLoading
+          ? Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: FormBuilder(
+                  key: _formKey,
+                  initialValue: _initialValue,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      FormBuilderTextField(
+                        name: 'brojNarudzbe',
+                        readOnly: true,
+                        decoration: InputDecoration(labelText: "Order Number"),
+                      ),
+                      SizedBox(height: 10),
+                      FormBuilderTextField(
+                        name: 'status',
+                        decoration: InputDecoration(labelText: "Status"),
+                      ),
+                      SizedBox(height: 10),
+                      FormBuilderTextField(
+                        name: 'iznos',
+                        readOnly: true,
+                        decoration: InputDecoration(labelText: "Total Amount"),
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        "Order Details:",
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      ..._stavkeNarudzbe.map((stavka) => Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: FutureBuilder<String>(
+                              future: _getProductName(stavka.proizvodId),
+                              builder: (context, snapshot) {
+                                return ListTile(
+                                  title: Text(snapshot.data ?? "Product Name"),
+                                  subtitle: Text("Quantity: ${stavka.kolicina}"),
+                                  trailing: IconButton(
+                                    icon: Icon(Icons.delete),
+                                    onPressed: () => _deleteStavka(stavka.stavkaNarudzbeId),
+                                  ),
+                                );
+                              },
                             ),
-                          ],
-                        ),
-                      );
-                    }
-                  }
-                },
-                child: Text("Save"),
+                          )),
+                      SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context, 'reload');
+                        },
+                        child: Text("Back"),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            ],
-          ),
-        ],
-      ),
+            ),
     );
   }
 
   Future<String> _getProductName(int? productId) async {
-    if (productId == null) {
-      return 'N/A';
-    }
-
+    if (productId == null) return 'Unknown';
     try {
-      var product = await productProvider.getById(productId);
-      return product.naziv ?? 'N/A';
+      var product = await _productProvider.getById(productId);
+      return product.naziv ?? 'Unknown';
     } catch (e) {
-      return 'N/A';
+      return 'Error loading product';
     }
   }
-}*/
+}
