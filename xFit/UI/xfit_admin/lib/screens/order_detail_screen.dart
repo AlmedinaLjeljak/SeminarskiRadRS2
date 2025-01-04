@@ -291,7 +291,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
 
 
 
-
+/*
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:intl/intl.dart';
@@ -452,6 +452,294 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
       var product = await _productProvider.getById(productId);
       return product.naziv ?? 'Unknown';
     } catch (e) {
+      return 'Error loading product';
+    }
+  }
+}*/
+
+
+
+
+
+
+
+
+
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:xfit_admin/models/product.dart';
+import 'package:xfit_admin/models/search_result.dart';
+import 'package:xfit_admin/models/stavkaNarudzbe.dart';
+import 'package:xfit_admin/providers/narudzba_provider.dart';
+import 'package:xfit_admin/providers/stavka_narudzbe_provider.dart';
+import 'package:xfit_admin/providers/product_provders.dart';
+import 'package:xfit_admin/models/narudzba.dart';
+import 'package:xfit_admin/widgets/master_screen.dart';
+
+class OrderDetailScreen extends StatefulWidget {
+  final Narudzba? narudzba;
+
+  OrderDetailScreen({Key? key, this.narudzba}) : super(key: key);
+
+  @override
+  State<OrderDetailScreen> createState() => _OrderDetailScreenState();
+}
+
+class _OrderDetailScreenState extends State<OrderDetailScreen> {
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _quantityController = TextEditingController();
+  Map<String, dynamic> _initialValue = {};
+  late StavkaNarudzbeProvider _stavkaNarudzbeProvider;
+  late ProductProvider _productProvider;
+  List<StavkaNarudzbe> _stavkeNarudzbe = [];
+  bool isLoading = true;
+  int? _selectedProductId;
+
+  @override
+  void initState() {
+    super.initState();
+    _stavkaNarudzbeProvider = StavkaNarudzbeProvider();
+    _productProvider = ProductProvider();
+    _fetchStavkeNarudzbe();
+    _initializeForm();
+  }
+
+  Future<void> _fetchStavkeNarudzbe() async {
+    print('Fetching stavke for narudzbaId: ${widget.narudzba?.narudzbaId}');
+    if (widget.narudzba == null || widget.narudzba!.narudzbaId == null) {
+      setState(() {
+        isLoading = false;
+      });
+      return;
+    }
+
+    try {
+      print('Sending request to fetch stavke');
+      var result = await _stavkaNarudzbeProvider.getStavkeNarudzbeByNarudzbaId(
+        widget.narudzba!.narudzbaId!,
+      );
+      setState(() {
+        _stavkeNarudzbe = result.where((s) => s.narudzbaId == widget.narudzba!.narudzbaId).toList();
+        isLoading = false;
+      });
+      print('Fetched stavke: $_stavkeNarudzbe');
+    } catch (e) {
+      print('Error fetching stavke: $e');
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  void _initializeForm() {
+    print('Initializing form with data: ${widget.narudzba}');
+    _initialValue = {
+      'brojNarudzbe': widget.narudzba?.brojNarudzbe,
+      'status': widget.narudzba?.status,
+      'datum': widget.narudzba?.datum.toString(),
+      'iznos': widget.narudzba?.iznos.toString(),
+    };
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  Future<void> _deleteStavka(int? stavkaId) async {
+    print('Deleting stavka with id: $stavkaId');
+    try {
+      await _stavkaNarudzbeProvider.delete(stavkaId);
+      setState(() {
+        _stavkeNarudzbe.removeWhere((stavka) => stavka.stavkaNarudzbeId == stavkaId);
+      });
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Item deleted')));
+    } catch (e) {
+      print('Error deleting stavka: $e');
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to delete item')));
+    }
+  }
+
+  void _showAddItemDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Add Item"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              FutureBuilder<SearchResult<Product>>(
+                future: _productProvider.get(), // Fetch all products
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return CircularProgressIndicator();
+                  } else if (snapshot.hasError) {
+                    return Text('Error loading products');
+                  } else if (!snapshot.hasData || snapshot.data!.result.isEmpty) {
+                    return Text('No products available');
+                  } else {
+                    var products = snapshot.data!.result;
+                    return DropdownButtonFormField<int>(
+                      value: _selectedProductId,
+                      decoration: InputDecoration(labelText: "Select Product"),
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedProductId = value;
+                          print('Selected product ID: $value'); // Added print
+                        });
+                      },
+                      items: products.map((product) {
+                        return DropdownMenuItem<int>(
+                          value: product.proizvodId,
+                          child: Text(product.naziv ?? "Unknown Product"),
+                        );
+                      }).toList(),
+                      validator: (value) {
+                        if (value == null) {
+                          return 'Please select a product';
+                        }
+                        return null;
+                      },
+                    );
+                  }
+                },
+              ),
+              TextFormField(
+                controller: _quantityController,
+                decoration: InputDecoration(labelText: "Quantity"),
+                keyboardType: TextInputType.number,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter quantity';
+                  }
+                  return null;
+                },
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () async {
+                if (_formKey.currentState?.validate() ?? false) {
+                  var kolicina = _quantityController.text;
+                  var proizvodId = _selectedProductId;
+                  print('Adding item with Product ID: $proizvodId and Quantity: $kolicina');
+                  await _addItem(proizvodId, int.tryParse(kolicina) ?? 0);
+                  Navigator.pop(context);
+                }
+              },
+              child: Text("Add"),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text("Cancel"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+ Future<void> _addItem(int? proizvodId, int kolicina) async {
+  if (widget.narudzba == null || proizvodId == null) return;
+
+  try {
+    var newItem = StavkaNarudzbe(
+      null, // stavkaNarudzbeId will be generated
+      kolicina,
+      widget.narudzba?.narudzbaId,
+      proizvodId,
+    );
+    print('Sending request to add item with Product ID: $proizvodId and Quantity: $kolicina');
+    print('Request Payload: $newItem'); // Print the request data
+    await _stavkaNarudzbeProvider.insert(newItem);
+    _fetchStavkeNarudzbe(); // Refresh the list
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Item added')));
+  } catch (e) {
+    print('Error adding item: $e');
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to add item')));
+  }
+}
+
+
+  @override
+  Widget build(BuildContext context) {
+    return MasterScreenWidget(
+      title: "Order ${widget.narudzba?.brojNarudzbe ?? "Details"}",
+      child: isLoading
+          ? Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TextFormField(
+                        initialValue: _initialValue['brojNarudzbe'],
+                        readOnly: true,
+                        decoration: InputDecoration(labelText: "Order Number"),
+                      ),
+                      SizedBox(height: 10),
+                      TextFormField(
+                        initialValue: _initialValue['status'],
+                        decoration: InputDecoration(labelText: "Status"),
+                      ),
+                      SizedBox(height: 10),
+                      TextFormField(
+                        initialValue: _initialValue['iznos'],
+                        readOnly: true,
+                        decoration: InputDecoration(labelText: "Total Amount"),
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        "Order Details:",
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      ..._stavkeNarudzbe.map((stavka) => Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: FutureBuilder<String>(
+                              future: _getProductName(stavka.proizvodId),
+                              builder: (context, snapshot) {
+                                return ListTile(
+                                  title: Text(snapshot.data ?? "Product Name"),
+                                  subtitle: Text("Quantity: ${stavka.kolicina}"),
+                                  trailing: IconButton(
+                                    icon: Icon(Icons.delete),
+                                    onPressed: () => _deleteStavka(stavka.stavkaNarudzbeId),
+                                  ),
+                                );
+                              },
+                            ),
+                          )),
+                      SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: _showAddItemDialog,
+                        child: Text("Add Item"),
+                      ),
+                      SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context, 'reload');
+                        },
+                        child: Text("Back"),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+    );
+  }
+
+  Future<String> _getProductName(int? productId) async {
+    if (productId == null) return 'Unknown';
+    try {
+      var product = await _productProvider.getById(productId);
+      return product.naziv ?? 'Unknown';
+    } catch (e) {
+      print('Error loading product name: $e');
       return 'Error loading product';
     }
   }
