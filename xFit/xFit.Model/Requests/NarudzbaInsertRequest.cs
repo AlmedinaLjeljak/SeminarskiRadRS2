@@ -9,6 +9,7 @@ namespace xFit.Model.Requests
 	public class NarudzbaInsertRequest
 	{
 		public List<StavkaNarudzbe>? Items { get; set; }
-		public int? KorisnikID { get; set; }
+
+		public int? KorisnikId { get; set; }
 	}
 }

@@ -19,7 +19,7 @@ public partial class Narudzba
 
     public virtual Korisnik? Korisnik { get; set; }
 
-    public virtual ICollection<StavkaNarudzbe> StavkaNarudzbes { get; } = new List<StavkaNarudzbe>();
+    public virtual ICollection<StavkaNarudzbe> StavkaNarudzbes { get; set; } = new List<StavkaNarudzbe>();
 
-    public virtual ICollection<Transakcija> Transakcijas { get; } = new List<Transakcija>();
+    public virtual ICollection<Transakcija> Transakcijas { get; set; } = new List<Transakcija>();
 }

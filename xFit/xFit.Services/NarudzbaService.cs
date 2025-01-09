@@ -16,7 +16,7 @@ namespace xFit.Services
 		public NarudzbaService(XFitContext context, IMapper mapper) : base(context, mapper)
 		{
 		}
-		/*public override async Task BeforeInsert(Database.Narudzba entity, NarudzbaInsertRequest insert)
+		public override async Task BeforeInsert(Database.Narudzba entity, NarudzbaInsertRequest insert)
 		{
 			double? _iznos = 0;
 			foreach (var item in insert.Items)
@@ -26,7 +26,7 @@ namespace xFit.Services
 				double? y = (double?)x;
 				_iznos += y;
 			}
-			entity.KorisnikId = insert.KorisnikID;
+			entity.KorisnikId = insert.KorisnikId;
 			entity.Datum = DateTime.Now;
 			entity.BrojNarudzbe = "#" + (_context.Narudzbas.Count() + 1).ToString();
 			entity.Iznos = _iznos;
@@ -36,7 +36,7 @@ namespace xFit.Services
 				Kolicina = item.Kolicina,
 				ProizvodId = item.ProizvodId,
 			}).ToList();
-		}*/
+		}
 		public override IQueryable<Database.Narudzba> AddFilter(IQueryable<Database.Narudzba> query, NarudzbeSearchObject? search = null)
 		{
 			if (search?.KorisnikId != 0)
