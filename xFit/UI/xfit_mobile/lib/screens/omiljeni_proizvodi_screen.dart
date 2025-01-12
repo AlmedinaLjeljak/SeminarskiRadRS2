@@ -49,7 +49,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
           columns: const [
             DataColumn(label: Text('Image')),
             DataColumn(label: Text('Date')),
-            DataColumn(label: Text('Actions')), // Change column label for clarity
+            DataColumn(label: Text('Actions')), 
           ],
           rows: favoriteProducts.isNotEmpty
               ? favoriteProducts.map((favorite) => DataRow(
@@ -69,7 +69,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                               return Text('Product not found');
                             } else {
                               final product = snapshot.data!;
-                              return imageFromBase64String(product.slika!);
+                              return imageFromBase64String(product.slika!); // Assuming you have an imageFromBase64String method
                             }
                           },
                         ),
@@ -86,7 +86,15 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                     ),
                   ],
                 )).toList() // Convert Iterable to List
-              : [DataRow(cells: [DataCell(Text('No favorites available'))])],
+              : [
+                  DataRow(
+                    cells: [
+                      DataCell(Text('No favorites available')),
+                      DataCell(Text('')), // Empty cell for "Date" column
+                      DataCell(Text('')), // Empty cell for "Actions" column
+                    ],
+                  )
+                ],
         ),
       ),
     );
@@ -104,3 +112,4 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     }
   }
 }
+
