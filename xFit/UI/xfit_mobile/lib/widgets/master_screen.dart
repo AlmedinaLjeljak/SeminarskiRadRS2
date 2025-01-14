@@ -34,6 +34,7 @@ class _MasterScreenWidgetState extends State<MasterScreenWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 154, 222, 235),
         title: widget.title_widget ?? Text(widget.title ?? ""),
         actions: [
           if (widget.showBackButton)
@@ -43,12 +44,9 @@ class _MasterScreenWidgetState extends State<MasterScreenWidget> {
                   Navigator.pop(context, 'reload2');
                 }
               },
-              icon: const Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-              ),
+           
               label: const Text(
-                "Back",
+                "",
                 style: TextStyle(color: Colors.white),
               ),
             ),
@@ -56,7 +54,7 @@ class _MasterScreenWidgetState extends State<MasterScreenWidget> {
       ),
       drawer: Drawer(
         child: Container(
-          color: Color.fromARGB(255, 154, 222, 235), // Zelena pozadina za Drawer
+          color: Color.fromARGB(255, 154, 222, 235), 
           child: ListView(
             children: [
               ListTile(

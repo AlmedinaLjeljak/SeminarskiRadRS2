@@ -233,7 +233,7 @@ class _TerminDetailScreenState extends State<TerminDetailScreen> {
       return;
     }
 
-    Future<int> getKlijentId() async {
+    /*Future<int> getKlijentId() async {
       final klijenti = await _korisniciProvider.get(filter: {
         'korisnikUlogas': 'klijent',
       });
@@ -242,7 +242,27 @@ class _TerminDetailScreenState extends State<TerminDetailScreen> {
           (korisnik) => korisnik.korisnickoIme == Authorization.username);
 
       return klijent.korisnikId!;
+    }*/
+    Future<int?> getKlijentId() async {
+  try {
+    final klijenti = await _korisniciProvider.get(filter: {
+      'korisnikUlogas': 'klijent',
+    });
+
+    // Provjeravamo postoji li barem jedan klijent
+    if (klijenti.result.isNotEmpty) {
+      // Vraćamo ID prvog klijenta u listi
+      return klijenti.result[0].korisnikId;
+    } else {
+      // Ako nema klijenata, vraćamo null
+      return null;
     }
+  } catch (e) {
+    print("Error fetching klijent: $e");
+    return null;
+  }
+}
+
 
     final klijent = await getKlijentId();
     final selectedDateTime = _modifiedDatum;

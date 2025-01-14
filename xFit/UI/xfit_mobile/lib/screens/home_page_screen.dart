@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:xfit_mobile/models/novost.dart';
 import 'package:xfit_mobile/providers/novosti_provider.dart';
 import 'package:xfit_mobile/screens/novost_screen.dart';
+import 'package:xfit_mobile/widgets/master_screen.dart';
 
 class HomePageScreen extends StatefulWidget {
   HomePageScreen({Key? key}) : super(key: key);
@@ -56,11 +57,11 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Home Page'),
-      ),
-      body: Column(
+    return MasterScreenWidget(
+      
+        title_widget: Text('Home Page'),
+      
+      child: Column(
         children: [
           _buildSearch(),
           _buildDataListView(),

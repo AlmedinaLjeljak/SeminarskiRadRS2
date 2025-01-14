@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:xfit_mobile/models/narudzba.dart';
 import 'package:xfit_mobile/providers/korisnik_providder.dart';
 import 'package:xfit_mobile/providers/narudzba_provider.dart';
+import 'package:xfit_mobile/widgets/master_screen.dart';
 
 class OrdersScreen extends StatefulWidget {
   const OrdersScreen({Key? key}) : super(key: key);
@@ -43,11 +44,11 @@ class _OrdersScreenState extends State<OrdersScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Orders'),
-      ),
-      body: Column(
+    return MasterScreenWidget(
+      
+        title_widget: Text('Orders'),
+      
+      child: Column(
         children: [
           _buildDataListView(),
         ],

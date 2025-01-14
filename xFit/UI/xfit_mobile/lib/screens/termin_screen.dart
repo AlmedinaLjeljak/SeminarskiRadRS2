@@ -4,6 +4,7 @@ import 'package:xfit_mobile/models/termin.dart';
 import 'package:xfit_mobile/providers/termini_provider.dart';
 import 'package:xfit_mobile/screens/termin_detail_screen.dart';
 import 'package:xfit_mobile/utils/util.dart';
+import 'package:xfit_mobile/widgets/master_screen.dart';
 
 class TerminScreen extends StatefulWidget {
   const TerminScreen({Key? key}) : super(key: key);
@@ -44,11 +45,11 @@ class _TerminiScreenState extends State<TerminScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Appointments'),
-      ),
-      body: SingleChildScrollView(
+    return MasterScreenWidget(
+      
+        title_widget: Text('Appointments'),
+      
+      child: SingleChildScrollView(
         child: Column(
           children: [
             Center(child: _buildDataListView()),
@@ -103,7 +104,7 @@ class _TerminiScreenState extends State<TerminScreen> {
   void _navigateToTerminDetailScreen(Termin? termin) async {
     final modifiedTermin = await Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => TerminDetailScreen(termin: termin),
+        builder: (context) => TerminDetailScreen(termin:termin ),
       ),
     );
 

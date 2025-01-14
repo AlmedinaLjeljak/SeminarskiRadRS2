@@ -6,6 +6,7 @@ import 'package:xfit_mobile/providers/korisnik_providder.dart';
 import 'dart:convert';
 
 import 'package:xfit_mobile/utils/util.dart';
+import 'package:xfit_mobile/widgets/master_screen.dart';
 
 class MyProfileScreen extends StatefulWidget {
   const MyProfileScreen({Key? key}) : super(key: key);
@@ -35,19 +36,32 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
     });
   }
 
-  Future<int> _getUserId() async {
+ Future<int> _getUserId() async {
+  try {
+    // Dobavljanje korisnika prema korisničkom imenu
     final korisnici = await _korisniciProvider.get(filter: {
       'korisnickoIme': Authorization.username,
     });
 
+    if (korisnici.result.isEmpty) {
+      throw Exception('No user found with username: ${Authorization.username}');
+    }
+
+    // Vraća ID prvog pronađenog korisnika
     return korisnici.result.first.korisnikId!;
+  } catch (e) {
+    // Log greške
+    print('Error in _getUserId: $e');
+    rethrow; // Ponovno baca grešku za rješavanje na višem nivou
   }
+}
+
 
   @override
   Widget build(BuildContext context) {
     if (_isLoading) {
-      return Scaffold(
-        body: Center(
+      return MasterScreenWidget(
+        child: Center(
           child: CircularProgressIndicator(),
         ),
       );
@@ -177,3 +191,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
     }
   }
 }
+
+
+
+

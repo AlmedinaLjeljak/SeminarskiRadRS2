@@ -113,49 +113,28 @@ class _CartScreenState extends State<CartScreen> {
   );
 }
 
-  /*Future<int> getKlijentId() async {
-      final klijent = await _korisniciProvider.get(filter: {
-        'tipKorisnika': 'klijent',
+  Future<int> getKlijentId() async {
+      final klijenti = await _korisniciProvider.get(filter: {
+        'korisnikUlogas': 'klijent',
       });
 
-      /*final klijent = klijent.result.firstWhere((korisnik) => korisnik.username== Authorization.username);*/
+      final klijent = klijenti.result.firstWhere((korisnik) => korisnik.korisnickoIme== Authorization.username);
 
-      return klijent.korisnikId;
-    }*/
+      return klijent.korisnikId!;
+    }
 
 
   
 
-   /* Future<String> getPatientLastName() async {
-      final pacijenti = await _korisniciProvider.get(filter: {
-        'tipKorisnika': 'pacijent',
+   Future<String> getPatientLastName() async {
+      final klijenti = await _korisniciProvider.get(filter: {
+        'korisnikUlogas': 'klijent',
       });
 
-      final pacijent = pacijenti.result.firstWhere((korisnik) => korisnik.username == Authorization.username);
+      final klijent = klijenti.result.firstWhere((korisnik) => korisnik.korisnickoIme == Authorization.username);
 
-      return pacijent.prezime!;
+      return klijent.prezime!;
     }
-
-     Future<String> getPatientAddress() async {
-      final pacijenti = await _korisniciProvider.get(filter: {
-        'tipKorisnika': 'pacijent',
-      });
-
-      final pacijent = pacijenti.result.firstWhere((korisnik) => korisnik.username == Authorization.username);
-
-      return pacijent.adresa!;
-    }
-
-    
-     Future<String> getPatientPhone() async {
-      final pacijenti = await _korisniciProvider.get(filter: {
-        'tipKorisnika': 'pacijent',
-      });
-
-      final pacijent = pacijenti.result.firstWhere((korisnik) => korisnik.username == Authorization.username);
-
-      return pacijent.telefon!;
-    }*/
 Widget _buildBuyButton() {
   return TextButton(
     child: Text("Buy"),
@@ -174,7 +153,7 @@ Widget _buildBuyButton() {
           },
         );
       });
-      /*int klijentId = await getKlijentId();
+      int klijentId = await getKlijentId();
       
 
       Map<String, dynamic> order = {
@@ -194,7 +173,7 @@ Widget _buildBuyButton() {
             narudzbaId: response.narudzbaId,
             iznos:response.iznos
           )),
-      );*/
+      );
     },
   );
 }
