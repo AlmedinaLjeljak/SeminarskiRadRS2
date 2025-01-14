@@ -10,6 +10,7 @@ import 'package:xfit_mobile/providers/omiljeni_proizvod_provider.dart';
 import 'package:xfit_mobile/providers/omiljeni_proizvod_provider.dart'; 
 import 'package:xfit_mobile/providers/product_provider.dart';
 import 'package:xfit_mobile/providers/recenzija_provider.dart';
+import 'package:xfit_mobile/providers/recommendResult_provider.dart';
 import 'package:xfit_mobile/providers/termini_provider.dart';
 import 'package:xfit_mobile/providers/transakcija_provider.dart';
 import 'package:xfit_mobile/providers/vrsta_proizvoda_provider.dart';
@@ -51,7 +52,7 @@ class MyMaterialApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => VrstaProizvodaProvider()),
         ChangeNotifierProvider(create: (_) => RecenzijaProvider()),
         ChangeNotifierProvider(create: (_) => TransakcijaProvider()),
-       //ChangeNotifierProvider(create: (_) => RecommendResultProvider()),
+        ChangeNotifierProvider(create: (_) => RecommendResultProvider()),
       ],
       child: MaterialApp(
         title: 'RS II Material app',

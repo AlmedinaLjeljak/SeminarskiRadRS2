@@ -39,11 +39,11 @@ namespace xFit.Controllers
 			return await (_service as IProizvodService).AllowedActions(id);
 		}
 
-		[HttpGet("{id}/recommend")]
+		/*[HttpGet("{id}/recommend")]
 		public virtual List<Model.Proizvod>Recommend(int id)
 		{
 			return  (_service as IProizvodService).Recommend(id);
 		}
-
+		*/
 	}
 } 

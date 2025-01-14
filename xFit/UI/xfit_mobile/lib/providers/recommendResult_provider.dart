@@ -12,15 +12,13 @@ import '../models/product.dart';
 
 
 
-
-
 class RecommendResultProvider<T> extends BaseProvider<RecommendResult> {
    
    String? _mainBaseUrl;
    String _endpoint = "RecommendResult";
    
    RecommendResultProvider(): super("RecommendResult"){
-    _mainBaseUrl = const String.fromEnvironment("mainBaseUrl", defaultValue: "http://10.0.2.2:5192/");
+    _mainBaseUrl = const String.fromEnvironment("mainBaseUrl", defaultValue: "http://10.0.2.2:7138/");
    }
  
  @override

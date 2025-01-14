@@ -126,7 +126,7 @@ class _CartScreenState extends State<CartScreen> {
 
   
 
-   Future<String> getPatientLastName() async {
+   Future<String> getKlijentLastName() async {
       final klijenti = await _korisniciProvider.get(filter: {
         'korisnikUlogas': 'klijent',
       });

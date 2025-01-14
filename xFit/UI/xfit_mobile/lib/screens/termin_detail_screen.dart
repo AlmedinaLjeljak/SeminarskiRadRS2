@@ -249,12 +249,12 @@ class _TerminDetailScreenState extends State<TerminDetailScreen> {
       'korisnikUlogas': 'klijent',
     });
 
-    // Provjeravamo postoji li barem jedan klijent
+  
     if (klijenti.result.isNotEmpty) {
-      // Vraćamo ID prvog klijenta u listi
+      
       return klijenti.result[0].korisnikId;
     } else {
-      // Ako nema klijenata, vraćamo null
+     
       return null;
     }
   } catch (e) {

@@ -28,14 +28,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   }
 
   void postReview() async {
-    // S obzirom da smo izbacili autorizaciju, pretpostavljamo da
-    // nije potrebno dohvatiti korisnika za unos recenzije.
-    // Možeš postaviti neki statički korisnik ID ili ga ukloniti u potpunosti.
+    
 
     await _recenzijaProvider.insert({
       "sadrzaj": _reviewController.text,
       "datum": DateTime.now().toIso8601String(),
-      "korisnikId": 1, // Zamijeniti s odgovarajućim ID-om korisnika, ako je potrebno
+      "korisnikId": 1, 
       "proizvodId": widget.product.proizvodId,
     });
     ScaffoldMessenger.of(context).showSnackBar(

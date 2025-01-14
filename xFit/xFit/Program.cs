@@ -193,11 +193,19 @@ app.MapControllers();
 using (var scope = app.Services.CreateScope())
 {
 	var dataContext = scope.ServiceProvider.GetRequiredService<XFitContext>();
-	//dataContext.Database.EnsureCreated();
+	if (!dataContext.Database.CanConnect())
+	{
+		dataContext.Database.Migrate();
 
-	var conn = dataContext.Database.GetConnectionString();
-
-	dataContext.Database.Migrate();
+		var recommendResutService = scope.ServiceProvider.GetRequiredService<IRecommendResultService>();
+		try
+		{
+			await recommendResutService.TrainProductsModel();
+		}
+		catch (Exception e)
+		{
+		}
+	}
 }
 
 app.Run();
