@@ -57,8 +57,8 @@ void _navigateToPaypalCheckout() async {
   Navigator.of(context).pushReplacement(MaterialPageRoute(
     builder: (BuildContext context) => PaypalCheckout(
       sandboxMode: true,
-      clientId: "AYqgdtH-gUKuOl9r8gp1N30W2xgy-JZ9RDnGAZDRm4iaRwZImdqOyUpQ7A4eUokrmjP2B8iYNig4zfP-",
-      secretKey: "ECnpPQaBicOGu5NdB6yLqbK4GxlmC1aDbIYtVKfNtg9ukliMqVKc3wAsoSgNaiNsDay8EdHG2sE6XjiQ",
+      clientId: "AWKCtp1D13eNQNe-fd7ujF0i-Cv4zUxhrd2q4D4qMUnKDjHRSVonKq-yHmG8d8nPg3NunJTKvldTDFVY",
+      secretKey: "EKL3tGhOxJZYeyufMqNaLrJkHI0Z2Z6qF9FINKp8ht8V8wOLp9bV8mQ9nlA8FoxE0pkFcDif_ifpSv_b",
       returnURL: "return.example.com",
       cancelURL: "cancel.example.com",
       transactions: [

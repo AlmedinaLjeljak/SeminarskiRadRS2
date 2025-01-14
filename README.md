@@ -12,6 +12,6 @@
 
 
   paypal:
-  email:sb-a1a8936571926@personal.example.com
-  password:Au.L#3,M
+  email: sb-3fz9736883262@personal.example.com
+  password: I&7yyipq
   
