@@ -1,10 +1,11 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:provider/provider.dart';
 import 'package:xfit_mobile/models/korisnik.dart';
 import 'package:xfit_mobile/providers/korisnik_providder.dart';
-import 'dart:convert';
-
 import 'package:xfit_mobile/utils/util.dart';
 import 'package:xfit_mobile/widgets/master_screen.dart';
 
@@ -29,39 +30,32 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
   }
 
   Future<void> _loadKorisnikData() async {
-    final korisnikId = await _getUserId();
+    final korisnikId = await getKlijentId();
     _korisnikFuture = _korisniciProvider.getById(korisnikId);
+
+    await Future.delayed(Duration(milliseconds: 300));
+
     setState(() {
       _isLoading = false;
     });
   }
 
- Future<int> _getUserId() async {
-  try {
-    // Dobavljanje korisnika prema korisničkom imenu
-    final korisnici = await _korisniciProvider.get(filter: {
-      'korisnickoIme': Authorization.username,
+  Future<int> getKlijentId() async {
+    final klijenti = await _korisniciProvider.get(filter: {
+      'korisnikUlogas': 'klijent',
     });
 
-    if (korisnici.result.isEmpty) {
-      throw Exception('No user found with username: ${Authorization.username}');
-    }
+    final klijent = klijenti.result.firstWhere(
+        (korisnik) => korisnik.korisnickoIme == Authorization.username);
 
-    // Vraća ID prvog pronađenog korisnika
-    return korisnici.result.first.korisnikId!;
-  } catch (e) {
-    // Log greške
-    print('Error in _getUserId: $e');
-    rethrow; // Ponovno baca grešku za rješavanje na višem nivou
+    return klijent.korisnikId!;
   }
-}
-
 
   @override
   Widget build(BuildContext context) {
     if (_isLoading) {
-      return MasterScreenWidget(
-        child: Center(
+      return Scaffold(
+        body: Center(
           child: CircularProgressIndicator(),
         ),
       );
@@ -76,111 +70,117 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
           } else {
             final korisnikData = snapshot.data;
 
-            return Scaffold(
-              appBar: AppBar(title: Text("My Profile")),
-              body: Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/pozadina.jpg'),
-                    fit: BoxFit.cover, // Pozadina će se prilagoditi veličini ekrana
-                  ),
-                ),
-                child: FormBuilder(
-                  key: _formKey,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        // Korisnička ikona na vrhu
-                        CircleAvatar(
-                          radius: 50,
-                          backgroundColor: Colors.grey[300],
-                          child: Icon(
-                            Icons.account_circle,
-                            size: 50,
-                            color: Colors.grey[700],
-                          ),
+            return MasterScreenWidget(
+              title_widget: Text("My Profile"),
+              child: FormBuilder(
+                key: _formKey,
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(height: 20),
+                 
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(100), 
+                        child: Image.asset(
+                          'assets/images/no_image.jpg',
+                          height: 150,
+                          width: 150,
+                          fit: BoxFit.cover,
                         ),
-                        SizedBox(height: 20),
+                      ),
+                      SizedBox(height: 20),
+                      FormBuilderTextField(
+                        name: 'ime',
+                        initialValue: korisnikData?.ime ?? '',
+                        enabled: true,
+                        decoration: InputDecoration(
+                          labelText: 'First name',
+                          prefixIcon: Icon(Icons.person),
+                        ),
+                      ),
+                      FormBuilderTextField(
+                        name: 'prezime',
+                        initialValue: korisnikData?.prezime ?? '',
+                        enabled: true,
+                        decoration: InputDecoration(
+                          labelText: 'Last name',
+                          prefixIcon: Icon(Icons.person),
+                        ),
+                      ),
+                      FormBuilderTextField(
+                        name: 'korisnickoIme',
+                        initialValue: korisnikData?.korisnickoIme ?? '',
+                        enabled: true,
+                        decoration: InputDecoration(
+                          labelText: 'Username',
+                          prefixIcon: Icon(Icons.account_circle),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: () async {
+                          if (_formKey.currentState != null) {
+                            if (_formKey.currentState!.saveAndValidate()) {
+                              var request = Map<String, dynamic>.from(
+                                  _formKey.currentState!.value);
 
-                        // Naslov "Podaci o korisniku"
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            "Podaci o korisniku",
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 20),
-                        FormBuilderTextField(
-                          name: 'ime',
-                          initialValue: korisnikData?.ime ?? '',
-                          enabled: true,
-                          decoration: InputDecoration(
-                            labelText: 'First name',
-                            prefixIcon: Icon(Icons.person),
-                          ),
-                        ),
-                        FormBuilderTextField(
-                          name: 'prezime',
-                          initialValue: korisnikData?.prezime ?? '',
-                          enabled: true,
-                          decoration: InputDecoration(
-                            labelText: 'Last name',
-                            prefixIcon: Icon(Icons.person),
-                          ),
-                        ),
-                        FormBuilderTextField(
-                          name: 'korisnickoIme',
-                          initialValue: korisnikData?.korisnickoIme ?? '',
-                          enabled: true,
-                          decoration: InputDecoration(
-                            labelText: 'Username',
-                            prefixIcon: Icon(Icons.account_circle),
-                          ),
-                        ),
-                        SizedBox(height: 20),
-                        ElevatedButton(
-                          onPressed: () async {
-                            if (_formKey.currentState != null) {
-                              if (_formKey.currentState!.saveAndValidate()) {
-                                var request =
-                                    Map<String, dynamic>.from(_formKey.currentState!.value);
-                                try {
-                                  await _korisniciProvider.update(
-                                      korisnikData!.korisnikId!, request);
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      backgroundColor: Colors.green,
-                                      content: Text("Profile successfully updated!"),
-                                    ),
-                                  );
-                                } catch (e) {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) => AlertDialog(
-                                      title: Text("Error"),
-                                      content: Text(e.toString()),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () => Navigator.pop(context),
-                                          child: Text("OK"),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                }
+                              if (request.isEmpty) {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                    title: Text("Warning"),
+                                    content: Text(
+                                        "Fields cannot be empty. Please fill in all fields."),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(context),
+                                        child: Text("OK"),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                                return;
+                              }
+
+                              try {
+                                await _korisniciProvider.update(
+                                    korisnikData!.korisnikId!, request);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    backgroundColor: Colors.green,
+                                    duration: Duration(milliseconds: 1000),
+                                    content: Text(
+                                        "'My profile' successfully updated!"),
+                                  ),
+                                );
+                              } catch (e) {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                    title: Text("Error"),
+                                    content: Text(e.toString()),
+                                    actions: [
+                                      TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(context),
+                                          child: Text("OK")),
+                                    ],
+                                  ),
+                                );
                               }
                             }
-                          },
-                          child: Text('Save'),
-                        ),
-                        SizedBox(height: 20),
-                      ],
-                    ),
+                          } else {
+                            print("");
+                          }
+                        },
+                        child: Text('Save'),
+                      ),
+                      SizedBox(height: 20),
+                    ],
                   ),
                 ),
               ),
@@ -191,7 +191,3 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
     }
   }
 }
-
-
-
-
