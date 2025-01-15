@@ -2,7 +2,9 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:xfit_mobile/models/grad.dart';
 import 'package:xfit_mobile/providers/cart_provider.dart';
+import 'package:xfit_mobile/providers/grad_provider.dart';
 import 'package:xfit_mobile/providers/korisnik_providder.dart';
 import 'package:xfit_mobile/providers/narudzba_provider.dart';
 import 'package:xfit_mobile/providers/novosti_provider.dart';
@@ -52,6 +54,7 @@ class MyMaterialApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => VrstaProizvodaProvider()),
         ChangeNotifierProvider(create: (_) => RecenzijaProvider()),
         ChangeNotifierProvider(create: (_) => TransakcijaProvider()),
+        ChangeNotifierProvider(create: (_) => GradProvider()),
         ChangeNotifierProvider(create: (_) => RecommendResultProvider()),
       ],
       child: MaterialApp(
@@ -103,72 +106,81 @@ class Welcome extends StatelessWidget {
   }
 }
 class LoginPage extends StatelessWidget {
-   LoginPage({super.key});
+  LoginPage({super.key});
 
-   TextEditingController _usernameController = new TextEditingController();
-   TextEditingController _passwordController = new TextEditingController();
-   late ProductProvider _productProvider;
+  TextEditingController _usernameController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  late ProductProvider _productProvider;
 
   @override
   Widget build(BuildContext context) {
     _productProvider = context.read<ProductProvider>();
     return Scaffold(
-      appBar: AppBar(title: Text("Login"),),
-      body: Center( 
+      appBar: AppBar(
+        title: Text("Login"),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back), 
+          onPressed: () {
+            Navigator.pop(context); 
+          },
+        ),
+      ),
+      body: Center(
         child: Container(
-          constraints: BoxConstraints(maxHeight: 800, maxWidth: 400), 
+          constraints: BoxConstraints(maxHeight: 800, maxWidth: 400),
           child: Card(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Column(children: [
-                Image.asset("assets/images/logo.png", height: 150,width: 300,),
-
-                TextField(
-                  decoration: InputDecoration(
-                    labelText: "Username",
-                    prefixIcon: Icon(Icons.email)
+              child: Column(
+                children: [
+                  Image.asset("assets/images/logo.png", height: 150, width: 300),
+                  TextField(
+                    decoration: InputDecoration(
+                        labelText: "Username", prefixIcon: Icon(Icons.email)),
+                    controller: _usernameController,
                   ),
-                  controller: _usernameController,
-                ),
-                SizedBox(height: 8,),
-                TextField(
-                  decoration: InputDecoration(
-                    labelText: "Password",
-                    prefixIcon: Icon(Icons.password)
+                  SizedBox(height: 8),
+                  TextField(
+                    decoration: InputDecoration(
+                        labelText: "Password", prefixIcon: Icon(Icons.password)),
+                    controller: _passwordController,
+                    obscureText: true,
                   ),
-                  controller: _passwordController,
-                   obscureText: true,
-                ),
-                SizedBox(height: 8,),
-                ElevatedButton(onPressed: () async{
-                  var username = _usernameController.text;
-                  var password = _passwordController.text;
+                  SizedBox(height: 8),
+                  ElevatedButton(
+                    onPressed: () async {
+                      var username = _usernameController.text;
+                      var password = _passwordController.text;
 
-                  print("login proceed $username $password");
+                      print("login proceed $username $password");
 
-                  Authorization.username = username;
-                  Authorization.password = password;
+                      Authorization.username = username;
+                      Authorization.password = password;
 
-                  try {
-                    await _productProvider.get();
-  
-                    Navigator.of(context).push( 
-                    MaterialPageRoute(builder: (context) => ProductListScreen()
-                    ),
-                    );
-                  } on Exception catch (e) {
-                    showDialog(
-                          context: context, 
+                      try {
+                        await _productProvider.get();
+
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => ProductListScreen()));
+                      } on Exception catch (e) {
+                        showDialog(
+                          context: context,
                           builder: (BuildContext context) => AlertDialog(
-                           title: Text("Error"),
-                           content: Text(e.toString()),
-                           actions: [
-                            TextButton(onPressed: ()=> Navigator.pop(context), child: Text("OK"))
-                           ],
-                          ));
-                  }
-                }, child: Text("Login"))
-              ]),
+                            title: Text("Error"),
+                            content: Text(e.toString()),
+                            actions: [
+                              TextButton(
+                                  onPressed: () => Navigator.pop(context),
+                                  child: Text("OK"))
+                            ],
+                          ),
+                        );
+                      }
+                    },
+                    child: Text("Login"),
+                  )
+                ],
+              ),
             ),
           ),
         ),
@@ -177,27 +189,48 @@ class LoginPage extends StatelessWidget {
   }
 }
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
   SignUpPage({super.key});
 
-   TextEditingController _firstnameController=new TextEditingController();
-  TextEditingController _lastnameController=new TextEditingController();
-  TextEditingController _usernameController=new TextEditingController();
-  TextEditingController _emailController=new TextEditingController();
-  TextEditingController _phoneController=new TextEditingController();
-  TextEditingController _addressController=new TextEditingController();
-  TextEditingController _genderController=new TextEditingController();
-  TextEditingController _passwordController=new TextEditingController();
-  TextEditingController _confirmPasswordController=new TextEditingController();
+  @override
+  _SignUpPageState createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
+  TextEditingController _firstnameController = TextEditingController();
+  TextEditingController _lastnameController = TextEditingController();
+  TextEditingController _usernameController = TextEditingController();
+  TextEditingController _genderController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  TextEditingController _confirmPasswordController = TextEditingController();
+  TextEditingController _cityController = TextEditingController();
 
   late KorisnisiProvider _korisniciProvider;
+  late GradProvider _gradoviProvider;
+  List<Grad> _cities = [];
+  int? _selectedCityId;
 
+  @override
+  void initState() {
+    super.initState();
+    _korisniciProvider = Provider.of<KorisnisiProvider>(context, listen: false);
+    _gradoviProvider = Provider.of<GradProvider>(context, listen: false);
+    _loadCities();
+  }
+
+  Future<void> _loadCities() async {
+    try {
+      var result = await _gradoviProvider.get();
+      setState(() {
+        _cities = result.result; 
+      });
+    } catch (e) {
+      print("Error fetching cities: $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-        _korisniciProvider = Provider.of<KorisnisiProvider>(context, listen: false);
-
-
     return Scaffold(
       appBar: AppBar(title: Text("Sign Up")),
       body: Center(
@@ -208,7 +241,7 @@ class SignUpPage extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: ListView(
                 children: [
-              Image.asset("assets/images/logo.png", height: 150,width: 300,),
+                  Image.asset("assets/images/logo.png", height: 150, width: 300),
                   TextField(
                     decoration: InputDecoration(
                       labelText: "First Name",
@@ -235,34 +268,36 @@ class SignUpPage extends StatelessWidget {
                   SizedBox(height: 8),
                   TextField(
                     decoration: InputDecoration(
-                      labelText: "Email",
-                      prefixIcon: Icon(Icons.email),
-                    ),
-                    controller: _emailController,
-                  ),
-                  SizedBox(height: 8),
-                  TextField(
-                    decoration: InputDecoration(
-                      labelText: "Phone",
-                      prefixIcon: Icon(Icons.phone),
-                    ),
-                    controller: _phoneController,
-                  ),
-                  SizedBox(height: 8),
-                  TextField(
-                    decoration: InputDecoration(
-                      labelText: "Address",
-                      prefixIcon: Icon(Icons.location_on),
-                    ),
-                    controller: _addressController,
-                  ),
-                  SizedBox(height: 8),
-                  TextField(
-                    decoration: InputDecoration(
                       labelText: "Select gender: 1-MALE, 2-FEMALE",
                       prefixIcon: Icon(Icons.transgender),
                     ),
                     controller: _genderController,
+                  ),
+                  SizedBox(height: 8),
+               
+                  DropdownButtonFormField<int>(
+                    decoration: InputDecoration(
+                      labelText: "Select City",
+                      prefixIcon: Icon(Icons.location_city),
+                    ),
+                    value: _selectedCityId,
+                    items: _cities
+                        .map((city) => DropdownMenuItem<int>(
+                              value: city.gradId,
+                              child: Text(city.naziv ?? "Unknown City"),
+                            ))
+                        .toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedCityId = value;
+                      });
+                    },
+                    validator: (value) {
+                      if (value == null) {
+                        return 'Please select a city';
+                      }
+                      return null;
+                    },
                   ),
                   SizedBox(height: 8),
                   TextField(
@@ -271,7 +306,7 @@ class SignUpPage extends StatelessWidget {
                       prefixIcon: Icon(Icons.lock),
                     ),
                     controller: _passwordController,
-                     obscureText: true,
+                    obscureText: true,
                   ),
                   SizedBox(height: 8),
                   TextField(
@@ -280,103 +315,85 @@ class SignUpPage extends StatelessWidget {
                       prefixIcon: Icon(Icons.lock),
                     ),
                     controller: _confirmPasswordController,
-                     obscureText: true,
+                    obscureText: true,
                   ),
                   SizedBox(height: 8),
-                 ElevatedButton(
-              onPressed: () async {
-                if (_firstnameController.text.isEmpty ||
-                    _lastnameController.text.isEmpty ||
-                    _emailController.text.isEmpty ||
-                    _phoneController.text.isEmpty ||
-                    _addressController.text.isEmpty ||
-                    _usernameController.text.isEmpty ||
-                    _passwordController.text.isEmpty ||
-                    _confirmPasswordController.text.isEmpty ||
-                    _genderController.text.isEmpty) {
-                  showDialog(
+                  ElevatedButton(
+                    onPressed: () async {
+                      if (_firstnameController.text.isEmpty ||
+                          _lastnameController.text.isEmpty ||
+                          _usernameController.text.isEmpty ||
+                          _passwordController.text.isEmpty ||
+                          _confirmPasswordController.text.isEmpty ||
+                          _selectedCityId == null ||
+                          _genderController.text.isEmpty) {
+                        showDialog(
                           context: context,
                           builder: (BuildContext context) => AlertDialog(
                             title: Text("Error"),
                             content: Text("All fields are required!"),
                             actions: [
-                              TextButton(onPressed: () => Navigator.pop(context), child: Text("OK")),
+                              TextButton(
+                                  onPressed: () => Navigator.pop(context),
+                                  child: Text("OK")),
                             ],
                           ),
                         );
-                }else if(_genderController.text.toUpperCase() != '1' && _genderController.text.toUpperCase() != '2')
-                     showDialog(
-                          context: context,
-                          builder: (BuildContext context) => AlertDialog(
-                            title: Text("Error"),
-                            content: Text("Please enter '1' or '2' for gender."),
-                            actions: [
-                              TextButton(onPressed: () => Navigator.pop(context), child: Text("OK")),
-                            ],
-                          ),
-                        );
-                 else if (_passwordController.text !=_confirmPasswordController.text) {
-                  showDialog(
-                          context: context,
-                          builder: (BuildContext context) => AlertDialog(
-                            title: Text("Error"),
-                            content: Text("Password needs to match the confirmation password."),
-                            actions: [
-                              TextButton(onPressed: () => Navigator.pop(context), child: Text("OK")),
-                            ],
-                          ),
-                        );
-                } else if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(_emailController.text)) {
+                      } else if (_genderController.text.toUpperCase() != '1' &&
+                          _genderController.text.toUpperCase() != '2') {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) => AlertDialog(
                             title: Text("Error"),
-                            content: Text("Incorrect email format."),
+                            content:
+                                Text("Please enter '1' or '2' for gender."),
                             actions: [
-                              TextButton(onPressed: () => Navigator.pop(context), child: Text("OK")),
+                              TextButton(
+                                  onPressed: () => Navigator.pop(context),
+                                  child: Text("OK")),
                             ],
                           ),
                         );
-                } else if (!RegExp(r"^(?:\+?\d{10}|\d{9})$").hasMatch(_phoneController.text)) {
+                      } else if (_passwordController.text !=
+                          _confirmPasswordController.text) {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) => AlertDialog(
                             title: Text("Error"),
-                            content: Text("Incorrect phone format."),
+                            content: Text(
+                                "Password needs to match the confirmation password."),
                             actions: [
-                              TextButton(onPressed: () => Navigator.pop(context), child: Text("OK")),
+                              TextButton(
+                                  onPressed: () => Navigator.pop(context),
+                                  child: Text("OK")),
                             ],
                           ),
                         );
-                } else {
-                  Map order = {
-                    "ime": _firstnameController.text,
-                    "prezime": _lastnameController.text,
-                    "korisnickoIme": _usernameController.text,
-                    "email": _emailController.text,
-                    "telefon": _phoneController.text,
-                    "adresa": _addressController.text,
-                    "password": _passwordController.text,
-                    "passwordPotvrda": _confirmPasswordController.text,
-                    "spolId": _genderController.text,
-                  
-                  };
+                      } else {
+                        Map order = {
+                          "ime": _firstnameController.text,
+                          "prezime": _lastnameController.text,
+                          "korisnickoIme": _usernameController.text,
+                          "password": _passwordController.text,
+                          "passwordPotvrda": _confirmPasswordController.text,
+                          "gradId": _selectedCityId,
+                          "spolId": _genderController.text,
+                        };
 
-                  var x = await _korisniciProvider.SignUp(order);
-                  print(x);
-                  if (x != null) {
-                    Authorization.username = _usernameController.text;
-                    Authorization.password = _passwordController.text;
+                        var x = await _korisniciProvider.SignUp(order);
+                        print(x);
+                        if (x != null) {
+                          Authorization.username = _usernameController.text;
+                          Authorization.password = _passwordController.text;
 
-                    Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) =>  ProductListScreen()
-                    ),
-                    );
-                  }
-                }
-              },
-              child: Center(child: Text("Sign up")),
-            ),
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => ProductListScreen(),
+                          ));
+                        }
+                      }
+                    },
+                    child: Center(child: Text("Sign up")),
+                  ),
                 ],
               ),
             ),
