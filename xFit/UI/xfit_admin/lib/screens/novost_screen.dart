@@ -25,10 +25,10 @@ class _NovostDetailScreenState extends State<NovostDetailScreen> {
   void initState() {
     super.initState();
 print("content from novost:${widget.novost?.sadzaj}");
-    // Initialize the initial values for the form
+ 
    _initialValue = {
   'naziv': widget.novost?.naziv ?? '',
-  'sadzaj': widget.novost?.sadzaj ?? '',  // dodajte default vrednost ako je null
+  'sadzaj': widget.novost?.sadzaj ?? '',  
   'datumObjave': widget.novost?.datumObjave ?? '',
 };
 
@@ -121,7 +121,7 @@ print("content from novost:${widget.novost?.sadzaj}");
           _formKey.currentState?.saveAndValidate();
 
           final request = Map<String, dynamic>.from(
-              _formKey.currentState!.value); // Form data
+              _formKey.currentState!.value); 
 
           try {
             if (widget.novost == null) {

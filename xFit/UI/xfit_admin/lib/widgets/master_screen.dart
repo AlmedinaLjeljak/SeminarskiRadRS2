@@ -27,6 +27,7 @@ class _MasterScreenWidgetState extends State<MasterScreenWidget>{
     return Scaffold(
       appBar: AppBar(
         title:widget.title_widget?? Text(widget.title??""),
+        backgroundColor: const Color.fromARGB(255, 186, 231, 240),
         /*actions:[
           TextButton.icon(
               onPressed: (() {

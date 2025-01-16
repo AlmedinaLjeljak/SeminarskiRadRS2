@@ -55,16 +55,16 @@ class _DateTestState extends State<DateTest> {
   bool isPastDate(DateTime datetime) {
     DateTime currentDate = DateTime.now();
     if (datetime.year < currentDate.year) {
-      return true; // if the year is in the past
+      return true; 
     }
     if (datetime.year == currentDate.year &&
         datetime.month < currentDate.month) {
-      return true; // if same year but past month
+      return true;
     }
     if (datetime.year == currentDate.year &&
         datetime.month == currentDate.month &&
         datetime.day <= currentDate.day) {
-      return true; // if same year but past month but current or past day
+      return true; 
     }
 
     return false;

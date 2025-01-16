@@ -29,7 +29,7 @@ namespace xFit.Services
 
 		public List<Model.Proizvod> Recommend(int? id)
 		{
-			lock (isLocked)// we lock it until it is finished
+			lock (isLocked)
 			{
 				if (mlContext == null)
 				{

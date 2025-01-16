@@ -139,7 +139,7 @@ namespace xFit.Services.Database
 					Cijena = 20,
 					Slika=ConvertImageToByteArray("wwwroot/images","image2.jpg"),
 					VrstaProizvodaId = 2,
-					StateMachine = "active"
+					StateMachine = "draft"
 				},
 				new Proizvod()
 				{
@@ -149,7 +149,7 @@ namespace xFit.Services.Database
 					Cijena = 30,
 					Slika = ConvertImageToByteArray("wwwroot/images", "image1.jpg"),
 					VrstaProizvodaId = 1,
-					StateMachine = "active"
+					StateMachine = "draft"
 				},
 				new Proizvod()
 				{
@@ -159,7 +159,7 @@ namespace xFit.Services.Database
 					Cijena = 20,
 					Slika = ConvertImageToByteArray("wwwroot/images", "image3.jpg"),
 					VrstaProizvodaId = 2,
-					StateMachine = "active"
+					StateMachine = "draft"
 				},
 				new Proizvod()
 				{
@@ -169,7 +169,7 @@ namespace xFit.Services.Database
 					Cijena = 50,
 					Slika = ConvertImageToByteArray("wwwroot/images", "image4.jpg"),
 					VrstaProizvodaId = 1,
-					StateMachine = "active"
+					StateMachine = "draft"
 				},
 				new Proizvod()
 				{
@@ -179,7 +179,7 @@ namespace xFit.Services.Database
 					Cijena = 100,
 					Slika = ConvertImageToByteArray("wwwroot/images", "image5.jpg"),
 					VrstaProizvodaId = 2,
-					StateMachine = "active"
+					StateMachine = "draft"
 				},
 				new Proizvod()
 				{
@@ -189,7 +189,7 @@ namespace xFit.Services.Database
 					Cijena = 50,
 					Slika = ConvertImageToByteArray("wwwroot/images", "image6.jpg"),
 					VrstaProizvodaId = 2,
-					StateMachine = "active"
+					StateMachine = "draft"
 				},
 				new Proizvod()
 				{
@@ -199,7 +199,7 @@ namespace xFit.Services.Database
 					Cijena = 50,
 					Slika = ConvertImageToByteArray("wwwroot/images", "image7.jpg"),
 					VrstaProizvodaId = 1,
-					StateMachine = "active"
+					StateMachine = "draft"
 				},
 				new Proizvod()
 				{
@@ -219,7 +219,7 @@ namespace xFit.Services.Database
 					Cijena = 50,
 					Slika = ConvertImageToByteArray("wwwroot/images", "image9.jpg"),
 					VrstaProizvodaId = 2,
-					StateMachine = "active"
+					StateMachine = "draft"
 				},
 				new Proizvod()
 				{
@@ -229,7 +229,7 @@ namespace xFit.Services.Database
 					Cijena = 20,
 					Slika = ConvertImageToByteArray("wwwroot/images", "image10.jpg"),
 					VrstaProizvodaId = 2,
-					StateMachine = "active"
+					StateMachine = "draft"
 				}
 				);
 			modelBuilder.Entity<Recenzija>().HasData(

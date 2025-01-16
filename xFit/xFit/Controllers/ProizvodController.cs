@@ -21,6 +21,18 @@ namespace xFit.Controllers
 
 
 		}
+
+		[Authorize(Roles = "uposlenik")]
+		public override Task<Model.Proizvod> Insert(PorizvodInsertRequest request)
+		{
+			return base.Insert(request);
+		}
+		[Authorize(Roles = "uposlenik")]
+		public override Task<Model.Proizvod> Update(int id,ProizvodUpdateRequest request)
+		{
+			return base.Update(id,request);
+		}
+
 		[HttpPut("{id}/activate")]
 		public virtual async Task<Model.Proizvod> Activate(int id)
 		{

@@ -19,7 +19,7 @@ namespace xFit.Services
 	public class ProizvodService : BaseCRUDService<Model.Proizvod, Database.Proizvod, ProizvodSearchObject, PorizvodInsertRequest, ProizvodUpdateRequest>, IProizvodService
 	{
 		public BaseState _BaseState { get; set; }
-		public ProizvodService(BaseState baseState,XFitContext context, IMapper mapper) : base(context, mapper)
+		public ProizvodService(BaseState baseState, XFitContext context, IMapper mapper) : base(context, mapper)
 		{
 			_BaseState = baseState;
 		}
@@ -28,11 +28,11 @@ namespace xFit.Services
 		{
 			var filterQuery = base.AddFilter(query, search);
 
-			if(!string.IsNullOrWhiteSpace(search?.FTS))
+			if (!string.IsNullOrWhiteSpace(search?.FTS))
 			{
 				filterQuery = filterQuery.Where(x => x.Naziv.Contains(search.FTS) || x.Sifra.Contains(search.FTS));
 			}
-			if(!string.IsNullOrWhiteSpace(search?.Sifra))
+			if (!string.IsNullOrWhiteSpace(search?.Sifra))
 			{
 				filterQuery = filterQuery.Where(x => x.Sifra == search.Sifra);
 			}
@@ -53,11 +53,11 @@ namespace xFit.Services
 
 		public override async Task<Model.Proizvod> Update(int id, ProizvodUpdateRequest update)
 		{
-			var entity =await _context.Proizvods.FindAsync(id);
+			var entity = await _context.Proizvods.FindAsync(id);
 
 			var state = _BaseState.Createstate(entity.StateMachine);
-			return await state.Update(id,update);
-		
+			return await state.Update(id, update);
+
 
 
 		}
@@ -193,6 +193,7 @@ namespace xFit.Services
 	}
 
 
+		
 
-
+	
 }

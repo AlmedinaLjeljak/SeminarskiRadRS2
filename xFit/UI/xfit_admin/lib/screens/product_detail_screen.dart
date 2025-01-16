@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
@@ -46,54 +45,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     });
   }
 
- /* Future<void> _saveProduct() async {
-    final isValid = _formKey.currentState?.saveAndValidate() ?? false;
-    if (!isValid) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Please fix all required fields before saving.'),
-          backgroundColor: Colors.red,
-        ),
-      );
-      return;
-    }
-
-    if (_base64Image == null || _base64Image!.isEmpty) {
-      _base64Image = base64Encode(File('assets/images/no_image.jpg').readAsBytesSync());
-    }
-
-    final request = Map.from(_formKey.currentState!.value);
-    request['slika'] = _base64Image;
-
-    try {
-      if (widget.product == null) {
-        await _productProvider.insert(request);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Product successfully added.'), backgroundColor: Colors.green),
-        );
-        _formKey.currentState?.reset();
-        Navigator.pop(context, 'reload');
-      } else {
-        await _productProvider.update(widget.product!.proizvodId!, request);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Product successfully updated.'), backgroundColor: Colors.green),
-        );
-        Navigator.pop(context, 'reload');
-      }
-    } catch (e) {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text("Error"),
-          content: Text(e.toString()),
-          actions: [
-            TextButton(onPressed: () => Navigator.pop(context), child: Text("OK"))
-          ],
-        ),
-      );
-    }
-  }*/
-
 
  Future<void> _saveProduct() async {
   final isValid = _formKey.currentState?.saveAndValidate() ?? false;
@@ -121,13 +72,13 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         SnackBar(content: Text('Product successfully added.'), backgroundColor: Colors.green),
       );
       _formKey.currentState?.reset();
-      Navigator.pop(context, 'reload');  // Signaliziraj osvežavanje
+      Navigator.pop(context, 'reload');  
     } else {
       await _productProvider.update(widget.product!.proizvodId!, request);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Product successfully updated.'), backgroundColor: Colors.green),
       );
-      Navigator.pop(context, 'reload');  // Signaliziraj osvežavanje
+      Navigator.pop(context, 'reload');  
     }
   } catch (e) {
     showDialog(
@@ -159,11 +110,11 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 186, 231, 240), // Set green background color
-        title: Text(widget.product?.naziv ?? "Product details"), // Dynamic title
+        backgroundColor: const Color.fromARGB(255, 186, 231, 240), 
+        title: Text(widget.product?.naziv ?? "Product details"), 
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0), // Apply horizontal padding to the entire body
+        padding: const EdgeInsets.symmetric(horizontal: 16.0), 
         child: Column(
           children: [
             if (isLoading) CircularProgressIndicator(),
