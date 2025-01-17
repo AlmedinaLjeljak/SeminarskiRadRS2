@@ -44,7 +44,7 @@ dependencies:
   intl: ^0.18.1
   collection: ^1.16.0
   flutter_form_builder: ^9.0.0
-  file_picker: ^5.2.4
+  file_picker: ^5.0.0
   http_auth: ^1.0.3
   webview_flutter: ^3.0.4
   shared_preferences: ^2.2.2
