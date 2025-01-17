@@ -88,8 +88,8 @@ namespace xFit.Services
 
 		static MLContext mlContext = null;
 		static object isLocked = new object();
-		ITransformer model=null;
-
+		ITransformer model = null;
+		
 		public List<Model.Proizvod> Recommend(int id)
 		{
 			lock(isLocked)
@@ -191,9 +191,9 @@ namespace xFit.Services
 
 		public float Label { get; set; }
 	}
+	
 
 
-		
 
 	
 }

@@ -233,16 +233,7 @@ class _TerminDetailScreenState extends State<TerminDetailScreen> {
       return;
     }
 
-    /*Future<int> getKlijentId() async {
-      final klijenti = await _korisniciProvider.get(filter: {
-        'korisnikUlogas': 'klijent',
-      });
-
-      final klijent = klijenti.result.firstWhere(
-          (korisnik) => korisnik.korisnickoIme == Authorization.username);
-
-      return klijent.korisnikId!;
-    }*/
+ 
     Future<int?> getKlijentId() async {
   try {
     final klijenti = await _korisniciProvider.get(filter: {

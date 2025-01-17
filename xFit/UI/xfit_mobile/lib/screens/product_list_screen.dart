@@ -23,7 +23,7 @@ class ProductListScreen extends StatefulWidget {
 class _ProductListScreenState extends State<ProductListScreen> {
   late ProductProvider _productProvider;
   late CartProvider _cartProvider;
-  //late FavoritesProvider _favoritesProvider;
+  late OmiljeniProizvodProvider _favoritesProvider;
   late KorisnisiProvider _korisniciProvider;
   SearchResult<Product>? result;
   SearchResult<Product>? resultRecomm;
@@ -41,7 +41,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
   void initState() {
     super.initState();
     _fetchProducts();
-      //_favoritesProvider = Provider.of<FavoritesProvider>(context, listen: false);
+      _favoritesProvider = Provider.of<OmiljeniProizvodProvider>(context, listen: false);
       _korisniciProvider = Provider.of<KorisnisiProvider>(context, listen: false);
       _recommendResultProvider = context.read<RecommendResultProvider>();
   }
@@ -232,37 +232,46 @@ List<Widget> list = (dataX?.result ?? [])
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Something bad happened."),));
                           }
                           },
-                      )
-                      /*IconButton(
-              icon: Icon(Icons.favorite),
-              onPressed: () async {
-                final isProductFavorite =
-                await _favoritesProvider.exists(x.proizvodID!);
+                      ),
+                      IconButton(
+  icon: Icon(Icons.favorite),
+  onPressed: () async {
+    try {
 
-                if (!isProductFavorite) {
-                favoritesProvider.sendRabbit({
-                    "datumDodavanja": DateTime.now().toUtc().toIso8601String(),
-                    "ProizvodId": x.proizvodID,
-                    "KorisnikId": await getPatientId(),
-                  });
-                
-                ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      backgroundColor: Colors.green,
-                      duration: Duration(milliseconds: 1000),
-                      content:
-                        Text("Item ${x.naziv} successfully added to favorites."),
-                    ),
-                  );
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text("Product is already in favorites."),
-                    ),
-                  );
-                }
-              },
-            )*/,
+      final isProductFavorite = await _favoritesProvider.exists(x.proizvodId!);
+
+      if (!isProductFavorite) {
+
+        await _favoritesProvider.insert({
+          "datumDodavanja": DateTime.now().toUtc().toIso8601String(),
+          "proizvodId": x.proizvodId,
+          "korisnikId": await getKlijentId(),
+        });
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.green,
+            duration: Duration(milliseconds: 1000),
+            content: Text("Proizvod ${x.naziv} uspješno dodan u omiljene."),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Proizvod je već u omiljenim."),
+          ),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Došlo je do greške pri dodavanju u omiljene."),
+        ),
+      );
+    }
+  },
+),
+
                     ],
                   ),
                 ],

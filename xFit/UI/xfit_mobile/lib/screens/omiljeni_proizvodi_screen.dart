@@ -69,7 +69,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                               return Text('Product not found');
                             } else {
                               final product = snapshot.data!;
-                              return imageFromBase64String(product.slika!); // Assuming you have an imageFromBase64String method
+                              return imageFromBase64String(product.slika!); 
                             }
                           },
                         ),
@@ -85,13 +85,13 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                       ),
                     ),
                   ],
-                )).toList() // Convert Iterable to List
+                )).toList() 
               : [
                   DataRow(
                     cells: [
                       DataCell(Text('No favorites available')),
-                      DataCell(Text('')), // Empty cell for "Date" column
-                      DataCell(Text('')), // Empty cell for "Actions" column
+                      DataCell(Text('')), 
+                      DataCell(Text('')), 
                     ],
                   )
                 ],
