@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_admin\windows\flutter\ephemeral\cpp_client_wrapper\core_implementations.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_admin\windows\flutter\ephemeral\cpp_client_wrapper\standard_codec.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_admin\windows\flutter\ephemeral\cpp_client_wrapper\flutter_engine.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_admin\windows\flutter\ephemeral\cpp_client_wrapper\flutter_view_controller.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_admin\windows\flutter\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{2620BDAF-F2D0-31D5-940B-D1FFD0EAAE27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{5109FC05-754B-3644-B755-1BD6F1905E54}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

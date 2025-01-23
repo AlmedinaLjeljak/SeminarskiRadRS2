@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "C:/Users/HOME/Desktop/SeminarskiRS2/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/CMakeFiles/pdfium-download"
+		},
+		{
+			"file" : "C:/Users/HOME/Desktop/SeminarskiRS2/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/CMakeFiles/4058b535e1a7e8195d9cd4f28ccbf4dc/pdfium-download.rule"
+		},
+		{
+			"file" : "C:/Users/HOME/Desktop/SeminarskiRS2/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/CMakeFiles/c6548ac3fd0eb4205319c80e89b3cc28/pdfium-download-complete.rule"
+		},
+		{
+			"file" : "C:/Users/HOME/Desktop/SeminarskiRS2/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/CMakeFiles/080d14bd4d10efa7d5c44562427bc783/pdfium-download-build.rule"
+		},
+		{
+			"file" : "C:/Users/HOME/Desktop/SeminarskiRS2/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/CMakeFiles/080d14bd4d10efa7d5c44562427bc783/pdfium-download-configure.rule"
+		},
+		{
+			"file" : "C:/Users/HOME/Desktop/SeminarskiRS2/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/CMakeFiles/080d14bd4d10efa7d5c44562427bc783/pdfium-download-download.rule"
+		},
+		{
+			"file" : "C:/Users/HOME/Desktop/SeminarskiRS2/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/CMakeFiles/080d14bd4d10efa7d5c44562427bc783/pdfium-download-install.rule"
+		},
+		{
+			"file" : "C:/Users/HOME/Desktop/SeminarskiRS2/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/CMakeFiles/080d14bd4d10efa7d5c44562427bc783/pdfium-download-mkdir.rule"
+		},
+		{
+			"file" : "C:/Users/HOME/Desktop/SeminarskiRS2/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/CMakeFiles/080d14bd4d10efa7d5c44562427bc783/pdfium-download-patch.rule"
+		},
+		{
+			"file" : "C:/Users/HOME/Desktop/SeminarskiRS2/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/CMakeFiles/080d14bd4d10efa7d5c44562427bc783/pdfium-download-test.rule"
+		},
+		{
+			"file" : "C:/Users/HOME/Desktop/SeminarskiRS2/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/CMakeFiles/080d14bd4d10efa7d5c44562427bc783/pdfium-download-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"pdfium-download"
+		],
+		"name" : "pdfium-download"
+	}
+}
