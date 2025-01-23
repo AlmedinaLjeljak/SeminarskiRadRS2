@@ -1,0 +1,271 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.xfit_mobile"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+9        android:targetSdkVersion="34" />
+10    <!--
+11         The INTERNET permission is required for development. Specifically,
+12         the Flutter tool needs it to communicate with the running application
+13         to allow setting breakpoints, to provide hot reload, etc.
+14    -->
+15    <uses-permission android:name="android.permission.INTERNET" />
+15-->C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\android\app\src\debug\AndroidManifest.xml:6:5-66
+15-->C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\android\app\src\debug\AndroidManifest.xml:6:22-64
+16    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+16-->[:file_picker] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-80
+16-->[:file_picker] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:9:22-77
+17
+18    <queries>
+18-->[:file_picker] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:11:5-17:15
+19        <intent>
+19-->[:file_picker] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:12:9-16:18
+20            <action android:name="android.intent.action.GET_CONTENT" />
+20-->[:file_picker] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-72
+20-->[:file_picker] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:13:21-69
+21
+22            <data android:mimeType="*/*" />
+22-->[:file_picker] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:15:13-44
+22-->[:file_picker] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:15:19-41
+23        </intent>
+24        <intent>
+24-->[:flutter_inappwebview] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\flutter_inappwebview\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-12:18
+25            <action android:name="android.support.customtabs.action.CustomTabsService" />
+25-->[:flutter_inappwebview] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\flutter_inappwebview\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-90
+25-->[:flutter_inappwebview] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\flutter_inappwebview\intermediates\merged_manifest\debug\AndroidManifest.xml:11:21-87
+26        </intent>
+27    </queries>
+28
+29    <permission
+29-->[androidx.core:core:1.13.1] C:\Users\HOME\.gradle\caches\transforms-3\61422623bf6862909be7c39fdc286162\transformed\core-1.13.1\AndroidManifest.xml:22:5-24:47
+30        android:name="com.example.xfit_mobile.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+30-->[androidx.core:core:1.13.1] C:\Users\HOME\.gradle\caches\transforms-3\61422623bf6862909be7c39fdc286162\transformed\core-1.13.1\AndroidManifest.xml:23:9-81
+31        android:protectionLevel="signature" />
+31-->[androidx.core:core:1.13.1] C:\Users\HOME\.gradle\caches\transforms-3\61422623bf6862909be7c39fdc286162\transformed\core-1.13.1\AndroidManifest.xml:24:9-44
+32
+33    <uses-permission android:name="com.example.xfit_mobile.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+33-->[androidx.core:core:1.13.1] C:\Users\HOME\.gradle\caches\transforms-3\61422623bf6862909be7c39fdc286162\transformed\core-1.13.1\AndroidManifest.xml:26:5-97
+33-->[androidx.core:core:1.13.1] C:\Users\HOME\.gradle\caches\transforms-3\61422623bf6862909be7c39fdc286162\transformed\core-1.13.1\AndroidManifest.xml:26:22-94
+34
+35    <application
+36        android:name="android.app.Application"
+37        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+37-->[androidx.core:core:1.13.1] C:\Users\HOME\.gradle\caches\transforms-3\61422623bf6862909be7c39fdc286162\transformed\core-1.13.1\AndroidManifest.xml:28:18-86
+38        android:debuggable="true"
+39        android:icon="@mipmap/ic_launcher"
+40        android:label="xfit_mobile" >
+41        <activity
+42            android:name="com.example.xfit_mobile.MainActivity"
+43            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+44            android:exported="true"
+45            android:hardwareAccelerated="true"
+46            android:launchMode="singleTop"
+47            android:theme="@style/LaunchTheme"
+48            android:windowSoftInputMode="adjustResize" >
+49
+50            <!--
+51                 Specifies an Android theme to apply to this Activity as soon as
+52                 the Android process has started. This theme is visible to the user
+53                 while the Flutter UI initializes. After that, this theme continues
+54                 to determine the Window background behind the Flutter UI.
+55            -->
+56            <meta-data
+57                android:name="io.flutter.embedding.android.NormalTheme"
+58                android:resource="@style/NormalTheme" />
+59
+60            <intent-filter>
+61                <action android:name="android.intent.action.MAIN" />
+62
+63                <category android:name="android.intent.category.LAUNCHER" />
+64            </intent-filter>
+65        </activity>
+66        <!--
+67             Don't delete the meta-data below.
+68             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+69        -->
+70        <meta-data
+71            android:name="flutterEmbedding"
+72            android:value="2" />
+73
+74        <activity
+74-->[:flutter_inappwebview] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\flutter_inappwebview\intermediates\merged_manifest\debug\AndroidManifest.xml:16:9-20:47
+75            android:name="com.pichillilorenzo.flutter_inappwebview.in_app_browser.InAppBrowserActivity"
+75-->[:flutter_inappwebview] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\flutter_inappwebview\intermediates\merged_manifest\debug\AndroidManifest.xml:17:13-104
+76            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density"
+76-->[:flutter_inappwebview] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\flutter_inappwebview\intermediates\merged_manifest\debug\AndroidManifest.xml:18:13-137
+77            android:exported="false"
+77-->[:flutter_inappwebview] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\flutter_inappwebview\intermediates\merged_manifest\debug\AndroidManifest.xml:19:13-37
+78            android:theme="@style/AppTheme" />
+78-->[:flutter_inappwebview] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\flutter_inappwebview\intermediates\merged_manifest\debug\AndroidManifest.xml:20:13-44
+79        <activity
+79-->[:flutter_inappwebview] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\flutter_inappwebview\intermediates\merged_manifest\debug\AndroidManifest.xml:21:9-24:55
+80            android:name="com.pichillilorenzo.flutter_inappwebview.chrome_custom_tabs.ChromeCustomTabsActivity"
+80-->[:flutter_inappwebview] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\flutter_inappwebview\intermediates\merged_manifest\debug\AndroidManifest.xml:22:13-112
+81            android:exported="false"
+81-->[:flutter_inappwebview] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\flutter_inappwebview\intermediates\merged_manifest\debug\AndroidManifest.xml:23:13-37
+82            android:theme="@style/ThemeTransparent" />
+82-->[:flutter_inappwebview] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\flutter_inappwebview\intermediates\merged_manifest\debug\AndroidManifest.xml:24:13-52
+83        <activity
+83-->[:flutter_inappwebview] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\flutter_inappwebview\intermediates\merged_manifest\debug\AndroidManifest.xml:25:9-28:55
+84            android:name="com.pichillilorenzo.flutter_inappwebview.chrome_custom_tabs.TrustedWebActivity"
+84-->[:flutter_inappwebview] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\flutter_inappwebview\intermediates\merged_manifest\debug\AndroidManifest.xml:26:13-106
+85            android:exported="false"
+85-->[:flutter_inappwebview] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\flutter_inappwebview\intermediates\merged_manifest\debug\AndroidManifest.xml:27:13-37
+86            android:theme="@style/ThemeTransparent" />
+86-->[:flutter_inappwebview] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\flutter_inappwebview\intermediates\merged_manifest\debug\AndroidManifest.xml:28:13-52
+87        <activity
+87-->[:flutter_inappwebview] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\flutter_inappwebview\intermediates\merged_manifest\debug\AndroidManifest.xml:29:9-33:55
+88            android:name="com.pichillilorenzo.flutter_inappwebview.chrome_custom_tabs.ChromeCustomTabsActivitySingleInstance"
+88-->[:flutter_inappwebview] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\flutter_inappwebview\intermediates\merged_manifest\debug\AndroidManifest.xml:30:13-126
+89            android:exported="false"
+89-->[:flutter_inappwebview] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\flutter_inappwebview\intermediates\merged_manifest\debug\AndroidManifest.xml:31:13-37
+90            android:launchMode="singleInstance"
+90-->[:flutter_inappwebview] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\flutter_inappwebview\intermediates\merged_manifest\debug\AndroidManifest.xml:32:13-48
+91            android:theme="@style/ThemeTransparent" />
+91-->[:flutter_inappwebview] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\flutter_inappwebview\intermediates\merged_manifest\debug\AndroidManifest.xml:33:13-52
+92        <activity
+92-->[:flutter_inappwebview] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\flutter_inappwebview\intermediates\merged_manifest\debug\AndroidManifest.xml:34:9-38:55
+93            android:name="com.pichillilorenzo.flutter_inappwebview.chrome_custom_tabs.TrustedWebActivitySingleInstance"
+93-->[:flutter_inappwebview] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\flutter_inappwebview\intermediates\merged_manifest\debug\AndroidManifest.xml:35:13-120
+94            android:exported="false"
+94-->[:flutter_inappwebview] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\flutter_inappwebview\intermediates\merged_manifest\debug\AndroidManifest.xml:36:13-37
+95            android:launchMode="singleInstance"
+95-->[:flutter_inappwebview] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\flutter_inappwebview\intermediates\merged_manifest\debug\AndroidManifest.xml:37:13-48
+96            android:theme="@style/ThemeTransparent" />
+96-->[:flutter_inappwebview] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\flutter_inappwebview\intermediates\merged_manifest\debug\AndroidManifest.xml:38:13-52
+97
+98        <receiver
+98-->[:flutter_inappwebview] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\flutter_inappwebview\intermediates\merged_manifest\debug\AndroidManifest.xml:40:9-43:40
+99            android:name="com.pichillilorenzo.flutter_inappwebview.chrome_custom_tabs.ActionBroadcastReceiver"
+99-->[:flutter_inappwebview] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\flutter_inappwebview\intermediates\merged_manifest\debug\AndroidManifest.xml:41:13-111
+100            android:enabled="true"
+100-->[:flutter_inappwebview] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\flutter_inappwebview\intermediates\merged_manifest\debug\AndroidManifest.xml:42:13-35
+101            android:exported="false" />
+101-->[:flutter_inappwebview] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\flutter_inappwebview\intermediates\merged_manifest\debug\AndroidManifest.xml:43:13-37
+102
+103        <meta-data
+103-->[:flutter_inappwebview] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\flutter_inappwebview\intermediates\merged_manifest\debug\AndroidManifest.xml:45:9-47:36
+104            android:name="io.flutter.embedded_views_preview"
+104-->[:flutter_inappwebview] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\flutter_inappwebview\intermediates\merged_manifest\debug\AndroidManifest.xml:46:13-61
+105            android:value="true" />
+105-->[:flutter_inappwebview] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\flutter_inappwebview\intermediates\merged_manifest\debug\AndroidManifest.xml:47:13-33
+106
+107        <provider
+107-->[:image_picker_android] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-18:20
+108            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
+108-->[:image_picker_android] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-82
+109            android:authorities="com.example.xfit_mobile.flutter.image_provider"
+109-->[:image_picker_android] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-74
+110            android:exported="false"
+110-->[:image_picker_android] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-37
+111            android:grantUriPermissions="true" >
+111-->[:image_picker_android] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:14:13-47
+112            <meta-data
+112-->[:image_picker_android] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:15:13-17:75
+113                android:name="android.support.FILE_PROVIDER_PATHS"
+113-->[:image_picker_android] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:16:17-67
+114                android:resource="@xml/flutter_image_picker_file_paths" />
+114-->[:image_picker_android] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:17:17-72
+115        </provider>
+116        <provider
+116-->[:printing] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-18:20
+117            android:name="net.nfet.flutter.printing.PrintFileProvider"
+117-->[:printing] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-71
+118            android:authorities="com.example.xfit_mobile.flutter.printing"
+118-->[:printing] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-68
+119            android:exported="false"
+119-->[:printing] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-37
+120            android:grantUriPermissions="true" >
+120-->[:printing] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:14:13-47
+121            <meta-data
+121-->[:image_picker_android] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:15:13-17:75
+122                android:name="android.support.FILE_PROVIDER_PATHS"
+122-->[:image_picker_android] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:16:17-67
+123                android:resource="@xml/flutter_printing_file_paths" />
+123-->[:image_picker_android] C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_mobile\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:17:17-72
+124        </provider>
+125
+126        <uses-library
+126-->[androidx.window:window:1.2.0] C:\Users\HOME\.gradle\caches\transforms-3\2ad151485d4233fdbf893dfac078f6d7\transformed\jetified-window-1.2.0\AndroidManifest.xml:23:9-25:40
+127            android:name="androidx.window.extensions"
+127-->[androidx.window:window:1.2.0] C:\Users\HOME\.gradle\caches\transforms-3\2ad151485d4233fdbf893dfac078f6d7\transformed\jetified-window-1.2.0\AndroidManifest.xml:24:13-54
+128            android:required="false" />
+128-->[androidx.window:window:1.2.0] C:\Users\HOME\.gradle\caches\transforms-3\2ad151485d4233fdbf893dfac078f6d7\transformed\jetified-window-1.2.0\AndroidManifest.xml:25:13-37
+129        <uses-library
+129-->[androidx.window:window:1.2.0] C:\Users\HOME\.gradle\caches\transforms-3\2ad151485d4233fdbf893dfac078f6d7\transformed\jetified-window-1.2.0\AndroidManifest.xml:26:9-28:40
+130            android:name="androidx.window.sidecar"
+130-->[androidx.window:window:1.2.0] C:\Users\HOME\.gradle\caches\transforms-3\2ad151485d4233fdbf893dfac078f6d7\transformed\jetified-window-1.2.0\AndroidManifest.xml:27:13-51
+131            android:required="false" />
+131-->[androidx.window:window:1.2.0] C:\Users\HOME\.gradle\caches\transforms-3\2ad151485d4233fdbf893dfac078f6d7\transformed\jetified-window-1.2.0\AndroidManifest.xml:28:13-37
+132
+133        <provider
+133-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HOME\.gradle\caches\transforms-3\0b0cd26027bfd6bdb482c2fc824ffc7c\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+134            android:name="androidx.startup.InitializationProvider"
+134-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HOME\.gradle\caches\transforms-3\0b0cd26027bfd6bdb482c2fc824ffc7c\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
+135            android:authorities="com.example.xfit_mobile.androidx-startup"
+135-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HOME\.gradle\caches\transforms-3\0b0cd26027bfd6bdb482c2fc824ffc7c\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
+136            android:exported="false" >
+136-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HOME\.gradle\caches\transforms-3\0b0cd26027bfd6bdb482c2fc824ffc7c\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37
+137            <meta-data
+137-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HOME\.gradle\caches\transforms-3\0b0cd26027bfd6bdb482c2fc824ffc7c\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+138                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+138-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HOME\.gradle\caches\transforms-3\0b0cd26027bfd6bdb482c2fc824ffc7c\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
+139                android:value="androidx.startup" />
+139-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HOME\.gradle\caches\transforms-3\0b0cd26027bfd6bdb482c2fc824ffc7c\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
+140            <meta-data
+140-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\HOME\.gradle\caches\transforms-3\eb164561af291af9a557be30a8d49de4\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:29:13-31:52
+141                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+141-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\HOME\.gradle\caches\transforms-3\eb164561af291af9a557be30a8d49de4\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:30:17-78
+142                android:value="androidx.startup" />
+142-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\HOME\.gradle\caches\transforms-3\eb164561af291af9a557be30a8d49de4\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:31:17-49
+143            <meta-data
+143-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\HOME\.gradle\caches\transforms-3\577140d2aaf93f64bb6f2312aa3a45c4\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:29:13-31:52
+144                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+144-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\HOME\.gradle\caches\transforms-3\577140d2aaf93f64bb6f2312aa3a45c4\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:30:17-85
+145                android:value="androidx.startup" />
+145-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\HOME\.gradle\caches\transforms-3\577140d2aaf93f64bb6f2312aa3a45c4\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:31:17-49
+146        </provider>
+147
+148        <receiver
+148-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\HOME\.gradle\caches\transforms-3\577140d2aaf93f64bb6f2312aa3a45c4\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:34:9-52:20
+149            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+149-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\HOME\.gradle\caches\transforms-3\577140d2aaf93f64bb6f2312aa3a45c4\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:35:13-76
+150            android:directBootAware="false"
+150-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\HOME\.gradle\caches\transforms-3\577140d2aaf93f64bb6f2312aa3a45c4\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:36:13-44
+151            android:enabled="true"
+151-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\HOME\.gradle\caches\transforms-3\577140d2aaf93f64bb6f2312aa3a45c4\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:37:13-35
+152            android:exported="true"
+152-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\HOME\.gradle\caches\transforms-3\577140d2aaf93f64bb6f2312aa3a45c4\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:38:13-36
+153            android:permission="android.permission.DUMP" >
+153-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\HOME\.gradle\caches\transforms-3\577140d2aaf93f64bb6f2312aa3a45c4\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:39:13-57
+154            <intent-filter>
+154-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\HOME\.gradle\caches\transforms-3\577140d2aaf93f64bb6f2312aa3a45c4\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:40:13-42:29
+155                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+155-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\HOME\.gradle\caches\transforms-3\577140d2aaf93f64bb6f2312aa3a45c4\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:41:17-91
+155-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\HOME\.gradle\caches\transforms-3\577140d2aaf93f64bb6f2312aa3a45c4\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:41:25-88
+156            </intent-filter>
+157            <intent-filter>
+157-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\HOME\.gradle\caches\transforms-3\577140d2aaf93f64bb6f2312aa3a45c4\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:43:13-45:29
+158                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+158-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\HOME\.gradle\caches\transforms-3\577140d2aaf93f64bb6f2312aa3a45c4\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:44:17-85
+158-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\HOME\.gradle\caches\transforms-3\577140d2aaf93f64bb6f2312aa3a45c4\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:44:25-82
+159            </intent-filter>
+160            <intent-filter>
+160-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\HOME\.gradle\caches\transforms-3\577140d2aaf93f64bb6f2312aa3a45c4\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:46:13-48:29
+161                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+161-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\HOME\.gradle\caches\transforms-3\577140d2aaf93f64bb6f2312aa3a45c4\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:47:17-88
+161-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\HOME\.gradle\caches\transforms-3\577140d2aaf93f64bb6f2312aa3a45c4\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:47:25-85
+162            </intent-filter>
+163            <intent-filter>
+163-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\HOME\.gradle\caches\transforms-3\577140d2aaf93f64bb6f2312aa3a45c4\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:49:13-51:29
+164                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+164-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\HOME\.gradle\caches\transforms-3\577140d2aaf93f64bb6f2312aa3a45c4\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:50:17-95
+164-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\HOME\.gradle\caches\transforms-3\577140d2aaf93f64bb6f2312aa3a45c4\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:50:25-92
+165            </intent-filter>
+166        </receiver>
+167    </application>
+168
+169</manifest>
