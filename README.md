@@ -1,12 +1,12 @@
 # Credentials
 
-### Desktop users:
+### Desktop users
   username: desktop                                                                                                                                               
   password: test
   
 
   
-### Mobile user:
+### Mobile user
   username: mobile                                                                                                                                                     
   password: test
 
