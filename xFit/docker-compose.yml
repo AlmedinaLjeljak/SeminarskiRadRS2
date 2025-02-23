@@ -3,6 +3,7 @@ services:
 #mssql docker
   xfit-sql:
     image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu
+    container_name: xfit-sql
     restart: unless-stopped
     environment:
       - ACCEPT_EULA=Y

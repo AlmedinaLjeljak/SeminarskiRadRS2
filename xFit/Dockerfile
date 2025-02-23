@@ -13,5 +13,8 @@ RUN dotnet publish "xFit/xFit.csproj" -c Release -o /app
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
+COPY xFit/wwwroot/images /xFit/wwwroot/images
+
+
 
 ENTRYPOINT ["dotnet", "xFit.dll"]

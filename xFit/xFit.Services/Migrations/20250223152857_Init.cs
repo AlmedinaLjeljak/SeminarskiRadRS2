@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace xFit.Services.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -464,15 +464,15 @@ namespace xFit.Services.Migrations
             migrationBuilder.InsertData(
                 table: "Klijent",
                 columns: new[] { "KlijentID", "DatumRodjenja", "Ime", "KorisnikID", "Prezime" },
-                values: new object[] { 1, new DateTime(2025, 1, 16, 19, 49, 44, 47, DateTimeKind.Local).AddTicks(6252), "Klijent", 2, "Klijent" });
+                values: new object[] { 1, new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(119), "Klijent", 2, "Klijent" });
 
             migrationBuilder.InsertData(
                 table: "KorisnikUloga",
                 columns: new[] { "KorisnikUlogaID", "DatumIzmjene", "KorisnikID", "UlogaID" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2025, 1, 16, 19, 49, 44, 47, DateTimeKind.Local).AddTicks(6314), 1, 1 },
-                    { 2, new DateTime(2025, 1, 16, 19, 49, 44, 47, DateTimeKind.Local).AddTicks(6316), 2, 2 }
+                    { 1, new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(181), 1, 1 },
+                    { 2, new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(184), 2, 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -480,29 +480,29 @@ namespace xFit.Services.Migrations
                 columns: new[] { "NarudzbaID", "BrojNarudzbe", "Datum", "Iznos", "KorisnikID", "Status" },
                 values: new object[,]
                 {
-                    { 1, "#1", new DateTime(2025, 1, 16, 19, 49, 44, 50, DateTimeKind.Local).AddTicks(1796), 17.0, 1, "Pending" },
-                    { 2, "#2", new DateTime(2025, 1, 16, 19, 49, 44, 50, DateTimeKind.Local).AddTicks(1808), 20.0, 2, "Pending" }
+                    { 1, "#1", new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(9517), 17.0, 1, "Pending" },
+                    { 2, "#2", new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(9520), 20.0, 2, "Pending" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Uposlenik",
                 columns: new[] { "UposlenikID", "DatumRodjenja", "Ime", "KorisnikID", "Prezime" },
-                values: new object[] { 1, new DateTime(2025, 1, 16, 19, 49, 44, 47, DateTimeKind.Local).AddTicks(6329), "uposlenik", 1, "uposlenik" });
+                values: new object[] { 1, new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(195), "uposlenik", 1, "uposlenik" });
 
             migrationBuilder.InsertData(
                 table: "Novost",
                 columns: new[] { "NovostID", "DatumObjave", "KlijentID", "Naziv", "Sadzaj" },
-                values: new object[] { 1, new DateTime(2025, 1, 16, 19, 49, 44, 50, DateTimeKind.Local).AddTicks(1716), 1, "Novost", "Sadrzaj novost" });
+                values: new object[] { 1, new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(9484), 1, "Novost", "Sadrzaj novost" });
 
             migrationBuilder.InsertData(
                 table: "OmiljeniProizvod",
                 columns: new[] { "OmiljeniProizvodID", "DatumDodavanja", "KlijentID", "ProizvodID" },
-                values: new object[] { 1, new DateTime(2025, 1, 16, 19, 49, 44, 50, DateTimeKind.Local).AddTicks(1751), 1, 1 });
+                values: new object[] { 1, new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(9499), 1, 1 });
 
             migrationBuilder.InsertData(
                 table: "Recenzija",
                 columns: new[] { "RecenzijaID", "Datum", "KlijentID", "ProizvodID", "Sadrzaj" },
-                values: new object[] { 1, new DateTime(2025, 1, 16, 19, 49, 44, 50, DateTimeKind.Local).AddTicks(1559), 1, 1, "sadrzaj" });
+                values: new object[] { 1, new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(9401), 1, 1, "sadrzaj" });
 
             migrationBuilder.InsertData(
                 table: "StavkaNarudzbe",
@@ -517,7 +517,7 @@ namespace xFit.Services.Migrations
             migrationBuilder.InsertData(
                 table: "Termin",
                 columns: new[] { "TerminID", "DatumVrijeme", "KlijentId", "UposlenikId" },
-                values: new object[] { 1, new DateTime(2025, 1, 16, 19, 49, 44, 50, DateTimeKind.Local).AddTicks(1667), 1, 1 });
+                values: new object[] { 1, new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(9457), 1, 1 });
 
             migrationBuilder.InsertData(
                 table: "Transakcija",
@@ -527,7 +527,7 @@ namespace xFit.Services.Migrations
             migrationBuilder.InsertData(
                 table: "Rezervacija",
                 columns: new[] { "RezervacijaID", "Datum", "Email", "KlijentID", "TerminID", "UposlenikID" },
-                values: new object[] { 1, new DateTime(2025, 1, 16, 19, 49, 44, 50, DateTimeKind.Local).AddTicks(1915), "rezervacija@gmail.com", 1, 1, 1 });
+                values: new object[] { 1, new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(9578), "rezervacija@gmail.com", 1, 1, 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Klijent_KorisnikID",

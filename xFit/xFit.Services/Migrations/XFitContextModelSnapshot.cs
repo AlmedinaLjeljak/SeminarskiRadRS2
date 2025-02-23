@@ -94,7 +94,7 @@ namespace xFit.Services.Migrations
                         new
                         {
                             KlijentId = 1,
-                            DatumRodjenja = new DateTime(2025, 1, 16, 19, 49, 44, 47, DateTimeKind.Local).AddTicks(6252),
+                            DatumRodjenja = new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(119),
                             Ime = "Klijent",
                             KorisnikId = 2,
                             Prezime = "Klijent"
@@ -211,14 +211,14 @@ namespace xFit.Services.Migrations
                         new
                         {
                             KorisnikUlogaId = 1,
-                            DatumIzmjene = new DateTime(2025, 1, 16, 19, 49, 44, 47, DateTimeKind.Local).AddTicks(6314),
+                            DatumIzmjene = new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(181),
                             KorisnikId = 1,
                             UlogaId = 1
                         },
                         new
                         {
                             KorisnikUlogaId = 2,
-                            DatumIzmjene = new DateTime(2025, 1, 16, 19, 49, 44, 47, DateTimeKind.Local).AddTicks(6316),
+                            DatumIzmjene = new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(184),
                             KorisnikId = 2,
                             UlogaId = 2
                         });
@@ -262,7 +262,7 @@ namespace xFit.Services.Migrations
                         {
                             NarudzbaId = 1,
                             BrojNarudzbe = "#1",
-                            Datum = new DateTime(2025, 1, 16, 19, 49, 44, 50, DateTimeKind.Local).AddTicks(1796),
+                            Datum = new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(9517),
                             Iznos = 17.0,
                             KorisnikId = 1,
                             Status = "Pending"
@@ -271,7 +271,7 @@ namespace xFit.Services.Migrations
                         {
                             NarudzbaId = 2,
                             BrojNarudzbe = "#2",
-                            Datum = new DateTime(2025, 1, 16, 19, 49, 44, 50, DateTimeKind.Local).AddTicks(1808),
+                            Datum = new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(9520),
                             Iznos = 20.0,
                             KorisnikId = 2,
                             Status = "Pending"
@@ -312,7 +312,7 @@ namespace xFit.Services.Migrations
                         new
                         {
                             NovostId = 1,
-                            DatumObjave = new DateTime(2025, 1, 16, 19, 49, 44, 50, DateTimeKind.Local).AddTicks(1716),
+                            DatumObjave = new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(9484),
                             KlijentId = 1,
                             Naziv = "Novost",
                             Sadzaj = "Sadrzaj novost"
@@ -351,7 +351,7 @@ namespace xFit.Services.Migrations
                         new
                         {
                             OmiljeniProizvodId = 1,
-                            DatumDodavanja = new DateTime(2025, 1, 16, 19, 49, 44, 50, DateTimeKind.Local).AddTicks(1751),
+                            DatumDodavanja = new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(9499),
                             KlijentId = 1,
                             ProizvodId = 1
                         });
@@ -534,7 +534,7 @@ namespace xFit.Services.Migrations
                         new
                         {
                             RecenzijaId = 1,
-                            Datum = new DateTime(2025, 1, 16, 19, 49, 44, 50, DateTimeKind.Local).AddTicks(1559),
+                            Datum = new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(9401),
                             KlijentId = 1,
                             ProizvodId = 1,
                             Sadrzaj = "sadrzaj"
@@ -608,7 +608,7 @@ namespace xFit.Services.Migrations
                         new
                         {
                             RezervacijaId = 1,
-                            Datum = new DateTime(2025, 1, 16, 19, 49, 44, 50, DateTimeKind.Local).AddTicks(1915),
+                            Datum = new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(9578),
                             Email = "rezervacija@gmail.com",
                             KlijentId = 1,
                             TerminId = 1,
@@ -729,7 +729,7 @@ namespace xFit.Services.Migrations
                         new
                         {
                             TerminId = 1,
-                            DatumVrijeme = new DateTime(2025, 1, 16, 19, 49, 44, 50, DateTimeKind.Local).AddTicks(1667),
+                            DatumVrijeme = new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(9457),
                             KlijentId = 1,
                             UposlenikId = 1
                         });
@@ -831,7 +831,7 @@ namespace xFit.Services.Migrations
                         new
                         {
                             UposlenikId = 1,
-                            DatumRodjenja = new DateTime(2025, 1, 16, 19, 49, 44, 47, DateTimeKind.Local).AddTicks(6329),
+                            DatumRodjenja = new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(195),
                             Ime = "uposlenik",
                             KorisnikId = 1,
                             Prezime = "uposlenik"
