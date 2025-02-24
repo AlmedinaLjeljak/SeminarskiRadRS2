@@ -10,11 +10,11 @@ using RabbitMQ.Client;
 
 namespace xFit_rabbit.Controllers
 {
-	public class OmiljeniProizvodController
-	{
 
-		[Route("[controller]")]
-		[ApiController]
+	[Route("[controller]")]
+	[ApiController]
+
+
 		public class OmiljeniProizvodiController : ControllerBase
 		{
 			XFit190061Context _context;
@@ -78,7 +78,7 @@ namespace xFit_rabbit.Controllers
 
 				return Ok(user);
 			}
-
+			
 		}
-	}
+	
 }

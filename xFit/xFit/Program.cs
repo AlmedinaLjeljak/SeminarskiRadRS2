@@ -119,7 +119,7 @@ using (var scope = app.Services.CreateScope())
 	}
 }
 
-
+/*
 string hostname = Environment.GetEnvironmentVariable("RABBITMQ_HOST") ?? "rabbitMQ";
 string username = Environment.GetEnvironmentVariable("RABBITMQ_USERNAME") ?? "guest";
 string password = Environment.GetEnvironmentVariable("RABBITMQ_PASSWORD") ?? "guest";
@@ -184,7 +184,7 @@ channel.BasicConsume(queue: "favorites",
 
 //////////////////////////////////////////////////////////////////////////////////
 ///
-
+*/
 
 
 app.Run();
