@@ -21,7 +21,7 @@ class RecommendResultProvider<T> extends BaseProvider<RecommendResult>{
   }
 
    Future trainData() async {
-  var url = "https://localhost:7138/RecommendResult/TrainModel";
+  var url = "http://localhost:7138/RecommendResult/TrainModel";
   var uri = Uri.parse(url);
   var headers = createHeaders();
 
@@ -44,7 +44,7 @@ class RecommendResultProvider<T> extends BaseProvider<RecommendResult>{
 
 
   Future deleteData() async {
-    var url = "https://localhost:7138/RecommendResult/ClearRecommendation";
+    var url = "http://localhost:7138/RecommendResult/ClearRecommendation";
     var uri = Uri.parse(url);
     var headers = createHeaders();
 

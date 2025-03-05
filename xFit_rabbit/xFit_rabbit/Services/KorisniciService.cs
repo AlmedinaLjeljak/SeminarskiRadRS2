@@ -2,16 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Text;
+using xFit.Services.Database;
 using xFit_rabbit.Data;
 
 namespace xFit_rabbit.Services
 {
 	public class KorisniciService:IKorisniciService
 	{
-		protected XFit190061Context _context;
+		protected XFitContext _context;
 		protected IMapper _mapper { get; set; }
 
-		public KorisniciService(XFit190061Context context, IMapper mapper)
+		public KorisniciService(XFitContext context, IMapper mapper)
 		{
 			_context = context;
 			_mapper = mapper;

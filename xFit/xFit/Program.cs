@@ -92,7 +92,7 @@ if (app.Environment.IsDevelopment())
 	app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseCors("AllowSpecificOrigin"); // Add this line for CORS
 
@@ -180,11 +180,10 @@ consumer.Received += async (model, ea) =>
 channel.BasicConsume(queue: "favorites",
 					 autoAck: true,
 					 consumer: consumer);
-
+*/
 
 //////////////////////////////////////////////////////////////////////////////////
 ///
-*/
 
 
 app.Run();

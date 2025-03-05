@@ -1,5 +1,19 @@
 version: '3'
 services:
+  rabbitMQ:
+   image: rabbitmq:3-management
+   container_name: 'rabbitmq_container'
+   environment:
+    - RABBITMQ_DEFAULT_USER=guest
+    - RABBITMQ_DEFAULT_PASS=guest
+   ports:
+    - 8050:15672
+    - 5672:5672
+   expose:
+    - 5672
+   networks: 
+    - xfitnet2022
+
 #mssql docker
   xfit-sql:
     image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu
@@ -22,8 +36,12 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      - ConnectionStrings:DefaultConnection=Server=xfit-sql,1433;Database=_xFit;User=sa;Password=QWElkj132!;ConnectRetryCount=0;TrustServerCertificate=True
+      - ConnectionStrings:DefaultConnection=Server=xfit-sql,1433;Database=xFit_190061;User=sa;Password=QWElkj132!;ConnectRetryCount=0;TrustServerCertificate=True
       - ASPNETCORE_ENVIRONMENT=Development
+      - RABBITMQ_HOST=rabbitMQ
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
+      - RABBITMQ_VIRTUALHOST=/
     ports:
       - 7138:7138
     networks:
@@ -32,6 +50,27 @@ services:
       - xfit-sql
     depends_on:
       - xfit-sql
+      - rabbitMQ
+
+
+  dodatni_api:
+    restart: unless-stopped
+    build:
+      context: ../xFit_rabbit
+      dockerfile: xFit_rabbit/Dockerfile
+    environment:
+      - ConnectionStrings:DefaultConnection=Server=xfit-sql,1433;Database=xFit_190061;User=sa;Password=QWElkj132!;ConnectRetryCount=0;TrustServerCertificate=True
+      - ASPNETCORE_ENVIRONMENT=Development
+      - RABBITMQ_HOST=rabbitMQ
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
+      - RABBITMQ_VIRTUALHOST=/
+    ports:
+      - 7237:7237
+    networks:
+      - xfitnet2022
+    depends_on:
+      - rabbitMQ
       
 networks:
   xfitnet2022:

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using xFit.Services.Database;
 using xFit_rabbit;
 using xFit_rabbit.Data;
 using xFit_rabbit.Services;
@@ -23,7 +24,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<XFit190061Context>(options =>
+builder.Services.AddDbContext<XFitContext>(options =>
 	options.UseSqlServer(connectionString));
 
 
@@ -64,7 +65,7 @@ if (app.Environment.IsDevelopment())
 	app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseAuthentication();
 
 app.UseAuthorization();

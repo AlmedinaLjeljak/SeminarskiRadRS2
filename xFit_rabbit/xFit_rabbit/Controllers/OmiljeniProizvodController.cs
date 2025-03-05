@@ -7,6 +7,7 @@ using xFit_rabbit.Data;
 using xFit_rabbit.Services;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
+using xFit.Services.Database;
 
 namespace xFit_rabbit.Controllers
 {
@@ -17,11 +18,11 @@ namespace xFit_rabbit.Controllers
 
 		public class OmiljeniProizvodiController : ControllerBase
 		{
-			XFit190061Context _context;
+			XFitContext _context;
 			protected IMapper _mapper { get; set; }
 			public IKorisniciService _korisniciService { get; set; }
 
-			public OmiljeniProizvodiController( XFit190061Context context, IMapper mapper, IKorisniciService korisniciService)
+			public OmiljeniProizvodiController( XFitContext context, IMapper mapper, IKorisniciService korisniciService)
 			{
 				_context = context;
 				_mapper = mapper;
