@@ -242,7 +242,7 @@ List<Widget> list = (dataX?.result ?? [])
 
       if (!isProductFavorite) {
 
-        await _favoritesProvider.insert({
+        await _favoritesProvider.sendRabbit({
           "datumDodavanja": DateTime.now().toUtc().toIso8601String(),
           "proizvodId": x.proizvodId,
           "korisnikId": await getKlijentId(),

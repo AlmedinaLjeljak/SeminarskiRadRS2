@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using RabbitMQ.Client.Events;
-using RabbitMQ.Client;
 using xFit;
 using xFit.Filters;
 using xFit.Model.SearchObjects;
@@ -12,6 +11,8 @@ using xFit.Services.ProizvodStateMachine;
 using System.Text;
 using System.Text.Json;
 using xFit.Model.Requests;
+using RabbitMQ.Client;
+using RabbitMQ.Client.Exceptions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -119,71 +120,80 @@ using (var scope = app.Services.CreateScope())
 	}
 }
 
-/*
 string hostname = Environment.GetEnvironmentVariable("RABBITMQ_HOST") ?? "rabbitMQ";
 string username = Environment.GetEnvironmentVariable("RABBITMQ_USERNAME") ?? "guest";
 string password = Environment.GetEnvironmentVariable("RABBITMQ_PASSWORD") ?? "guest";
 string virtualHost = Environment.GetEnvironmentVariable("RABBITMQ_VIRTUALHOST") ?? "/";
 
 
+bool useRabbitMQ = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("USE_RABBITMQ") ?? "true");
 
-//////////////////////////////////////////////////////////////////////////////////
-
-
-var factory = new ConnectionFactory
+if (useRabbitMQ)
 {
-	// HostName = Environment.GetEnvironmentVariable("RABBITMQ_HOST") ?? "rabbitMQ"
-
-	HostName = hostname,
-	UserName = username,
-	Password = password,
-	VirtualHost = virtualHost,
-};
-using var connection = factory.CreateConnection();
-using var channel = connection.CreateModel();
-
-channel.QueueDeclare(queue: "favorites",
-					 durable: false,
-					 exclusive: false,
-					 autoDelete: true,
-					 arguments: null);
-
-Console.WriteLine(" [*] Waiting for messages.");
-
-var consumer = new EventingBasicConsumer(channel);
-consumer.Received += async (model, ea) =>
-{
-	var body = ea.Body.ToArray();
-	var message = Encoding.UTF8.GetString(body);
-	Console.WriteLine(message.ToString());
-	var omiljeni = JsonSerializer.Deserialize<OmiljeniProizvodUpsertRequest>(message);
-	using (var scope = app.Services.CreateScope())
+	var factory = new ConnectionFactory
 	{
-		var omiljeniProizvodiService = scope.ServiceProvider.GetRequiredService<IOmiljeniProizvodService>();
+		HostName = hostname,
+		UserName = username,
+		Password = password,
+		VirtualHost = virtualHost,
+	};
 
-		if (omiljeni != null)
+	try
+	{
+		using var connection = factory.CreateConnection();
+		using var channel = connection.CreateModel();
+
+		channel.QueueDeclare(queue: "favorites",
+							durable: false,
+							exclusive: false,
+							autoDelete: true,
+							arguments: null);
+
+		Console.WriteLine(" [*] Waiting for messages.");
+
+		var consumer = new EventingBasicConsumer(channel);
+		consumer.Received += async (model, ea) =>
 		{
-			try
-			{
-				await omiljeniProizvodiService.Insert(omiljeni);
-			}
-			catch (Exception e)
-			{
+			var body = ea.Body.ToArray();
+			var message = Encoding.UTF8.GetString(body);
+			Console.WriteLine(message);
 
+			var omiljeni = JsonSerializer.Deserialize<OmiljeniProizvodUpsertRequest>(message);
+			using (var scope = app.Services.CreateScope())
+			{
+				var omiljeniProizvodiService = scope.ServiceProvider.GetRequiredService<IOmiljeniProizvodService>();
+
+				if (omiljeni != null)
+				{
+					try
+					{
+						await omiljeniProizvodiService.Insert(omiljeni);
+					}
+					catch (Exception e)
+					{
+						Console.WriteLine($"Greška prilikom insertovanja: {e.Message}");
+					}
+				}
 			}
-		}
+		};
+
+		channel.BasicConsume(queue: "favorites",
+							autoAck: true,
+							consumer: consumer);
 	}
-	// Console.WriteLine();
-	Console.WriteLine(Environment.GetEnvironmentVariable("Some"));
-	Console.WriteLine("USAO U GLAVNI U PROGRAM CS PROSAO INSERT PROIZVODA");
-};
-channel.BasicConsume(queue: "favorites",
-					 autoAck: true,
-					 consumer: consumer);
-*/
-
-//////////////////////////////////////////////////////////////////////////////////
-///
-
+	catch (BrokerUnreachableException ex)
+	{
+		Console.WriteLine($" RabbitMQ nije dostupan: {ex.Message}");
+	}
+	catch (Exception ex)
+	{
+		Console.WriteLine($" Došlo je do greške pri povezivanju sa RabbitMQ: {ex.Message}");
+	}
+}
+else
+{
+	Console.WriteLine(" RabbitMQ je iskljuèen putem konfiguracije.");
+}
 
 app.Run();
+
