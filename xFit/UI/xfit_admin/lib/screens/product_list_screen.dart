@@ -112,7 +112,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
             ElevatedButton(
               onPressed: () async {
                 try {
-                await _recommendResultProvider.trainData();
+                await _recommendResultProvider.trainData(context);
                 } catch (e) {
                String errorMessage = 'An error occurred';
 
@@ -140,7 +140,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
              ElevatedButton(
               onPressed: () async {
                 try {
-                await _recommendResultProvider.deleteData();
+                await _recommendResultProvider.deleteData(context);
                 } catch (e) {
                 ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
@@ -318,3 +318,6 @@ class _ProductListScreenState extends State<ProductListScreen> {
     }
   }
 }
+
+
+
