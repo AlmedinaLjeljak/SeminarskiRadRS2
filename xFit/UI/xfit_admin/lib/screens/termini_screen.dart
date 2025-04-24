@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:xfit_admin/models/termin.dart';
+import 'package:xfit_admin/providers/korisnici_provider.dart';
 import 'package:xfit_admin/providers/termini_provider.dart';
 import 'package:xfit_admin/screens/termin_detail_screen.dart';
 import 'package:xfit_admin/utils/util.dart';
@@ -14,6 +15,7 @@ class TerminScreen extends StatefulWidget {
 
 class _TerminiScreenState extends State<TerminScreen> {
   final TerminiProvider _terminiProvider = TerminiProvider();
+  final KorisnisiProvider _korisnikProvider=KorisnisiProvider();
   List<Termin> _termin = [];
   bool isLoading = true;
 
@@ -21,7 +23,20 @@ class _TerminiScreenState extends State<TerminScreen> {
   void initState() {
     super.initState();
     _fetchTermini();
+    _fetchKorisnici();
   }
+  Map<int, String> _korisniciImePrezime = {};
+
+void _fetchKorisnici() async {
+  final response = await _korisnikProvider.get(); 
+  setState(() {
+    _korisniciImePrezime = {
+      for (var user in response.result) user.korisnikId!: '${user.ime}',
+    };
+  });
+}
+
+
 
   Future<void> _fetchTermini() async {
     try {
@@ -91,13 +106,13 @@ class _TerminiScreenState extends State<TerminScreen> {
             rows: _termin.map((termin) {
               return DataRow(
                 cells: [
-                  DataCell(Text(termin.uposlenikId.toString())),
-                  DataCell(Text(termin.klijentId.toString())),
-                  DataCell(Text(DateFormat('dd.MM.yyyy - HH:mm').format(termin.datumVrijeme!))),
+                  DataCell(Text(_korisniciImePrezime[termin.korisnikIdKlijent] ?? 'N/A')),
+                  DataCell(Text(_korisniciImePrezime[termin.korisnikIdUposlenik] ?? 'N/A')),
+                  DataCell(Text(DateFormat('dd.MM.yyyy - HH:mm').format(termin.datum!))),
                   DataCell(IconButton(
                     icon: Icon(Icons.edit),
                     onPressed: () {
-                      _navigateToTerminDetailScreen(termin,termin.klijentId);
+                      _navigateToTerminDetailScreen(termin,termin.korisnikIdKlijent);
                     },
                   )),
                   DataCell(IconButton(

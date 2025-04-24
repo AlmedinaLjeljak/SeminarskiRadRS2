@@ -8,8 +8,8 @@ namespace xFit.Model.Requests
 {
 	public class TerminInsertRequest
 	{
-		public DateTime? DatumVrijeme { get; set; }
-		public int? UposlenikId { get; set; }
-		public int? KlijentId { get; set; }
+		public DateTime? Datum { get; set; }
+		public int? KorisnikIdUposlenik { get; set; }
+		public int? KorisnikIdKlijent { get; set; }
 	}
 }

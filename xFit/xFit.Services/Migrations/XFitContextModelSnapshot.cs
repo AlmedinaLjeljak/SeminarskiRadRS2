@@ -22,6 +22,35 @@ namespace xFit.Services.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("xFit.Services.Database.ClanskaKarta", b =>
+                {
+                    b.Property<int>("ClanskaKArtaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClanskaKArtaId"));
+
+                    b.Property<int?>("KorisnikId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Sadrzaj")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ClanskaKArtaId");
+
+                    b.HasIndex("KorisnikId");
+
+                    b.ToTable("ClanskaKartas");
+
+                    b.HasData(
+                        new
+                        {
+                            ClanskaKArtaId = 1,
+                            KorisnikId = 2,
+                            Sadrzaj = "Test sadrzaj"
+                        });
+                });
+
             modelBuilder.Entity("xFit.Services.Database.Grad", b =>
                 {
                     b.Property<int>("GradId")
@@ -94,7 +123,7 @@ namespace xFit.Services.Migrations
                         new
                         {
                             KlijentId = 1,
-                            DatumRodjenja = new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(119),
+                            DatumRodjenja = new DateTime(2025, 3, 24, 16, 4, 54, 68, DateTimeKind.Local).AddTicks(1033),
                             Ime = "Klijent",
                             KorisnikId = 2,
                             Prezime = "Klijent"
@@ -211,14 +240,14 @@ namespace xFit.Services.Migrations
                         new
                         {
                             KorisnikUlogaId = 1,
-                            DatumIzmjene = new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(181),
+                            DatumIzmjene = new DateTime(2025, 3, 24, 16, 4, 54, 68, DateTimeKind.Local).AddTicks(1091),
                             KorisnikId = 1,
                             UlogaId = 1
                         },
                         new
                         {
                             KorisnikUlogaId = 2,
-                            DatumIzmjene = new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(184),
+                            DatumIzmjene = new DateTime(2025, 3, 24, 16, 4, 54, 68, DateTimeKind.Local).AddTicks(1093),
                             KorisnikId = 2,
                             UlogaId = 2
                         });
@@ -262,7 +291,7 @@ namespace xFit.Services.Migrations
                         {
                             NarudzbaId = 1,
                             BrojNarudzbe = "#1",
-                            Datum = new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(9517),
+                            Datum = new DateTime(2025, 3, 24, 16, 4, 54, 70, DateTimeKind.Local).AddTicks(7632),
                             Iznos = 17.0,
                             KorisnikId = 1,
                             Status = "Pending"
@@ -271,7 +300,7 @@ namespace xFit.Services.Migrations
                         {
                             NarudzbaId = 2,
                             BrojNarudzbe = "#2",
-                            Datum = new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(9520),
+                            Datum = new DateTime(2025, 3, 24, 16, 4, 54, 70, DateTimeKind.Local).AddTicks(7636),
                             Iznos = 20.0,
                             KorisnikId = 2,
                             Status = "Pending"
@@ -291,8 +320,11 @@ namespace xFit.Services.Migrations
                         .HasColumnType("date");
 
                     b.Property<int?>("KlijentId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("KorisnikId")
                         .HasColumnType("int")
-                        .HasColumnName("KlijentID");
+                        .HasColumnName("KorisnikId");
 
                     b.Property<string>("Naziv")
                         .HasMaxLength(50)
@@ -306,14 +338,16 @@ namespace xFit.Services.Migrations
 
                     b.HasIndex("KlijentId");
 
+                    b.HasIndex("KorisnikId");
+
                     b.ToTable("Novost", (string)null);
 
                     b.HasData(
                         new
                         {
                             NovostId = 1,
-                            DatumObjave = new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(9484),
-                            KlijentId = 1,
+                            DatumObjave = new DateTime(2025, 3, 24, 16, 4, 54, 70, DateTimeKind.Local).AddTicks(7572),
+                            KorisnikId = 1,
                             Naziv = "Novost",
                             Sadzaj = "Sadrzaj novost"
                         });
@@ -335,6 +369,9 @@ namespace xFit.Services.Migrations
                         .HasColumnType("int")
                         .HasColumnName("KlijentID");
 
+                    b.Property<int?>("KorisnikId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("ProizvodId")
                         .HasColumnType("int")
                         .HasColumnName("ProizvodID");
@@ -342,6 +379,8 @@ namespace xFit.Services.Migrations
                     b.HasKey("OmiljeniProizvodId");
 
                     b.HasIndex("KlijentId");
+
+                    b.HasIndex("KorisnikId");
 
                     b.HasIndex("ProizvodId");
 
@@ -351,7 +390,7 @@ namespace xFit.Services.Migrations
                         new
                         {
                             OmiljeniProizvodId = 1,
-                            DatumDodavanja = new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(9499),
+                            DatumDodavanja = new DateTime(2025, 3, 24, 16, 4, 54, 70, DateTimeKind.Local).AddTicks(7607),
                             KlijentId = 1,
                             ProizvodId = 1
                         });
@@ -511,8 +550,11 @@ namespace xFit.Services.Migrations
                         .HasColumnType("date");
 
                     b.Property<int?>("KlijentId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("KorisnikId")
                         .HasColumnType("int")
-                        .HasColumnName("KlijentID");
+                        .HasColumnName("KorisnikId");
 
                     b.Property<int?>("ProizvodId")
                         .HasColumnType("int")
@@ -526,6 +568,8 @@ namespace xFit.Services.Migrations
 
                     b.HasIndex("KlijentId");
 
+                    b.HasIndex("KorisnikId");
+
                     b.HasIndex("ProizvodId");
 
                     b.ToTable("Recenzija", (string)null);
@@ -534,8 +578,8 @@ namespace xFit.Services.Migrations
                         new
                         {
                             RecenzijaId = 1,
-                            Datum = new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(9401),
-                            KlijentId = 1,
+                            Datum = new DateTime(2025, 3, 24, 16, 4, 54, 70, DateTimeKind.Local).AddTicks(7321),
+                            KorisnikId = 1,
                             ProizvodId = 1,
                             Sadrzaj = "sadrzaj"
                         });
@@ -608,7 +652,7 @@ namespace xFit.Services.Migrations
                         new
                         {
                             RezervacijaId = 1,
-                            Datum = new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(9578),
+                            Datum = new DateTime(2025, 3, 24, 16, 4, 54, 70, DateTimeKind.Local).AddTicks(7711),
                             Email = "rezervacija@gmail.com",
                             KlijentId = 1,
                             TerminId = 1,
@@ -708,20 +752,20 @@ namespace xFit.Services.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TerminId"));
 
-                    b.Property<DateTime?>("DatumVrijeme")
+                    b.Property<DateTime?>("Datum")
                         .HasColumnType("datetime");
 
-                    b.Property<int?>("KlijentId")
+                    b.Property<int?>("KorisnikIdKlijent")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UposlenikId")
+                    b.Property<int?>("KorisnikIdUposlenik")
                         .HasColumnType("int");
 
                     b.HasKey("TerminId");
 
-                    b.HasIndex("KlijentId");
+                    b.HasIndex("KorisnikIdKlijent");
 
-                    b.HasIndex("UposlenikId");
+                    b.HasIndex("KorisnikIdUposlenik");
 
                     b.ToTable("Termin", (string)null);
 
@@ -729,9 +773,9 @@ namespace xFit.Services.Migrations
                         new
                         {
                             TerminId = 1,
-                            DatumVrijeme = new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(9457),
-                            KlijentId = 1,
-                            UposlenikId = 1
+                            Datum = new DateTime(2025, 3, 24, 16, 4, 54, 70, DateTimeKind.Local).AddTicks(7440),
+                            KorisnikIdKlijent = 1,
+                            KorisnikIdUposlenik = 1
                         });
                 });
 
@@ -831,7 +875,7 @@ namespace xFit.Services.Migrations
                         new
                         {
                             UposlenikId = 1,
-                            DatumRodjenja = new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(195),
+                            DatumRodjenja = new DateTime(2025, 3, 24, 16, 4, 54, 68, DateTimeKind.Local).AddTicks(1103),
                             Ime = "uposlenik",
                             KorisnikId = 1,
                             Prezime = "uposlenik"
@@ -867,6 +911,15 @@ namespace xFit.Services.Migrations
                             VrstaProizvodaId = 2,
                             Naziv = "Oprema"
                         });
+                });
+
+            modelBuilder.Entity("xFit.Services.Database.ClanskaKarta", b =>
+                {
+                    b.HasOne("xFit.Services.Database.Korisnik", "Korisnik")
+                        .WithMany("ClanskaKartas")
+                        .HasForeignKey("KorisnikId");
+
+                    b.Navigation("Korisnik");
                 });
 
             modelBuilder.Entity("xFit.Services.Database.Klijent", b =>
@@ -929,12 +982,16 @@ namespace xFit.Services.Migrations
 
             modelBuilder.Entity("xFit.Services.Database.Novost", b =>
                 {
-                    b.HasOne("xFit.Services.Database.Klijent", "Klijent")
+                    b.HasOne("xFit.Services.Database.Klijent", null)
                         .WithMany("Novosts")
-                        .HasForeignKey("KlijentId")
-                        .HasConstraintName("FK_Novost_Klijent");
+                        .HasForeignKey("KlijentId");
 
-                    b.Navigation("Klijent");
+                    b.HasOne("xFit.Services.Database.Korisnik", "Korisnik")
+                        .WithMany("Novosts")
+                        .HasForeignKey("KorisnikId")
+                        .HasConstraintName("FK_Novost_Korisnik");
+
+                    b.Navigation("Korisnik");
                 });
 
             modelBuilder.Entity("xFit.Services.Database.OmiljeniProizvod", b =>
@@ -943,6 +1000,10 @@ namespace xFit.Services.Migrations
                         .WithMany("OmiljeniProizvods")
                         .HasForeignKey("KlijentId")
                         .HasConstraintName("FK_OmiljeniProizvod_Klijent");
+
+                    b.HasOne("xFit.Services.Database.Korisnik", null)
+                        .WithMany("OmiljeniProizvodis")
+                        .HasForeignKey("KorisnikId");
 
                     b.HasOne("xFit.Services.Database.Proizvod", "Proizvod")
                         .WithMany("OmiljeniProizvods")
@@ -966,17 +1027,21 @@ namespace xFit.Services.Migrations
 
             modelBuilder.Entity("xFit.Services.Database.Recenzija", b =>
                 {
-                    b.HasOne("xFit.Services.Database.Klijent", "Klijent")
+                    b.HasOne("xFit.Services.Database.Klijent", null)
                         .WithMany("Recenzijas")
-                        .HasForeignKey("KlijentId")
-                        .HasConstraintName("FK_Recenzija_Klijent");
+                        .HasForeignKey("KlijentId");
+
+                    b.HasOne("xFit.Services.Database.Korisnik", "Korisnik")
+                        .WithMany("Recenzijas")
+                        .HasForeignKey("KorisnikId")
+                        .HasConstraintName("FK_Recenzija_Korisnik");
 
                     b.HasOne("xFit.Services.Database.Proizvod", "Proizvod")
                         .WithMany("Recenzijas")
                         .HasForeignKey("ProizvodId")
                         .HasConstraintName("FK_Recenzija_Proizvod");
 
-                    b.Navigation("Klijent");
+                    b.Navigation("Korisnik");
 
                     b.Navigation("Proizvod");
                 });
@@ -1024,17 +1089,19 @@ namespace xFit.Services.Migrations
 
             modelBuilder.Entity("xFit.Services.Database.Termin", b =>
                 {
-                    b.HasOne("xFit.Services.Database.Klijent", "Klijent")
-                        .WithMany()
-                        .HasForeignKey("KlijentId");
+                    b.HasOne("xFit.Services.Database.Korisnik", "KorisnikIdKlijentNavigate")
+                        .WithMany("KorisnikIdKlijentNavigate")
+                        .HasForeignKey("KorisnikIdKlijent")
+                        .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("xFit.Services.Database.Uposlenik", "Uposlenik")
-                        .WithMany()
-                        .HasForeignKey("UposlenikId");
+                    b.HasOne("xFit.Services.Database.Korisnik", "KorisnikIdUposlenikNavigate")
+                        .WithMany("KorisnikIdUposlenikNavigate")
+                        .HasForeignKey("KorisnikIdUposlenik")
+                        .OnDelete(DeleteBehavior.NoAction);
 
-                    b.Navigation("Klijent");
+                    b.Navigation("KorisnikIdKlijentNavigate");
 
-                    b.Navigation("Uposlenik");
+                    b.Navigation("KorisnikIdUposlenikNavigate");
                 });
 
             modelBuilder.Entity("xFit.Services.Database.Transakcija", b =>
@@ -1075,11 +1142,23 @@ namespace xFit.Services.Migrations
 
             modelBuilder.Entity("xFit.Services.Database.Korisnik", b =>
                 {
+                    b.Navigation("ClanskaKartas");
+
                     b.Navigation("Klijents");
+
+                    b.Navigation("KorisnikIdKlijentNavigate");
+
+                    b.Navigation("KorisnikIdUposlenikNavigate");
 
                     b.Navigation("KorisnikUlogas");
 
                     b.Navigation("Narudzbas");
+
+                    b.Navigation("Novosts");
+
+                    b.Navigation("OmiljeniProizvodis");
+
+                    b.Navigation("Recenzijas");
 
                     b.Navigation("Uposleniks");
                 });

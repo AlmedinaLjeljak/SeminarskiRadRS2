@@ -16,6 +16,6 @@ namespace xFit.Model
 
 		public int? ProizvodId { get; set; }
 
-		public int? KlijentId { get; set; }
+		public int? KorisnikId { get; set; }
 	}
 }

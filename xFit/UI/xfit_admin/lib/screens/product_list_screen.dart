@@ -187,6 +187,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
   return Expanded(
     child: SingleChildScrollView(
       child: DataTable(
+        showCheckboxColumn: false,
         columns: [
           const DataColumn(
             label: const Expanded(

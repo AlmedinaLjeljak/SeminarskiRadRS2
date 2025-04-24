@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "bd1WqGPnHCfkWVlSPy4L9ZGneyh+lDTBCGz3I3AkTl9oJlnUMO0GdgOztRFPLCxjMMhnPgMp7+/NHdEXGs8bWA==",
+  "dgSpecHash": "TtetmvIdyMumgzm/QWuBxhC7Kg4HoivgUlQIdx/Ujlu1rZJ1gy6XoROyiQA7lXjwlXo0qhCp2OrMZxVxSJrOWQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\HOME\\Desktop\\SeminarskiRS2\\SeminarskiRadRS2\\xFit\\xFit.Services\\xFit.Services.csproj",
   "expectedPackageFiles": [
@@ -9,6 +9,8 @@
     "C:\\Users\\HOME\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\HOME\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
     "C:\\Users\\HOME\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\HOME\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.2.0\\microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
+    "C:\\Users\\HOME\\.nuget\\packages\\microsoft.aspnetcore.http.features\\2.2.0\\microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
     "C:\\Users\\HOME\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\HOME\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\HOME\\.nuget\\packages\\microsoft.data.sqlclient\\5.0.1\\microsoft.data.sqlclient.5.0.1.nupkg.sha512",

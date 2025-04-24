@@ -8,16 +8,14 @@ part of 'termin.dart';
 
 Termin _$TerminFromJson(Map<String, dynamic> json) => Termin(
       (json['terminId'] as num?)?.toInt(),
-      json['datumVrijeme'] == null
-          ? null
-          : DateTime.parse(json['datumVrijeme'] as String),
-      (json['uposlenikId'] as num?)?.toInt(),
-      (json['klijentId'] as num?)?.toInt(),
+      json['datum'] == null ? null : DateTime.parse(json['datum'] as String),
+      (json['korisnikIdUposlenik'] as num?)?.toInt(),
+      (json['korisnikIdKlijent'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$TerminToJson(Termin instance) => <String, dynamic>{
       'terminId': instance.terminId,
-      'datumVrijeme': instance.datumVrijeme?.toIso8601String(),
-      'uposlenikId': instance.uposlenikId,
-      'klijentId': instance.klijentId,
+      'datum': instance.datum?.toIso8601String(),
+      'korisnikIdUposlenik': instance.korisnikIdUposlenik,
+      'korisnikIdKlijent': instance.korisnikIdKlijent,
     };

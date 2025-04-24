@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,47 +14,60 @@ namespace xFit.Services
 {
 	public class TerminService : BaseCRUDService<Model.Termin, Database.Termin, TerminSearchObject, TerminInsertRequest, TerminUpdateRequest>, ITerminService
 	{
+		private readonly IHttpContextAccessor _httpContextAccessor;
 
-		public TerminService(XFitContext context, IMapper mapper) : base(context, mapper)
+		public TerminService(XFitContext context, IMapper mapper, IHttpContextAccessor httpContextAccessor)
+			: base(context, mapper)
 		{
+			_httpContextAccessor = httpContextAccessor;
 		}
 
 		public override IQueryable<Database.Termin> AddFilter(IQueryable<Database.Termin> query, TerminSearchObject? search = null)
 		{
 			var filteredQuery = base.AddFilter(query, search);
-		
-			if (search.DatumVrijeme != null)
+
+			if (search.Uposlenik != null)
 			{
-				filteredQuery = filteredQuery.Where(x => x.DatumVrijeme.Value.Day == search.DatumVrijeme.Value.Day &&
-														x.DatumVrijeme.Value.Month == search.DatumVrijeme.Value.Month &&
-														x.DatumVrijeme.Value.Year == search.DatumVrijeme.Value.Year);
+				filteredQuery = filteredQuery.Where(x => x.KorisnikIdUposlenikNavigate.KorisnickoIme.StartsWith(search.Uposlenik.ToString()));
+			}
+			if (search.Klijent != null)
+			{
+				filteredQuery = filteredQuery.Where(x => x.KorisnikIdKlijentNavigate.KorisnickoIme.StartsWith(search.Klijent.ToString()));
+			}
+			if (search.Datum != null)
+			{
+				filteredQuery = filteredQuery.Where(x => x.Datum.Value.Day == search.Datum.Value.Day &&
+														x.Datum.Value.Month == search.Datum.Value.Month &&
+														x.Datum.Value.Year == search.Datum.Value.Year);
 			}
 			return filteredQuery;
 		}
-		/*public override Task<Model.Termin> Insert(TerminInsertRequest insert)
+
+		public override Task<Model.Termin> Insert(TerminInsertRequest insert)
 		{
-			if (!insert.DatumVrijeme.HasValue)
+			if (!insert.Datum.HasValue)
 			{
 				throw new ArgumentException("Datum ne smije biti null.");
 			}
 
-			if (insert.DatumVrijeme.Value.Minute != 0)
+			if (insert.Datum.Value.Minute != 0)
 			{
 				throw new ArgumentException("Minute moraju biti 0.");
 			}
 
-			if (insert.DatumVrijeme.Value.Hour < 8 || insert.DatumVrijeme.Value.Hour > 20)
+			if (insert.Datum.Value.Hour < 8 || insert.Datum.Value.Hour > 20)
 			{
 				throw new ArgumentException("Sati moraju biti između 8 i 20.");
 			}
 
 			DateTime currentDate = DateTime.Now.Date;
-			if (insert.DatumVrijeme.Value.Date <= currentDate)
+			if (insert.Datum.Value.Date <= currentDate)
 			{
 				throw new ArgumentException("Ne možete zakazati termin za trenutni dan ili dane unazad.");
 			}
 
 			return base.Insert(insert);
-		}*/
+		}
 	}
+
 }

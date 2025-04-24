@@ -13,7 +13,7 @@ public partial class Novost
 
     public DateTime? DatumObjave { get; set; }
 
-    public int? KlijentId { get; set; }
+    public int? KorisnikId { get; set; }
 
-    public virtual Klijent? Klijent { get; set; }
+    public virtual Korisnik? Korisnik { get; set; }
 }

@@ -20,6 +20,7 @@ public partial class XFitContext : DbContext
     public virtual DbSet<Klijent> Klijents { get; set; }
 
     public virtual DbSet<Korisnik> Korisniks { get; set; }
+    public virtual DbSet<ClanskaKarta> ClanskaKartas { get; set; }
 
     public virtual DbSet<KorisnikUloga> KorisnikUlogas { get; set; }
 
@@ -49,11 +50,11 @@ public partial class XFitContext : DbContext
 
     public virtual DbSet<VrstaProizvodum> VrstaProizvoda { get; set; }
 
- /* protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=xFit_190061; Trusted_Connection=True; TrustServerCertificate=True");
   
-  */
+  
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Grad>(entity =>
@@ -163,13 +164,13 @@ public partial class XFitContext : DbContext
                 .ValueGeneratedOnAdd()
                 .HasColumnName("NovostID");
             entity.Property(e => e.DatumObjave).HasColumnType("date");
-            entity.Property(e => e.KlijentId).HasColumnName("KlijentID");
+            entity.Property(e => e.KorisnikId).HasColumnName("KorisnikId");
             entity.Property(e => e.Naziv).HasMaxLength(50);
             entity.Property(e => e.Sadzaj).HasMaxLength(50);
 
-            entity.HasOne(d => d.Klijent).WithMany(p => p.Novosts)
-                .HasForeignKey(d => d.KlijentId)
-                .HasConstraintName("FK_Novost_Klijent");
+            entity.HasOne(d => d.Korisnik).WithMany(p => p.Novosts)
+                .HasForeignKey(d => d.KorisnikId)
+                .HasConstraintName("FK_Novost_Korisnik");
         });
 
         modelBuilder.Entity<OmiljeniProizvod>(entity =>
@@ -222,13 +223,13 @@ public partial class XFitContext : DbContext
                 .ValueGeneratedOnAdd()
                 .HasColumnName("RecenzijaID");
             entity.Property(e => e.Datum).HasColumnType("date");
-            entity.Property(e => e.KlijentId).HasColumnName("KlijentID");
+            entity.Property(e => e.KorisnikId).HasColumnName("KorisnikId");
             entity.Property(e => e.ProizvodId).HasColumnName("ProizvodID");
             entity.Property(e => e.Sadrzaj).HasMaxLength(50);
 
-            entity.HasOne(d => d.Klijent).WithMany(p => p.Recenzijas)
-                .HasForeignKey(d => d.KlijentId)
-                .HasConstraintName("FK_Recenzija_Klijent");
+            entity.HasOne(d => d.Korisnik).WithMany(p => p.Recenzijas)
+                .HasForeignKey(d => d.KorisnikId)
+                .HasConstraintName("FK_Recenzija_Korisnik");
 
             entity.HasOne(d => d.Proizvod).WithMany(p => p.Recenzijas)
                 .HasForeignKey(d => d.ProizvodId)
@@ -292,17 +293,29 @@ public partial class XFitContext : DbContext
                 .HasConstraintName("FK_StavkaNarudzbe_Proizvod");
         });
 
-        modelBuilder.Entity<Termin>(entity =>
-        {
-            entity.ToTable("Termin");
+		modelBuilder.Entity<Termin>(entity =>
+		{
+			entity.ToTable("Termin");
 
-            entity.Property(e => e.TerminId)
-                .ValueGeneratedOnAdd()
-                .HasColumnName("TerminID");
-            entity.Property(e => e.DatumVrijeme).HasColumnType("datetime");
-        });
+			entity.Property(e => e.TerminId)
+				.ValueGeneratedOnAdd()
+				.HasColumnName("TerminID");
 
-        modelBuilder.Entity<Transakcija>(entity =>
+			entity.Property(e => e.Datum)
+				.HasColumnType("datetime");
+
+			
+			entity.HasOne(t => t.KorisnikIdKlijentNavigate)
+				.WithMany(k => k.KorisnikIdKlijentNavigate)
+				.HasForeignKey(t => t.KorisnikIdKlijent)
+				.OnDelete(DeleteBehavior.NoAction); 
+
+			entity.HasOne(t => t.KorisnikIdUposlenikNavigate)
+				.WithMany(k => k.KorisnikIdUposlenikNavigate)
+				.HasForeignKey(t => t.KorisnikIdUposlenik)
+				.OnDelete(DeleteBehavior.NoAction); 
+		});
+		modelBuilder.Entity<Transakcija>(entity =>
         {
             entity.ToTable("Transakcija");
 

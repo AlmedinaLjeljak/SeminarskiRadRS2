@@ -239,18 +239,26 @@ namespace xFit.Services.Database
 					Sadrzaj = "sadrzaj",
 					Datum = DateTime.Now,
 					ProizvodId = 1,
-					KlijentId = 1
+					KorisnikId = 1
 				}
 				);
 			modelBuilder.Entity<Termin>().HasData(
 				new Termin()
 				{
 					TerminId = 1,
-					DatumVrijeme = DateTime.Now,
-					UposlenikId=1,
-					KlijentId=1
+					Datum = DateTime.Now,
+					KorisnikIdUposlenik=1,
+					KorisnikIdKlijent=1
 				}
 				);
+			modelBuilder.Entity<ClanskaKarta>().HasData(
+			new ClanskaKarta()
+			{
+				ClanskaKArtaId = 1,
+				Sadrzaj = "Test sadrzaj",
+				KorisnikId = 2
+			}
+		);
 			modelBuilder.Entity<Novost>().HasData(
 				new Novost()
 				{
@@ -258,7 +266,7 @@ namespace xFit.Services.Database
 					Naziv = "Novost",
 					Sadzaj = "Sadrzaj novost",
 					DatumObjave = DateTime.Now,
-					KlijentId = 1
+					KorisnikId = 1
 				}
 				);
 			modelBuilder.Entity<OmiljeniProizvod>().HasData(

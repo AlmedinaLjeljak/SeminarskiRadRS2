@@ -6,6 +6,7 @@ import 'package:xfit_admin/models/narudzba.dart';
 import 'package:xfit_admin/models/stavkaNarudzbe.dart';
 import 'package:xfit_admin/providers/narudzba_provider.dart';
 import 'package:xfit_admin/providers/product_provders.dart';
+import 'package:intl/intl.dart';
 import 'package:xfit_admin/providers/stavka_narudzbe_provider.dart';
 import 'package:xfit_admin/widgets/master_screen.dart';
 
@@ -34,7 +35,9 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
     _initialValue = {
       'brojNarudzbe': widget.narudzba?.brojNarudzbe,
       'status': widget.narudzba?.status,
-      'datum': widget.narudzba?.datum.toString(),
+      'datum': widget.narudzba?.datum != null
+    ? DateFormat('yyyy-MM-dd').format(widget.narudzba!.datum!)
+    : '',
       'iznos': widget.narudzba?.iznos.toString()
     };
     _ordersProvider = context.read<OrdersProvider>();

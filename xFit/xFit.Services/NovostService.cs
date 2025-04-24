@@ -7,17 +7,19 @@ using System.Text;
 using System.Threading.Tasks;
 using xFit.Model.Requests;
 using xFit.Model.SearchObjects;
+using Microsoft.AspNetCore.Http;
 using xFit.Services.Database;
 
 namespace xFit.Services
 {
 	public class NovostService:BaseCRUDService<Model.Novost,Database.Novost,NovostSearchObject,NovostUpsertRequest,NovostUpsertRequest>,INovostService
 	{
-		
-		public NovostService(XFitContext context, IMapper mapper)
+		private readonly IHttpContextAccessor _httpContextAccessor;
+
+		public NovostService(XFitContext context, IMapper mapper, IHttpContextAccessor httpContextAccessor)
 			: base(context, mapper)
 		{
-			
+			_httpContextAccessor = httpContextAccessor;
 		}
 
 		public override IQueryable<Database.Novost> AddFilter(IQueryable<Database.Novost> query, NovostSearchObject search = null)
@@ -30,7 +32,51 @@ namespace xFit.Services
 			}
 			return filteredQuery;
 		}
+		public override async Task BeforeInsert(Database.Novost entity, NovostUpsertRequest insert)
+		{
+	
+			if (string.IsNullOrWhiteSpace(insert.Naziv))
+			{
+				throw new ArgumentException("Naziv novosti je obavezan i ne može biti prazan.");
+			}
 
+			var loggedInUser = _httpContextAccessor.HttpContext.User;
+
+			if (loggedInUser.Identity.IsAuthenticated)
+			{
+				string username = loggedInUser.Identity.Name;
+
+				var user = await _context.Korisniks.FirstOrDefaultAsync(x => x.KorisnickoIme == username);
+
+				if (user != null)
+				{
+					entity.KorisnikId = user.KorisnikId;
+				}
+			}
+		}
+
+		public override async Task BeforeUpdate(Database.Novost entity, NovostUpsertRequest update)
+		{
 		
+			if (string.IsNullOrWhiteSpace(update.Naziv))
+			{
+				throw new ArgumentException("Naziv novosti je obavezan i ne može biti prazan.");
+			}
+
+			var loggedInUser = _httpContextAccessor.HttpContext.User;
+
+			if (loggedInUser.Identity.IsAuthenticated)
+			{
+				string username = loggedInUser.Identity.Name;
+
+				var user = await _context.Korisniks.FirstOrDefaultAsync(x => x.KorisnickoIme == username);
+				if (user != null)
+				{
+					entity.KorisnikId = user.KorisnikId;
+				}
+			}
+		}
+
+
 	}
 }

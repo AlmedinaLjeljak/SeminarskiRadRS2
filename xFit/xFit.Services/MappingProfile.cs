@@ -23,6 +23,10 @@ namespace xFit.Services
 			CreateMap<Model.Requests.TerminInsertRequest, Database.Termin>();
 			CreateMap<Model.Requests.TerminUpdateRequest, Database.Termin>();
 
+			CreateMap<Database.ClanskaKarta, Model.ClanskaKarta>();
+			CreateMap<Model.Requests.ClanskaKartaInsertRequest, Database.ClanskaKarta>();
+			CreateMap<Model.Requests.ClanskaKartaUpdateRequest, Database.ClanskaKarta>();
+
 			CreateMap<Database.Narudzba, Model.Narudzba>();
 			CreateMap<Model.Requests.NarudzbaInsertRequest, Database.Narudzba>();
 			CreateMap<Model.Requests.NarudzbaUpdateRequest, Database.Narudzba>();

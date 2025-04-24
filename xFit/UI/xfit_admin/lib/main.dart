@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:xfit_admin/providers/clanska_karta_provider.dart';
 import 'package:xfit_admin/providers/korisnici_provider.dart';
 import 'package:xfit_admin/providers/narudzba_provider.dart';
 import 'package:xfit_admin/providers/novosti_provider.dart';
@@ -41,6 +42,7 @@ void main() {
       ChangeNotifierProvider(create: (_) => OrdersProvider()),
       ChangeNotifierProvider(create: (_) => NovostiProvider()),
       ChangeNotifierProvider(create: (_) => VrstaProizvodaProvider()),
+      ChangeNotifierProvider(create: (_) => ClanskaKartaProvider()),
       ChangeNotifierProvider(create: (_) => TerminiProvider()),
       ChangeNotifierProvider(create: (_) => KorisnisiProvider()),
       ChangeNotifierProvider(create: (_) => StavkaNarudzbeProvider()),

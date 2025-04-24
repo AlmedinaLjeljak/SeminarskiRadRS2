@@ -44,7 +44,7 @@ class _DateTestState extends State<DateTest> {
     }
 
     for (int i = 0; i < terminiResult!.result.length; i++) {
-      if (terminiResult!.result[i].datumVrijeme!.hour == h) {
+      if (terminiResult!.result[i].datum!.hour == h) {
         return true; 
       }
     }

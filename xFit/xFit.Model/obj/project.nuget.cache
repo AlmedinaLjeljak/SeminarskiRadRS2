@@ -1,8 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "a4oYpGu1Ti3q/+DxT5dHMI81prxiaY8WLJSgR4DFrgNTYiJrZkNNqHBBPDllQPk17iOS1bT6PwwhVQWcVHOq5g==",
+  "dgSpecHash": "FLMxL/CkFV4tvI0dUwiIaKWmVY4B9ZeZoaPgtOb7Ot90ZLFPqztxaiUWqp5zg++voFZu1FSMXgVv0LE6VG5qfQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\HOME\\Desktop\\SeminarskiRS2\\SeminarskiRadRS2\\xFit\\xFit.Model\\xFit.Model.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\HOME\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.2.0\\microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
+    "C:\\Users\\HOME\\.nuget\\packages\\microsoft.aspnetcore.http.features\\2.2.0\\microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
+    "C:\\Users\\HOME\\.nuget\\packages\\microsoft.extensions.primitives\\2.2.0\\microsoft.extensions.primitives.2.2.0.nupkg.sha512",
+    "C:\\Users\\HOME\\.nuget\\packages\\system.memory\\4.5.1\\system.memory.4.5.1.nupkg.sha512",
+    "C:\\Users\\HOME\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.5.1\\system.runtime.compilerservices.unsafe.4.5.1.nupkg.sha512",
+    "C:\\Users\\HOME\\.nuget\\packages\\system.text.encodings.web\\4.5.0\\system.text.encodings.web.4.5.0.nupkg.sha512"
+  ],
   "logs": []
 }

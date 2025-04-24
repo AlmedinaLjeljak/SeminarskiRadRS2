@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace xFit.Services.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -137,6 +137,25 @@ namespace xFit.Services.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ClanskaKartas",
+                columns: table => new
+                {
+                    ClanskaKArtaId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Sadrzaj = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    KorisnikId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ClanskaKartas", x => x.ClanskaKArtaId);
+                    table.ForeignKey(
+                        name: "FK_ClanskaKartas_Korisnik_KorisnikId",
+                        column: x => x.KorisnikId,
+                        principalTable: "Korisnik",
+                        principalColumn: "KorisnikID");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Klijent",
                 columns: table => new
                 {
@@ -205,6 +224,31 @@ namespace xFit.Services.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Termin",
+                columns: table => new
+                {
+                    TerminID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Datum = table.Column<DateTime>(type: "datetime", nullable: true),
+                    KorisnikIdKlijent = table.Column<int>(type: "int", nullable: true),
+                    KorisnikIdUposlenik = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Termin", x => x.TerminID);
+                    table.ForeignKey(
+                        name: "FK_Termin_Korisnik_KorisnikIdKlijent",
+                        column: x => x.KorisnikIdKlijent,
+                        principalTable: "Korisnik",
+                        principalColumn: "KorisnikID");
+                    table.ForeignKey(
+                        name: "FK_Termin_Korisnik_KorisnikIdUposlenik",
+                        column: x => x.KorisnikIdUposlenik,
+                        principalTable: "Korisnik",
+                        principalColumn: "KorisnikID");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Uposlenik",
                 columns: table => new
                 {
@@ -234,16 +278,22 @@ namespace xFit.Services.Migrations
                     Naziv = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Sadzaj = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     DatumObjave = table.Column<DateTime>(type: "date", nullable: true),
-                    KlijentID = table.Column<int>(type: "int", nullable: true)
+                    KorisnikId = table.Column<int>(type: "int", nullable: true),
+                    KlijentId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Novost", x => x.NovostID);
                     table.ForeignKey(
-                        name: "FK_Novost_Klijent",
-                        column: x => x.KlijentID,
+                        name: "FK_Novost_Klijent_KlijentId",
+                        column: x => x.KlijentId,
                         principalTable: "Klijent",
                         principalColumn: "KlijentID");
+                    table.ForeignKey(
+                        name: "FK_Novost_Korisnik",
+                        column: x => x.KorisnikId,
+                        principalTable: "Korisnik",
+                        principalColumn: "KorisnikID");
                 });
 
             migrationBuilder.CreateTable(
@@ -254,7 +304,8 @@ namespace xFit.Services.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DatumDodavanja = table.Column<DateTime>(type: "date", nullable: true),
                     ProizvodID = table.Column<int>(type: "int", nullable: true),
-                    KlijentID = table.Column<int>(type: "int", nullable: true)
+                    KlijentID = table.Column<int>(type: "int", nullable: true),
+                    KorisnikId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -264,6 +315,11 @@ namespace xFit.Services.Migrations
                         column: x => x.KlijentID,
                         principalTable: "Klijent",
                         principalColumn: "KlijentID");
+                    table.ForeignKey(
+                        name: "FK_OmiljeniProizvod_Korisnik_KorisnikId",
+                        column: x => x.KorisnikId,
+                        principalTable: "Korisnik",
+                        principalColumn: "KorisnikID");
                     table.ForeignKey(
                         name: "FK_OmiljeniProizvod_Proizvod",
                         column: x => x.ProizvodID,
@@ -280,16 +336,22 @@ namespace xFit.Services.Migrations
                     Sadrzaj = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Datum = table.Column<DateTime>(type: "date", nullable: true),
                     ProizvodID = table.Column<int>(type: "int", nullable: true),
-                    KlijentID = table.Column<int>(type: "int", nullable: true)
+                    KorisnikId = table.Column<int>(type: "int", nullable: true),
+                    KlijentId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Recenzija", x => x.RecenzijaID);
                     table.ForeignKey(
-                        name: "FK_Recenzija_Klijent",
-                        column: x => x.KlijentID,
+                        name: "FK_Recenzija_Klijent_KlijentId",
+                        column: x => x.KlijentId,
                         principalTable: "Klijent",
                         principalColumn: "KlijentID");
+                    table.ForeignKey(
+                        name: "FK_Recenzija_Korisnik",
+                        column: x => x.KorisnikId,
+                        principalTable: "Korisnik",
+                        principalColumn: "KorisnikID");
                     table.ForeignKey(
                         name: "FK_Recenzija_Proizvod",
                         column: x => x.ProizvodID,
@@ -339,31 +401,6 @@ namespace xFit.Services.Migrations
                         column: x => x.NarudzbaID,
                         principalTable: "Narudzba",
                         principalColumn: "NarudzbaID");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Termin",
-                columns: table => new
-                {
-                    TerminID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DatumVrijeme = table.Column<DateTime>(type: "datetime", nullable: true),
-                    UposlenikId = table.Column<int>(type: "int", nullable: true),
-                    KlijentId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Termin", x => x.TerminID);
-                    table.ForeignKey(
-                        name: "FK_Termin_Klijent_KlijentId",
-                        column: x => x.KlijentId,
-                        principalTable: "Klijent",
-                        principalColumn: "KlijentID");
-                    table.ForeignKey(
-                        name: "FK_Termin_Uposlenik_UposlenikId",
-                        column: x => x.UposlenikId,
-                        principalTable: "Uposlenik",
-                        principalColumn: "UposlenikID");
                 });
 
             migrationBuilder.CreateTable(
@@ -462,17 +499,22 @@ namespace xFit.Services.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "ClanskaKartas",
+                columns: new[] { "ClanskaKArtaId", "KorisnikId", "Sadrzaj" },
+                values: new object[] { 1, 2, "Test sadrzaj" });
+
+            migrationBuilder.InsertData(
                 table: "Klijent",
                 columns: new[] { "KlijentID", "DatumRodjenja", "Ime", "KorisnikID", "Prezime" },
-                values: new object[] { 1, new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(119), "Klijent", 2, "Klijent" });
+                values: new object[] { 1, new DateTime(2025, 3, 24, 16, 4, 54, 68, DateTimeKind.Local).AddTicks(1033), "Klijent", 2, "Klijent" });
 
             migrationBuilder.InsertData(
                 table: "KorisnikUloga",
                 columns: new[] { "KorisnikUlogaID", "DatumIzmjene", "KorisnikID", "UlogaID" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(181), 1, 1 },
-                    { 2, new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(184), 2, 2 }
+                    { 1, new DateTime(2025, 3, 24, 16, 4, 54, 68, DateTimeKind.Local).AddTicks(1091), 1, 1 },
+                    { 2, new DateTime(2025, 3, 24, 16, 4, 54, 68, DateTimeKind.Local).AddTicks(1093), 2, 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -480,29 +522,39 @@ namespace xFit.Services.Migrations
                 columns: new[] { "NarudzbaID", "BrojNarudzbe", "Datum", "Iznos", "KorisnikID", "Status" },
                 values: new object[,]
                 {
-                    { 1, "#1", new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(9517), 17.0, 1, "Pending" },
-                    { 2, "#2", new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(9520), 20.0, 2, "Pending" }
+                    { 1, "#1", new DateTime(2025, 3, 24, 16, 4, 54, 70, DateTimeKind.Local).AddTicks(7632), 17.0, 1, "Pending" },
+                    { 2, "#2", new DateTime(2025, 3, 24, 16, 4, 54, 70, DateTimeKind.Local).AddTicks(7636), 20.0, 2, "Pending" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "Novost",
+                columns: new[] { "NovostID", "DatumObjave", "KlijentId", "KorisnikId", "Naziv", "Sadzaj" },
+                values: new object[] { 1, new DateTime(2025, 3, 24, 16, 4, 54, 70, DateTimeKind.Local).AddTicks(7572), null, 1, "Novost", "Sadrzaj novost" });
+
+            migrationBuilder.InsertData(
+                table: "Recenzija",
+                columns: new[] { "RecenzijaID", "Datum", "KlijentId", "KorisnikId", "ProizvodID", "Sadrzaj" },
+                values: new object[] { 1, new DateTime(2025, 3, 24, 16, 4, 54, 70, DateTimeKind.Local).AddTicks(7321), null, 1, 1, "sadrzaj" });
+
+            migrationBuilder.InsertData(
+                table: "Termin",
+                columns: new[] { "TerminID", "Datum", "KorisnikIdKlijent", "KorisnikIdUposlenik" },
+                values: new object[] { 1, new DateTime(2025, 3, 24, 16, 4, 54, 70, DateTimeKind.Local).AddTicks(7440), 1, 1 });
 
             migrationBuilder.InsertData(
                 table: "Uposlenik",
                 columns: new[] { "UposlenikID", "DatumRodjenja", "Ime", "KorisnikID", "Prezime" },
-                values: new object[] { 1, new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(195), "uposlenik", 1, "uposlenik" });
-
-            migrationBuilder.InsertData(
-                table: "Novost",
-                columns: new[] { "NovostID", "DatumObjave", "KlijentID", "Naziv", "Sadzaj" },
-                values: new object[] { 1, new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(9484), 1, "Novost", "Sadrzaj novost" });
+                values: new object[] { 1, new DateTime(2025, 3, 24, 16, 4, 54, 68, DateTimeKind.Local).AddTicks(1103), "uposlenik", 1, "uposlenik" });
 
             migrationBuilder.InsertData(
                 table: "OmiljeniProizvod",
-                columns: new[] { "OmiljeniProizvodID", "DatumDodavanja", "KlijentID", "ProizvodID" },
-                values: new object[] { 1, new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(9499), 1, 1 });
+                columns: new[] { "OmiljeniProizvodID", "DatumDodavanja", "KlijentID", "KorisnikId", "ProizvodID" },
+                values: new object[] { 1, new DateTime(2025, 3, 24, 16, 4, 54, 70, DateTimeKind.Local).AddTicks(7607), 1, null, 1 });
 
             migrationBuilder.InsertData(
-                table: "Recenzija",
-                columns: new[] { "RecenzijaID", "Datum", "KlijentID", "ProizvodID", "Sadrzaj" },
-                values: new object[] { 1, new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(9401), 1, 1, "sadrzaj" });
+                table: "Rezervacija",
+                columns: new[] { "RezervacijaID", "Datum", "Email", "KlijentID", "TerminID", "UposlenikID" },
+                values: new object[] { 1, new DateTime(2025, 3, 24, 16, 4, 54, 70, DateTimeKind.Local).AddTicks(7711), "rezervacija@gmail.com", 1, 1, 1 });
 
             migrationBuilder.InsertData(
                 table: "StavkaNarudzbe",
@@ -515,19 +567,14 @@ namespace xFit.Services.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Termin",
-                columns: new[] { "TerminID", "DatumVrijeme", "KlijentId", "UposlenikId" },
-                values: new object[] { 1, new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(9457), 1, 1 });
-
-            migrationBuilder.InsertData(
                 table: "Transakcija",
                 columns: new[] { "TransakcijaID", "Iznos", "NarudzbaID" },
                 values: new object[] { 1, 50.0, 1 });
 
-            migrationBuilder.InsertData(
-                table: "Rezervacija",
-                columns: new[] { "RezervacijaID", "Datum", "Email", "KlijentID", "TerminID", "UposlenikID" },
-                values: new object[] { 1, new DateTime(2025, 2, 23, 16, 28, 56, 786, DateTimeKind.Local).AddTicks(9578), "rezervacija@gmail.com", 1, 1, 1 });
+            migrationBuilder.CreateIndex(
+                name: "IX_ClanskaKartas_KorisnikId",
+                table: "ClanskaKartas",
+                column: "KorisnikId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Klijent_KorisnikID",
@@ -560,14 +607,24 @@ namespace xFit.Services.Migrations
                 column: "KorisnikID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Novost_KlijentID",
+                name: "IX_Novost_KlijentId",
                 table: "Novost",
-                column: "KlijentID");
+                column: "KlijentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Novost_KorisnikId",
+                table: "Novost",
+                column: "KorisnikId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OmiljeniProizvod_KlijentID",
                 table: "OmiljeniProizvod",
                 column: "KlijentID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OmiljeniProizvod_KorisnikId",
+                table: "OmiljeniProizvod",
+                column: "KorisnikId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OmiljeniProizvod_ProizvodID",
@@ -580,9 +637,14 @@ namespace xFit.Services.Migrations
                 column: "VrstaProizvodaID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Recenzija_KlijentID",
+                name: "IX_Recenzija_KlijentId",
                 table: "Recenzija",
-                column: "KlijentID");
+                column: "KlijentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Recenzija_KorisnikId",
+                table: "Recenzija",
+                column: "KorisnikId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Recenzija_ProizvodID",
@@ -615,14 +677,14 @@ namespace xFit.Services.Migrations
                 column: "ProizvodID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Termin_KlijentId",
+                name: "IX_Termin_KorisnikIdKlijent",
                 table: "Termin",
-                column: "KlijentId");
+                column: "KorisnikIdKlijent");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Termin_UposlenikId",
+                name: "IX_Termin_KorisnikIdUposlenik",
                 table: "Termin",
-                column: "UposlenikId");
+                column: "KorisnikIdUposlenik");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Transakcija_NarudzbaID",
@@ -638,6 +700,9 @@ namespace xFit.Services.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "ClanskaKartas");
+
             migrationBuilder.DropTable(
                 name: "KorisnikUloga");
 
@@ -666,19 +731,19 @@ namespace xFit.Services.Migrations
                 name: "Uloga");
 
             migrationBuilder.DropTable(
+                name: "Klijent");
+
+            migrationBuilder.DropTable(
                 name: "Termin");
+
+            migrationBuilder.DropTable(
+                name: "Uposlenik");
 
             migrationBuilder.DropTable(
                 name: "Proizvod");
 
             migrationBuilder.DropTable(
                 name: "Narudzba");
-
-            migrationBuilder.DropTable(
-                name: "Klijent");
-
-            migrationBuilder.DropTable(
-                name: "Uposlenik");
 
             migrationBuilder.DropTable(
                 name: "VrstaProizvoda");

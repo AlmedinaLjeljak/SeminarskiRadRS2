@@ -8,6 +8,6 @@ namespace xFit.Model.Requests
 {
 	public class TerminUpdateRequest
 	{
-		public DateTime? DatumVrijeme { get; set; }
+		public DateTime? Datum { get; set; }
 	}
 }

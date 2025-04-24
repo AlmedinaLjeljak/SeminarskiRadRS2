@@ -10,6 +10,6 @@ namespace xFit.Model.SearchObjects
 	{
 		public string? Uposlenik { get; set; }
 		public string? Klijent { get; set; }
-		public DateTime? DatumVrijeme { get; set; }
+		public DateTime? Datum { get; set; }
 	}
 }
