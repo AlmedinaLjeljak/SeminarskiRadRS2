@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:xfit_admin/models/search_result.dart';
@@ -38,20 +39,26 @@ class _DateTestState extends State<DateTest> {
     }
   }
 
+
   bool isOcuppiedHour(int h) {
     if (terminiResult == null || terminiResult!.result.isEmpty) {
       return false; 
     }
 
     for (int i = 0; i < terminiResult!.result.length; i++) {
-      if (terminiResult!.result[i].datum!.hour == h) {
+      
+      if (terminiResult!.result[i].datum!.year == selectedDate!.year &&
+          terminiResult!.result[i].datum!.month == selectedDate!.month &&
+          terminiResult!.result[i].datum!.day == selectedDate!.day &&
+          terminiResult!.result[i].datum!.hour == h) {
         return true; 
       }
     }
 
-    return false;
+    return false; 
   }
 
+  
   bool isPastDate(DateTime datetime) {
     DateTime currentDate = DateTime.now();
     if (datetime.year < currentDate.year) {
@@ -63,11 +70,11 @@ class _DateTestState extends State<DateTest> {
     }
     if (datetime.year == currentDate.year &&
         datetime.month == currentDate.month &&
-        datetime.day <= currentDate.day) {
+        datetime.day < currentDate.day) {
       return true; 
     }
 
-    return false;
+    return false; 
   }
 
   void _onSelectionChanged(DateRangePickerSelectionChangedArgs args) async {
@@ -105,7 +112,9 @@ class _DateTestState extends State<DateTest> {
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
-                selectedDate == null ? Text('') : Text('Appointments')
+                selectedDate == null
+                    ? Text('')
+                    : Text('Appointments on ${DateFormat('dd/MM/yyyy').format(selectedDate!)}'),
               ],
             ),
           ),
@@ -119,7 +128,7 @@ class _DateTestState extends State<DateTest> {
                 : ListView.builder(
                     itemCount: 13,
                     itemBuilder: (context, index) {
-                      final currentHour = index + 8;
+                      final currentHour = index + 8; // Sat od 8h do 20h
                       final isOccupied = isOcuppiedHour(currentHour);
 
                       return Column(
@@ -181,7 +190,7 @@ class _DateTestState extends State<DateTest> {
                           const Divider(
                             color: Colors.black,
                             thickness: 1,
-                          )
+                          ),
                         ],
                       );
                     },
