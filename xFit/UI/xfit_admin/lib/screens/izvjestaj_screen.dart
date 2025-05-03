@@ -588,25 +588,28 @@ Future<pw.Document> _generatePDFReport() async {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Reports'),
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: SingleChildScrollView(child: 
-        Column(
+ @override
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      title: Text('Reports'),
+    ),
+    body: Padding(
+      padding: EdgeInsets.all(16.0),
+      child: SingleChildScrollView(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 16.0),
+
+            // Dropdown za klijenta
             DropdownButton<int>(
               value: _selectedKlijent,
               onChanged: (newValue) {
                 setState(() {
                   _selectedKlijent = newValue!;
                 });
+                _fetchDataForSelectedType(_selectedKlijent!); // <-- DODANO
               },
               items: result?.result.map<DropdownMenuItem<int>>((Korisnik korisnik) {
                 return DropdownMenuItem<int>(
@@ -619,24 +622,28 @@ Future<pw.Document> _generatePDFReport() async {
 
             SizedBox(height: 16.0),
 
-        DropdownButton<String>(
-          value: _selectedReportType,
-          onChanged: (newValue) {
-            setState(() {
-              _selectedReportType = newValue!;
-            });
-          _fetchDataForSelectedType(_selectedKlijent!); 
-          },
-        items: <String>['Narudzbe', 'Clanska karta']
-        .map<DropdownMenuItem<String>>((String value) {
-          return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-        }).toList(),
-        hint: Text('Odaberi tip reporta'),
-        ),
+            // Dropdown za tip izvještaja
+            DropdownButton<String>(
+              value: _selectedReportType,
+              onChanged: (newValue) {
+                setState(() {
+                  _selectedReportType = newValue!;
+                });
+                _fetchDataForSelectedType(_selectedKlijent!);
+              },
+              items: <String>['Narudzbe', 'Clanska karta']
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+              hint: Text('Odaberi tip reporta'),
+            ),
+
             SizedBox(height: 32.0),
+
+            // Prikaz sadržaja izvještaja
             Container(
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey),
@@ -648,8 +655,9 @@ Future<pw.Document> _generatePDFReport() async {
 
             SizedBox(height: 32.0),
 
+            // Dugme za ispis izvještaja
             ElevatedButton(
-              onPressed: () async{
+              onPressed: () async {
                 final pdf = await _generatePDFReport();
                 await _printPDFReport(pdf);
               },
@@ -658,8 +666,7 @@ Future<pw.Document> _generatePDFReport() async {
           ],
         ),
       ),
-      ),
-    );
-  }
-  
+    ),
+  );
+}
 }

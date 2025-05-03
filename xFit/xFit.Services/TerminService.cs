@@ -42,7 +42,8 @@ namespace xFit.Services
 			}
 			return filteredQuery;
 		}
-
+		/*
+		
 		public override Task<Model.Termin> Insert(TerminInsertRequest insert)
 		{
 			if (!insert.Datum.HasValue)
@@ -63,11 +64,13 @@ namespace xFit.Services
 			DateTime currentDate = DateTime.Now.Date;
 			if (insert.Datum.Value.Date <= currentDate)
 			{
-				throw new ArgumentException("Ne možete zakazati termin za trenutni dan ili dane unazad.");
+				throw new ArgumentException("Ne možete zakazati termin za trenutni dan.");
 			}
 
 			return base.Insert(insert);
-		}
+		}*/
 	}
+		
+
 
 }

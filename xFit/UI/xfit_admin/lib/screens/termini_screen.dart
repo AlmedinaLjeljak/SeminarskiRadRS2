@@ -112,7 +112,7 @@ void _fetchKorisnici() async {
                   DataCell(IconButton(
                     icon: Icon(Icons.edit),
                     onPressed: () {
-                      _navigateToTerminDetailScreen(termin,termin.korisnikIdKlijent);
+                      _navigateToTerminDetailScreen(termin,termin.korisnikIdUposlenik);
                     },
                   )),
                   DataCell(IconButton(
@@ -197,10 +197,6 @@ void _fetchKorisnici() async {
     }
   }
 }
-
-
-
-
 
 
 

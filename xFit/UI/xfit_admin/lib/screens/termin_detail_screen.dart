@@ -43,8 +43,8 @@ class _TerminDetailScreenState extends State<TerminDetailScreen> {
     _terminiProvider = TerminiProvider();
 
     _modifiedDatum = widget.termin?.datum ?? DateTime.now();
-    _modifiedUposlenikId = widget.termin?.korisnikIdKlijent;
-    _modifiedKlijentId = widget.selectedKlijent ?? null;
+    _modifiedUposlenikId = widget.termin?.korisnikIdUposlenik;
+    _modifiedKlijentId =widget.termin?.korisnikIdKlijent?? widget.selectedKlijent;
 
     _fetchKlijent();
     _fetchTerminiForKlijent(_selectedKlijent ?? _modifiedKlijentId ?? -1);

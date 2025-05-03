@@ -8,7 +8,7 @@ using xFit.Services;
 namespace xFit.Controllers
 {
 	[ApiController]
-	[Route("[controller]")]
+
 
 	public class TerminController : BaseCRUDController<Model.Termin, TerminSearchObject, TerminInsertRequest, TerminUpdateRequest>
 	{
