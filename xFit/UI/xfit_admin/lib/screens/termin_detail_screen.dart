@@ -7,6 +7,8 @@ import 'package:xfit_admin/models/termin.dart';
 import 'package:xfit_admin/providers/korisnici_provider.dart';
 import 'package:xfit_admin/providers/termini_provider.dart';
 import 'package:xfit_admin/screens/date_screen.dart';
+import 'package:xfit_admin/utils/util.dart';
+
 
 class TerminDetailScreen extends StatefulWidget {
   final Termin? termin;
@@ -15,7 +17,8 @@ class TerminDetailScreen extends StatefulWidget {
   TerminDetailScreen({this.termin, this.selectedKlijent});
 
   @override
-  _TerminDetailScreenState createState() => _TerminDetailScreenState();
+  _TerminDetailScreenState createState() =>
+      _TerminDetailScreenState();
 }
 
 class _TerminDetailScreenState extends State<TerminDetailScreen> {
@@ -39,19 +42,20 @@ class _TerminDetailScreenState extends State<TerminDetailScreen> {
   @override
   void initState() {
     super.initState();
-    _korisniciProvider = Provider.of<KorisnisiProvider>(context, listen: false);
+    _korisniciProvider =
+        Provider.of<KorisnisiProvider>(context, listen: false);
     _terminiProvider = TerminiProvider();
 
     _modifiedDatum = widget.termin?.datum ?? DateTime.now();
     _modifiedUposlenikId = widget.termin?.korisnikIdUposlenik;
-    _modifiedKlijentId =widget.termin?.korisnikIdKlijent?? widget.selectedKlijent;
+    _modifiedKlijentId = widget.selectedKlijent ?? null;
 
-    _fetchKlijent();
+    _fetchKlijenti();
     _fetchTerminiForKlijent(_selectedKlijent ?? _modifiedKlijentId ?? -1);
-    _fetchOccupiedAppointments();
+    _fetchOcuppiedAppointments();
   }
 
-  Future<void> _fetchOccupiedAppointments() async {
+  Future<void> _fetchOcuppiedAppointments() async {
     try {
       var data = await _terminiProvider.get(filter: {
         'datumVrijeme': _modifiedDatum.toIso8601String(),
@@ -77,10 +81,10 @@ class _TerminDetailScreenState extends State<TerminDetailScreen> {
     return false;
   }
 
-  Future<void> _fetchKlijent() async {
+  Future<void> _fetchKlijenti() async {
     try {
       var data = await _korisniciProvider.get(filter: {
-        'korisnikUlogas': 'klijent',
+        'korisnikUloga': 'klijent',
       });
 
       setState(() {
@@ -95,21 +99,7 @@ class _TerminDetailScreenState extends State<TerminDetailScreen> {
       print(e);
     }
   }
-
-  Future<void> _fetchTerminiForKlijent(int klijentId) async {
-    try {
-      var terminiData = await _terminiProvider.get(filter: {
-        'klijentId': klijentId,
-      });
-      setState(() {
-        _termini = terminiData.result;
-      });
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  Future<int?> getUposlenikId() async {
+    Future<int?> getUposlenikId() async {
   try {
     final korisnici = await _korisniciProvider.get(filter: {
       'korisnickoIme': 'desktop', 
@@ -128,6 +118,18 @@ class _TerminDetailScreenState extends State<TerminDetailScreen> {
   }
 }
 
+  Future<void> _fetchTerminiForKlijent(int klijentId) async {
+    try {
+      var terminiData = await _terminiProvider.get(filter: {
+        'korisnikIdKlijent': klijentId,
+      });
+      setState(() {
+        _termini = terminiData.result;
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -183,26 +185,28 @@ class _TerminDetailScreenState extends State<TerminDetailScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      ElevatedButton(
-                        onPressed: () async {
-                          var terminDatum = await Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => DateTest(),
-                            ),
-                          );
+ElevatedButton(
+  onPressed: () async {
+    var terminDatum = await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => DateTest(),
+      ),
+    );
 
-                          if (terminDatum != null && terminDatum is DateTime) {
-                            setState(() {
-                              _modifiedDatum = terminDatum;
-                              _isDateModified = true;
-                              _isSaveButtonEnabled = true;
-                            });
+    if (terminDatum != null && terminDatum is DateTime) {
+      setState(() {
+        _modifiedDatum = terminDatum;
+        _isDateModified = true;
+        _isSaveButtonEnabled = true;
+      });
 
-                            await _fetchOccupiedAppointments();
-                          }
-                        },
-                        child: Text('Select Date and Time'),
-                      ),
+      await _fetchOcuppiedAppointments();
+    }
+  },
+  child: Text('Select Date and Time'),
+),
+
+
                       ElevatedButton(
                         onPressed: _isSaveButtonEnabled
                             ? () {
@@ -240,9 +244,9 @@ class _TerminDetailScreenState extends State<TerminDetailScreen> {
                                 children: [
                                   ListTile(
                                     title: Text(
-                                      DateFormat('dd.MM.yyyy - HH:mm')
-                        .format(terminiResult!.result[index].datum!)
-                                    ),
+  DateFormat('dd.MM.yyyy - HH:mm').format(terminiResult!.result[index].datum!),
+),
+
                                   ),
                                   const Divider(
                                     color: Colors.black,
@@ -304,7 +308,7 @@ class _TerminDetailScreenState extends State<TerminDetailScreen> {
     }
   }
 
-  void _saveNewTermin() async {
+ void _saveNewTermin() async {
     final uposlenikId = await getUposlenikId();
 
     if (uposlenikId == null) {
@@ -358,10 +362,4 @@ class _TerminDetailScreenState extends State<TerminDetailScreen> {
         print(e);
       }
     }
-  }
-}
-
-
-
-
-
+  }}

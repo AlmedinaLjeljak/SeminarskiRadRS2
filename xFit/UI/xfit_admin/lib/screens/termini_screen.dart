@@ -101,7 +101,7 @@ void _fetchKorisnici() async {
               DataColumn(label: Text('Klijent')),
               DataColumn(label: Text('Date')),
               DataColumn(label: Text('Edit')),
-              DataColumn(label: Text('Complete')),
+              DataColumn(label: Text('Delete')),
             ],
             rows: _termin.map((termin) {
               return DataRow(
@@ -116,7 +116,7 @@ void _fetchKorisnici() async {
                     },
                   )),
                   DataCell(IconButton(
-                    icon: Icon(Icons.check),
+                    icon: Icon(Icons.close),
                     onPressed: () {
                       _showDeleteConfirmationDialog(termin);
                     },
