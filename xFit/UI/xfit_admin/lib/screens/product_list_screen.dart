@@ -218,6 +218,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
               child: const Text(
                 'Image',
                 style: const TextStyle(fontStyle: FontStyle.italic),
+                textAlign: TextAlign.center,
               ),
             ),
           ),

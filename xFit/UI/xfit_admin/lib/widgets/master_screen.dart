@@ -53,7 +53,7 @@ class _MasterScreenWidgetState extends State<MasterScreenWidget>{
         
         child:ListView(
          children: [
-         ListTile(
+        /* ListTile(
             title:Text("Back"),
             onTap: (){
               Navigator.of(context).push(
@@ -63,7 +63,7 @@ class _MasterScreenWidgetState extends State<MasterScreenWidget>{
               
               
             },
-          ),
+          ),*/
           ListTile(
             title:Text("Home"),
             onTap: (){
