@@ -5,7 +5,7 @@ namespace xFit_rabbit.Data;
 
 public partial class Uloga
 {
-    public int UlogaId { get; set; }
+    public int UlogaID { get; set; }
 
     public string? Naziv { get; set; }
 

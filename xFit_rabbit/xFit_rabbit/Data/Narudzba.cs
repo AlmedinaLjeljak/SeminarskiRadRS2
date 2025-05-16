@@ -5,7 +5,7 @@ namespace xFit_rabbit.Data;
 
 public partial class Narudzba
 {
-    public int NarudzbaId { get; set; }
+    public int NarudzbaID { get; set; }
 
     public string? BrojNarudzbe { get; set; }
 
@@ -15,7 +15,7 @@ public partial class Narudzba
 
     public double? Iznos { get; set; }
 
-    public int? KorisnikId { get; set; }
+    public int? KorisnikID { get; set; }
 
     public virtual Korisnik? Korisnik { get; set; }
 

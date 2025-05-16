@@ -57,7 +57,17 @@ public partial class XFitContext : DbContext
   
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Grad>(entity =>
+		foreach (var entity in modelBuilder.Model.GetEntityTypes())
+		{
+			foreach (var property in entity.GetProperties())
+			{
+				if (property.ClrType == typeof(string))
+				{
+					property.SetColumnType("nvarchar(max)");
+				}
+			}
+		}
+		modelBuilder.Entity<Grad>(entity =>
         {
             entity.ToTable("Grad");
 
@@ -65,8 +75,7 @@ public partial class XFitContext : DbContext
                 .ValueGeneratedOnAdd()
                 .HasColumnName("GradID");
             entity.Property(e => e.Naziv)
-                .HasMaxLength(20)
-                .IsFixedLength();
+                .HasMaxLength(20);
         });
 
         modelBuilder.Entity<Klijent>(entity =>
@@ -78,12 +87,11 @@ public partial class XFitContext : DbContext
                 .HasColumnName("KlijentID");
             entity.Property(e => e.DatumRodjenja).HasColumnType("date");
             entity.Property(e => e.Ime)
-                .HasMaxLength(20)
-                .IsFixedLength();
+                .HasMaxLength(20);
             entity.Property(e => e.KorisnikId).HasColumnName("KorisnikID");
             entity.Property(e => e.Prezime)
                 .HasMaxLength(20)
-                .IsFixedLength();
+                ;
 
             entity.HasOne(d => d.Korisnik).WithMany(p => p.Klijents)
                 .HasForeignKey(d => d.KorisnikId)
@@ -101,13 +109,13 @@ public partial class XFitContext : DbContext
             entity.Property(e => e.GradId).HasColumnName("GradID");
             entity.Property(e => e.Ime)
                 .HasMaxLength(20)
-                .IsFixedLength();
+                ;
             entity.Property(e => e.KorisnickoIme)
                 .HasMaxLength(10)
-                .IsFixedLength();
+                ;
             entity.Property(e => e.Prezime)
                 .HasMaxLength(20)
-                .IsFixedLength();
+                ;
             entity.Property(e => e.SpolId).HasColumnName("SpolID");
 
             entity.HasOne(d => d.Grad).WithMany(p => p.Korisniks)
@@ -203,10 +211,10 @@ public partial class XFitContext : DbContext
             entity.Property(e => e.Cijena).HasColumnType("decimal(10, 2)");
             entity.Property(e => e.Naziv)
                 .HasMaxLength(20)
-                .IsFixedLength();
+                ;
             entity.Property(e => e.Sifra)
                 .HasMaxLength(10)
-                .IsFixedLength();
+                ;
             entity.Property(e => e.Slika).HasColumnType("image");
             entity.Property(e => e.VrstaProizvodaId).HasColumnName("VrstaProizvodaID");
 
@@ -271,7 +279,7 @@ public partial class XFitContext : DbContext
                 .HasColumnName("SpolID");
             entity.Property(e => e.Naziv)
                 .HasMaxLength(10)
-                .IsFixedLength();
+                ;
         });
 
         modelBuilder.Entity<StavkaNarudzbe>(entity =>
@@ -338,7 +346,7 @@ public partial class XFitContext : DbContext
                 .HasColumnName("UlogaID");
             entity.Property(e => e.Naziv)
                 .HasMaxLength(20)
-                .IsFixedLength();
+               ;
         });
 
         modelBuilder.Entity<Uposlenik>(entity =>
@@ -367,7 +375,7 @@ public partial class XFitContext : DbContext
                 .HasColumnName("VrstaProizvodaID");
             entity.Property(e => e.Naziv)
                 .HasMaxLength(20)
-                .IsFixedLength();
+                ;
         });
 
         OnModelCreatingPartial(modelBuilder);

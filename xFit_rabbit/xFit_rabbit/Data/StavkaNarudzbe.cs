@@ -5,13 +5,13 @@ namespace xFit_rabbit.Data;
 
 public partial class StavkaNarudzbe
 {
-    public int StavkaNarudzbeId { get; set; }
+    public int StavkaNarudzbeID { get; set; }
 
     public int? Kolicina { get; set; }
 
-    public int? NarudzbaId { get; set; }
+    public int? NarudzbaID { get; set; }
 
-    public int? ProizvodId { get; set; }
+    public int? ProizvodID { get; set; }
 
     public virtual Narudzba? Narudzba { get; set; }
 

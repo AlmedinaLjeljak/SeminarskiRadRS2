@@ -5,17 +5,17 @@ namespace xFit_rabbit.Data;
 
 public partial class Rezervacija
 {
-    public int RezervacijaId { get; set; }
+    public int RezervacijaID { get; set; }
 
     public DateTime? Datum { get; set; }
 
     public string? Email { get; set; }
 
-    public int? UposlenikId { get; set; }
+    public int? UposlenikID { get; set; }
 
-    public int? KlijentId { get; set; }
+    public int? KlijentID { get; set; }
 
-    public int? TerminId { get; set; }
+    public int? TerminID { get; set; }
 
     public virtual Klijent? Klijent { get; set; }
 

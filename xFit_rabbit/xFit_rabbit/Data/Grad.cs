@@ -5,7 +5,7 @@ namespace xFit_rabbit.Data;
 
 public partial class Grad
 {
-    public int GradId { get; set; }
+    public int GradID { get; set; }
 
     public string? Naziv { get; set; }
 

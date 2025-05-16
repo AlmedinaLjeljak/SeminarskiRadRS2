@@ -1,4 +1,6 @@
-﻿namespace xFit_rabbit.Models
+﻿using xFit_rabbit.Data;
+
+namespace xFit_rabbit.Models
 {
 	public class Korisnik
 	{

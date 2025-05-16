@@ -5,7 +5,7 @@ namespace xFit_rabbit.Data;
 
 public partial class VrstaProizvodum
 {
-    public int VrstaProizvodaId { get; set; }
+    public int VrstaProizvodaID { get; set; }
 
     public string? Naziv { get; set; }
 

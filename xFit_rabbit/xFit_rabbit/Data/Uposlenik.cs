@@ -5,7 +5,7 @@ namespace xFit_rabbit.Data;
 
 public partial class Uposlenik
 {
-    public int UposlenikId { get; set; }
+    public int UposlenikID { get; set; }
 
     public string? Ime { get; set; }
 
@@ -13,11 +13,9 @@ public partial class Uposlenik
 
     public DateTime? DatumRodjenja { get; set; }
 
-    public int? KorisnikId { get; set; }
+    public int? KorisnikID { get; set; }
 
     public virtual Korisnik? Korisnik { get; set; }
 
     public virtual ICollection<Rezervacija> Rezervacijas { get; } = new List<Rezervacija>();
-
-    public virtual ICollection<Termin> Termins { get; } = new List<Termin>();
 }

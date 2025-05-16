@@ -5,7 +5,7 @@ namespace xFit_rabbit.Data;
 
 public partial class Novost
 {
-    public int NovostId { get; set; }
+    public int NovostID { get; set; }
 
     public string? Naziv { get; set; }
 
@@ -13,7 +13,11 @@ public partial class Novost
 
     public DateTime? DatumObjave { get; set; }
 
+    public int? KorisnikId { get; set; }
+
     public int? KlijentId { get; set; }
 
     public virtual Klijent? Klijent { get; set; }
+
+    public virtual Korisnik? Korisnik { get; set; }
 }

@@ -62,8 +62,7 @@ namespace xFit.Services.Migrations
 
                     b.Property<string>("Naziv")
                         .HasMaxLength(20)
-                        .HasColumnType("nchar(20)")
-                        .IsFixedLength();
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("GradId");
 
@@ -101,8 +100,7 @@ namespace xFit.Services.Migrations
 
                     b.Property<string>("Ime")
                         .HasMaxLength(20)
-                        .HasColumnType("nchar(20)")
-                        .IsFixedLength();
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("KorisnikId")
                         .HasColumnType("int")
@@ -110,8 +108,7 @@ namespace xFit.Services.Migrations
 
                     b.Property<string>("Prezime")
                         .HasMaxLength(20)
-                        .HasColumnType("nchar(20)")
-                        .IsFixedLength();
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("KlijentId");
 
@@ -123,7 +120,7 @@ namespace xFit.Services.Migrations
                         new
                         {
                             KlijentId = 1,
-                            DatumRodjenja = new DateTime(2025, 3, 24, 16, 4, 54, 68, DateTimeKind.Local).AddTicks(1033),
+                            DatumRodjenja = new DateTime(2025, 5, 16, 8, 32, 11, 969, DateTimeKind.Local).AddTicks(6565),
                             Ime = "Klijent",
                             KorisnikId = 2,
                             Prezime = "Klijent"
@@ -149,13 +146,11 @@ namespace xFit.Services.Migrations
 
                     b.Property<string>("Ime")
                         .HasMaxLength(20)
-                        .HasColumnType("nchar(20)")
-                        .IsFixedLength();
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("KorisnickoIme")
                         .HasMaxLength(10)
-                        .HasColumnType("nchar(10)")
-                        .IsFixedLength();
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LozinkaHash")
                         .HasColumnType("nvarchar(max)");
@@ -165,8 +160,7 @@ namespace xFit.Services.Migrations
 
                     b.Property<string>("Prezime")
                         .HasMaxLength(20)
-                        .HasColumnType("nchar(20)")
-                        .IsFixedLength();
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("SpolId")
                         .IsRequired()
@@ -240,14 +234,14 @@ namespace xFit.Services.Migrations
                         new
                         {
                             KorisnikUlogaId = 1,
-                            DatumIzmjene = new DateTime(2025, 3, 24, 16, 4, 54, 68, DateTimeKind.Local).AddTicks(1091),
+                            DatumIzmjene = new DateTime(2025, 5, 16, 8, 32, 11, 969, DateTimeKind.Local).AddTicks(6631),
                             KorisnikId = 1,
                             UlogaId = 1
                         },
                         new
                         {
                             KorisnikUlogaId = 2,
-                            DatumIzmjene = new DateTime(2025, 3, 24, 16, 4, 54, 68, DateTimeKind.Local).AddTicks(1093),
+                            DatumIzmjene = new DateTime(2025, 5, 16, 8, 32, 11, 969, DateTimeKind.Local).AddTicks(6633),
                             KorisnikId = 2,
                             UlogaId = 2
                         });
@@ -264,7 +258,7 @@ namespace xFit.Services.Migrations
 
                     b.Property<string>("BrojNarudzbe")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("Datum")
                         .HasColumnType("date");
@@ -278,7 +272,7 @@ namespace xFit.Services.Migrations
 
                     b.Property<string>("Status")
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("NarudzbaId");
 
@@ -291,7 +285,7 @@ namespace xFit.Services.Migrations
                         {
                             NarudzbaId = 1,
                             BrojNarudzbe = "#1",
-                            Datum = new DateTime(2025, 3, 24, 16, 4, 54, 70, DateTimeKind.Local).AddTicks(7632),
+                            Datum = new DateTime(2025, 5, 16, 8, 32, 11, 972, DateTimeKind.Local).AddTicks(5856),
                             Iznos = 17.0,
                             KorisnikId = 1,
                             Status = "Pending"
@@ -300,7 +294,7 @@ namespace xFit.Services.Migrations
                         {
                             NarudzbaId = 2,
                             BrojNarudzbe = "#2",
-                            Datum = new DateTime(2025, 3, 24, 16, 4, 54, 70, DateTimeKind.Local).AddTicks(7636),
+                            Datum = new DateTime(2025, 5, 16, 8, 32, 11, 972, DateTimeKind.Local).AddTicks(5863),
                             Iznos = 20.0,
                             KorisnikId = 2,
                             Status = "Pending"
@@ -328,11 +322,11 @@ namespace xFit.Services.Migrations
 
                     b.Property<string>("Naziv")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Sadzaj")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("NovostId");
 
@@ -346,7 +340,7 @@ namespace xFit.Services.Migrations
                         new
                         {
                             NovostId = 1,
-                            DatumObjave = new DateTime(2025, 3, 24, 16, 4, 54, 70, DateTimeKind.Local).AddTicks(7572),
+                            DatumObjave = new DateTime(2025, 5, 16, 8, 32, 11, 972, DateTimeKind.Local).AddTicks(5765),
                             KorisnikId = 1,
                             Naziv = "Novost",
                             Sadzaj = "Sadrzaj novost"
@@ -390,7 +384,7 @@ namespace xFit.Services.Migrations
                         new
                         {
                             OmiljeniProizvodId = 1,
-                            DatumDodavanja = new DateTime(2025, 3, 24, 16, 4, 54, 70, DateTimeKind.Local).AddTicks(7607),
+                            DatumDodavanja = new DateTime(2025, 5, 16, 8, 32, 11, 972, DateTimeKind.Local).AddTicks(5803),
                             KlijentId = 1,
                             ProizvodId = 1
                         });
@@ -410,13 +404,11 @@ namespace xFit.Services.Migrations
 
                     b.Property<string>("Naziv")
                         .HasMaxLength(20)
-                        .HasColumnType("nchar(20)")
-                        .IsFixedLength();
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Sifra")
                         .HasMaxLength(10)
-                        .HasColumnType("nchar(10)")
-                        .IsFixedLength();
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("Slika")
                         .HasColumnType("image");
@@ -562,7 +554,7 @@ namespace xFit.Services.Migrations
 
                     b.Property<string>("Sadrzaj")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("RecenzijaId");
 
@@ -578,7 +570,7 @@ namespace xFit.Services.Migrations
                         new
                         {
                             RecenzijaId = 1,
-                            Datum = new DateTime(2025, 3, 24, 16, 4, 54, 70, DateTimeKind.Local).AddTicks(7321),
+                            Datum = new DateTime(2025, 5, 16, 8, 32, 11, 972, DateTimeKind.Local).AddTicks(5473),
                             KorisnikId = 1,
                             ProizvodId = 1,
                             Sadrzaj = "sadrzaj"
@@ -624,7 +616,7 @@ namespace xFit.Services.Migrations
 
                     b.Property<string>("Email")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("KlijentId")
                         .HasColumnType("int")
@@ -652,7 +644,7 @@ namespace xFit.Services.Migrations
                         new
                         {
                             RezervacijaId = 1,
-                            Datum = new DateTime(2025, 3, 24, 16, 4, 54, 70, DateTimeKind.Local).AddTicks(7711),
+                            Datum = new DateTime(2025, 5, 16, 8, 32, 11, 972, DateTimeKind.Local).AddTicks(5960),
                             Email = "rezervacija@gmail.com",
                             KlijentId = 1,
                             TerminId = 1,
@@ -671,8 +663,7 @@ namespace xFit.Services.Migrations
 
                     b.Property<string>("Naziv")
                         .HasMaxLength(10)
-                        .HasColumnType("nchar(10)")
-                        .IsFixedLength();
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("SpolId");
 
@@ -773,7 +764,7 @@ namespace xFit.Services.Migrations
                         new
                         {
                             TerminId = 1,
-                            Datum = new DateTime(2025, 3, 24, 16, 4, 54, 70, DateTimeKind.Local).AddTicks(7440),
+                            Datum = new DateTime(2025, 5, 16, 8, 32, 11, 972, DateTimeKind.Local).AddTicks(5600),
                             KorisnikIdKlijent = 1,
                             KorisnikIdUposlenik = 1
                         });
@@ -821,8 +812,7 @@ namespace xFit.Services.Migrations
 
                     b.Property<string>("Naziv")
                         .HasMaxLength(20)
-                        .HasColumnType("nchar(20)")
-                        .IsFixedLength();
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UlogaId");
 
@@ -855,7 +845,7 @@ namespace xFit.Services.Migrations
 
                     b.Property<string>("Ime")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("KorisnikId")
                         .HasColumnType("int")
@@ -863,7 +853,7 @@ namespace xFit.Services.Migrations
 
                     b.Property<string>("Prezime")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UposlenikId");
 
@@ -875,7 +865,7 @@ namespace xFit.Services.Migrations
                         new
                         {
                             UposlenikId = 1,
-                            DatumRodjenja = new DateTime(2025, 3, 24, 16, 4, 54, 68, DateTimeKind.Local).AddTicks(1103),
+                            DatumRodjenja = new DateTime(2025, 5, 16, 8, 32, 11, 969, DateTimeKind.Local).AddTicks(6650),
                             Ime = "uposlenik",
                             KorisnikId = 1,
                             Prezime = "uposlenik"
@@ -893,8 +883,7 @@ namespace xFit.Services.Migrations
 
                     b.Property<string>("Naziv")
                         .HasMaxLength(20)
-                        .HasColumnType("nchar(20)")
-                        .IsFixedLength();
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("VrstaProizvodaId");
 

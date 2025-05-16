@@ -1,12 +1,10 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using xFit.Services.Database;
+
 using xFit_rabbit;
 using xFit_rabbit.Data;
 using xFit_rabbit.Services;
-
-
 
 var builder = WebApplication.CreateBuilder(args);
 

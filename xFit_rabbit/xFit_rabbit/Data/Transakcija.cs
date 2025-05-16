@@ -5,11 +5,11 @@ namespace xFit_rabbit.Data;
 
 public partial class Transakcija
 {
-    public int TransakcijaId { get; set; }
+    public int TransakcijaID { get; set; }
 
     public double? Iznos { get; set; }
 
-    public int? NarudzbaId { get; set; }
+    public int? NarudzbaID { get; set; }
 
     public virtual Narudzba? Narudzba { get; set; }
 }

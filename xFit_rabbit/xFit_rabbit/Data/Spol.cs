@@ -5,7 +5,7 @@ namespace xFit_rabbit.Data;
 
 public partial class Spol
 {
-    public int SpolId { get; set; }
+    public int SpolID { get; set; }
 
     public string? Naziv { get; set; }
 

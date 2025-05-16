@@ -9,7 +9,7 @@ using AutoMapper;
 
 namespace xFit_rabbit.Services
 {
-	public class MappingProfile:Profile
+	public class MappingProfile : Profile
 	{
 		public MappingProfile()
 		{
