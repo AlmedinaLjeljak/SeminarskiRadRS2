@@ -1,36 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_admin\windows\flutter\ephemeral\.plugin_symlinks\printing\windows\printing.cpp">
+    <ClCompile Include="C:\Users\HOME\Desktop\Razvoj softvera 2 sminarski rad\SeminarskiRadRS2\xFit\UI\xfit_admin\windows\flutter\ephemeral\.plugin_symlinks\printing\windows\printing.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_admin\windows\flutter\ephemeral\.plugin_symlinks\printing\windows\printing_plugin.cpp">
+    <ClCompile Include="C:\Users\HOME\Desktop\Razvoj softvera 2 sminarski rad\SeminarskiRadRS2\xFit\UI\xfit_admin\windows\flutter\ephemeral\.plugin_symlinks\printing\windows\printing_plugin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_admin\windows\flutter\ephemeral\.plugin_symlinks\printing\windows\print_job.cpp">
+    <ClCompile Include="C:\Users\HOME\Desktop\Razvoj softvera 2 sminarski rad\SeminarskiRadRS2\xFit\UI\xfit_admin\windows\flutter\ephemeral\.plugin_symlinks\printing\windows\print_job.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_admin\windows\flutter\ephemeral\.plugin_symlinks\printing\windows\printing.h">
+    <ClInclude Include="C:\Users\HOME\Desktop\Razvoj softvera 2 sminarski rad\SeminarskiRadRS2\xFit\UI\xfit_admin\windows\flutter\ephemeral\.plugin_symlinks\printing\windows\printing.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_admin\windows\flutter\ephemeral\.plugin_symlinks\printing\windows\include\printing\printing_plugin.h">
+    <ClInclude Include="C:\Users\HOME\Desktop\Razvoj softvera 2 sminarski rad\SeminarskiRadRS2\xFit\UI\xfit_admin\windows\flutter\ephemeral\.plugin_symlinks\printing\windows\include\printing\printing_plugin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_admin\windows\flutter\ephemeral\.plugin_symlinks\printing\windows\print_job.h">
+    <ClInclude Include="C:\Users\HOME\Desktop\Razvoj softvera 2 sminarski rad\SeminarskiRadRS2\xFit\UI\xfit_admin\windows\flutter\ephemeral\.plugin_symlinks\printing\windows\print_job.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\Users\HOME\Desktop\SeminarskiRS2\SeminarskiRadRS2\xFit\UI\xfit_admin\windows\flutter\ephemeral\.plugin_symlinks\printing\windows\CMakeLists.txt" />
+    <CustomBuild Include="C:\Users\HOME\Desktop\Razvoj softvera 2 sminarski rad\SeminarskiRadRS2\xFit\UI\xfit_admin\windows\flutter\ephemeral\.plugin_symlinks\printing\windows\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
-      <UniqueIdentifier>{EB921967-FB81-34CC-99F3-2EE9E322BCBF}</UniqueIdentifier>
+      <UniqueIdentifier>{ABAB03D4-F23C-323C-90CC-957AB984C524}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{5109FC05-754B-3644-B755-1BD6F1905E54}</UniqueIdentifier>
+      <UniqueIdentifier>{39B62010-7CC5-30AA-A6A4-8ACCEE2C02D4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -5,8 +5,8 @@ cmake_minimum_required(VERSION 3.5)
 
 # Make file names absolute:
 #
-get_filename_component(filename "C:/Users/HOME/Desktop/SeminarskiRS2/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/pdfium-download-prefix/src/pdfium-win-x64.tgz" ABSOLUTE)
-get_filename_component(directory "C:/Users/HOME/Desktop/SeminarskiRS2/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-src" ABSOLUTE)
+get_filename_component(filename "C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/pdfium-download-prefix/src/pdfium-win-x64.tgz" ABSOLUTE)
+get_filename_component(directory "C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-src" ABSOLUTE)
 
 message(STATUS "extracting...
      src='${filename}'

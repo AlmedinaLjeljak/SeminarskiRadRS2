@@ -4,19 +4,19 @@
 cmake_minimum_required(VERSION 3.5)
 
 file(MAKE_DIRECTORY
-  "C:/Users/HOME/Desktop/SeminarskiRS2/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-src"
-  "C:/Users/HOME/Desktop/SeminarskiRS2/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-build"
-  "C:/Users/HOME/Desktop/SeminarskiRS2/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/pdfium-download-prefix"
-  "C:/Users/HOME/Desktop/SeminarskiRS2/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/pdfium-download-prefix/tmp"
-  "C:/Users/HOME/Desktop/SeminarskiRS2/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/pdfium-download-prefix/src/pdfium-download-stamp"
-  "C:/Users/HOME/Desktop/SeminarskiRS2/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/pdfium-download-prefix/src"
-  "C:/Users/HOME/Desktop/SeminarskiRS2/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/pdfium-download-prefix/src/pdfium-download-stamp"
+  "C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-src"
+  "C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-build"
+  "C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/pdfium-download-prefix"
+  "C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/pdfium-download-prefix/tmp"
+  "C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/pdfium-download-prefix/src/pdfium-download-stamp"
+  "C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/pdfium-download-prefix/src"
+  "C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/pdfium-download-prefix/src/pdfium-download-stamp"
 )
 
 set(configSubDirs Debug;Release;MinSizeRel;RelWithDebInfo)
 foreach(subDir IN LISTS configSubDirs)
-    file(MAKE_DIRECTORY "C:/Users/HOME/Desktop/SeminarskiRS2/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/pdfium-download-prefix/src/pdfium-download-stamp/${subDir}")
+    file(MAKE_DIRECTORY "C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/pdfium-download-prefix/src/pdfium-download-stamp/${subDir}")
 endforeach()
 if(cfgdir)
-  file(MAKE_DIRECTORY "C:/Users/HOME/Desktop/SeminarskiRS2/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/pdfium-download-prefix/src/pdfium-download-stamp${cfgdir}") # cfgdir has leading slash
+  file(MAKE_DIRECTORY "C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/pdfium-download-prefix/src/pdfium-download-stamp${cfgdir}") # cfgdir has leading slash
 endif()

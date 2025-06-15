@@ -1,13 +1,13 @@
-C:/Users/HOME/Desktop/SeminarskiRS2/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/CMakeFiles/INSTALL.dir
-C:/Users/HOME/Desktop/SeminarskiRS2/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/CMakeFiles/ALL_BUILD.dir
-C:/Users/HOME/Desktop/SeminarskiRS2/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/CMakeFiles/ZERO_CHECK.dir
-C:/Users/HOME/Desktop/SeminarskiRS2/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/flutter/CMakeFiles/flutter_wrapper_plugin.dir
-C:/Users/HOME/Desktop/SeminarskiRS2/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/flutter/CMakeFiles/flutter_wrapper_app.dir
-C:/Users/HOME/Desktop/SeminarskiRS2/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/flutter/CMakeFiles/flutter_assemble.dir
-C:/Users/HOME/Desktop/SeminarskiRS2/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/flutter/CMakeFiles/INSTALL.dir
-C:/Users/HOME/Desktop/SeminarskiRS2/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/runner/CMakeFiles/xfit_admin.dir
-C:/Users/HOME/Desktop/SeminarskiRS2/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/runner/CMakeFiles/INSTALL.dir
-C:/Users/HOME/Desktop/SeminarskiRS2/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/runner/CMakeFiles/ALL_BUILD.dir
-C:/Users/HOME/Desktop/SeminarskiRS2/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/plugins/printing/CMakeFiles/printing_plugin.dir
-C:/Users/HOME/Desktop/SeminarskiRS2/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/plugins/printing/CMakeFiles/INSTALL.dir
-C:/Users/HOME/Desktop/SeminarskiRS2/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/plugins/printing/CMakeFiles/ALL_BUILD.dir
+C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/CMakeFiles/INSTALL.dir
+C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/CMakeFiles/ALL_BUILD.dir
+C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/CMakeFiles/ZERO_CHECK.dir
+C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/flutter/CMakeFiles/flutter_wrapper_plugin.dir
+C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/flutter/CMakeFiles/flutter_wrapper_app.dir
+C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/flutter/CMakeFiles/flutter_assemble.dir
+C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/flutter/CMakeFiles/INSTALL.dir
+C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/runner/CMakeFiles/xfit_admin.dir
+C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/runner/CMakeFiles/INSTALL.dir
+C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/runner/CMakeFiles/ALL_BUILD.dir
+C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/plugins/printing/CMakeFiles/printing_plugin.dir
+C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/plugins/printing/CMakeFiles/INSTALL.dir
+C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/plugins/printing/CMakeFiles/ALL_BUILD.dir
