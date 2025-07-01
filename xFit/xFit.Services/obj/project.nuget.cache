@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "TtetmvIdyMumgzm/QWuBxhC7Kg4HoivgUlQIdx/Ujlu1rZJ1gy6XoROyiQA7lXjwlXo0qhCp2OrMZxVxSJrOWQ==",
+  "dgSpecHash": "kFjJGjs+VNcAH0flcwixAyywyozEv/fNHtYpsRnuGlNuJg51jXc/UUUqVYGUFaBpj24Fc54E2CSnXDIb6XH3YA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\HOME\\Desktop\\SeminarskiRS2\\SeminarskiRadRS2\\xFit\\xFit.Services\\xFit.Services.csproj",
+  "projectFilePath": "C:\\Users\\HOME\\Desktop\\Razvoj softvera 2 sminarski rad\\SeminarskiRadRS2\\xFit\\xFit.Services\\xFit.Services.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\HOME\\.nuget\\packages\\automapper\\11.0.0\\automapper.11.0.0.nupkg.sha512",
     "C:\\Users\\HOME\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",
