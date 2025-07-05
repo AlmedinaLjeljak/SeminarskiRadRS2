@@ -9,6 +9,7 @@ import 'package:xfit_admin/screens/orders_screen.dart';
 import 'package:xfit_admin/screens/product_detail_screen.dart';
 import 'package:xfit_admin/screens/product_list_screen.dart';
 import 'package:xfit_admin/screens/termini_screen.dart';
+import 'package:xfit_admin/screens/transakcija_screen.dart';
 
 class MasterScreenWidget extends StatefulWidget{
   Widget? child;
@@ -100,6 +101,16 @@ class _MasterScreenWidgetState extends State<MasterScreenWidget>{
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder:(context)=> const TerminScreen(),
+                ),
+              );
+            },
+          ),
+           ListTile(
+            title:Text("Transactions"),
+            onTap: (){
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder:(context)=> const TransakcijeScreen(),
                 ),
               );
             },

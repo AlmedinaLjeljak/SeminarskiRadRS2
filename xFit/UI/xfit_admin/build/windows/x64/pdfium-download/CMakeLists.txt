@@ -13,8 +13,8 @@ endif()
 
 ExternalProject_Add(pdfium-download
                     URL;https://github.com/bblanchon/pdfium-binaries/releases/download/chromium/5200/pdfium-win-x64.tgz
-                    SOURCE_DIR          "C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-src"
-                    BINARY_DIR          "C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-build"
+                    SOURCE_DIR          "C:/Users/HOME/Desktop/RS2-SeminarskiRad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-src"
+                    BINARY_DIR          "C:/Users/HOME/Desktop/RS2-SeminarskiRad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-build"
                     CONFIGURE_COMMAND   ""
                     BUILD_COMMAND       ""
                     INSTALL_COMMAND     ""

@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download
+# Install script for directory: C:/Users/HOME/Desktop/RS2-SeminarskiRad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/HOME/Desktop/RS2-SeminarskiRad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

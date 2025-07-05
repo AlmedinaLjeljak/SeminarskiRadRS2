@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "DflIOuy4k1CiOLb+/QDgaRmgnkG+azRWcNc73AeeoLp6W/+gGiKb/TbMyuOzBhIQeC7cO6Ud1Ng+w10V+C8LvQ==",
+  "dgSpecHash": "XY1C0HA6fDplGkeQXbOCGNCdBBrmG0UfHbqTIlorfMfjQWJBeEJKZ6yYvVtBU5LGK8TF6JrOHWvMNWPNfCyxEQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\HOME\\Desktop\\Razvoj softvera 2 sminarski rad\\SeminarskiRadRS2\\xFit\\xFit.Model\\xFit.Model.csproj",
+  "projectFilePath": "C:\\Users\\HOME\\Desktop\\RS2-SeminarskiRad\\SeminarskiRadRS2\\xFit\\xFit.Model\\xFit.Model.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\HOME\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.2.0\\microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\HOME\\.nuget\\packages\\microsoft.aspnetcore.http.features\\2.2.0\\microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",

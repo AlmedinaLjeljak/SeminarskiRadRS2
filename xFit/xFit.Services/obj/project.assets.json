@@ -8270,11 +8270,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\HOME\\Desktop\\Razvoj softvera 2 sminarski rad\\SeminarskiRadRS2\\xFit\\xFit.Services\\xFit.Services.csproj",
+      "projectUniqueName": "C:\\Users\\HOME\\Desktop\\RS2-SeminarskiRad\\SeminarskiRadRS2\\xFit\\xFit.Services\\xFit.Services.csproj",
       "projectName": "xFit.Services",
-      "projectPath": "C:\\Users\\HOME\\Desktop\\Razvoj softvera 2 sminarski rad\\SeminarskiRadRS2\\xFit\\xFit.Services\\xFit.Services.csproj",
+      "projectPath": "C:\\Users\\HOME\\Desktop\\RS2-SeminarskiRad\\SeminarskiRadRS2\\xFit\\xFit.Services\\xFit.Services.csproj",
       "packagesPath": "C:\\Users\\HOME\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\HOME\\Desktop\\Razvoj softvera 2 sminarski rad\\SeminarskiRadRS2\\xFit\\xFit.Services\\obj\\",
+      "outputPath": "C:\\Users\\HOME\\Desktop\\RS2-SeminarskiRad\\SeminarskiRadRS2\\xFit\\xFit.Services\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\HOME\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -8291,8 +8291,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\HOME\\Desktop\\Razvoj softvera 2 sminarski rad\\SeminarskiRadRS2\\xFit\\xFit.Model\\xFit.Model.csproj": {
-              "projectPath": "C:\\Users\\HOME\\Desktop\\Razvoj softvera 2 sminarski rad\\SeminarskiRadRS2\\xFit\\xFit.Model\\xFit.Model.csproj"
+            "C:\\Users\\HOME\\Desktop\\RS2-SeminarskiRad\\SeminarskiRadRS2\\xFit\\xFit.Model\\xFit.Model.csproj": {
+              "projectPath": "C:\\Users\\HOME\\Desktop\\RS2-SeminarskiRad\\SeminarskiRadRS2\\xFit\\xFit.Model\\xFit.Model.csproj"
             }
           }
         }

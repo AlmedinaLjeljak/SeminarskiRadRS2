@@ -4,6 +4,7 @@ import 'package:xfit_admin/models/narudzba.dart';
 import 'package:xfit_admin/providers/narudzba_provider.dart';
 import 'package:xfit_admin/screens/order_detail_screen.dart';
 
+
 class OrdersScreen extends StatefulWidget {
   const OrdersScreen({Key? key}) : super(key: key);
 
@@ -14,7 +15,18 @@ class OrdersScreen extends StatefulWidget {
 class _OrdersScreenState extends State<OrdersScreen> {
   final OrdersProvider _ordersProvider = OrdersProvider();
   List<Narudzba> _narudzba = [];
+  List<Narudzba> _filteredNarudzba = [];
   bool isLoading = true;
+
+ 
+  String? _selectedStatus = 'All';
+
+  final List<String> _statusOptions = [
+    'All',
+    'Pending',
+    'Completed',
+    'Cancelled',
+  ];
 
   @override
   void initState() {
@@ -25,9 +37,9 @@ class _OrdersScreenState extends State<OrdersScreen> {
   Future<void> _fetchNarudzbe() async {
     try {
       var result = await _ordersProvider.get();
-      print(result.result);
       setState(() {
         _narudzba = result.result;
+        _applyFilter();
         isLoading = false;
       });
     } catch (e) {
@@ -38,17 +50,58 @@ class _OrdersScreenState extends State<OrdersScreen> {
     }
   }
 
+  void _applyFilter() {
+    if (_selectedStatus == null || _selectedStatus == 'All') {
+      _filteredNarudzba = List.from(_narudzba);
+    } else {
+      _filteredNarudzba = _narudzba
+          .where((n) => n.status != null && n.status == _selectedStatus)
+          .toList();
+    }
+  }
+
+  void _onStatusChanged(String? newValue) {
+    setState(() {
+      _selectedStatus = newValue;
+      _applyFilter();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 186, 231, 240), // Zeleni background
+        backgroundColor: const Color.fromARGB(255, 186, 231, 240),
         title: const Text('Orders'),
       ),
-      body: Column(
-        children: [
-          _buildDataListView(),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+           
+            Row(
+              children: [
+                const Text(
+                  'Filter by status: ',
+                  style: TextStyle(fontSize: 16),
+                ),
+                const SizedBox(width: 12),
+                DropdownButton<String>(
+                  value: _selectedStatus,
+                  items: _statusOptions
+                      .map((status) => DropdownMenuItem(
+                            value: status,
+                            child: Text(status),
+                          ))
+                      .toList(),
+                  onChanged: _onStatusChanged,
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            _buildDataListView(),
+          ],
+        ),
       ),
     );
   }
@@ -62,48 +115,70 @@ class _OrdersScreenState extends State<OrdersScreen> {
       );
     }
 
-    if (_narudzba.isEmpty) {
+    if (_filteredNarudzba.isEmpty) {
       return const Expanded(
         child: Center(
-          child: Text('No orders found.'),
+          child: Text(
+            'No orders found.',
+            style: TextStyle(fontSize: 18, color: Colors.grey),
+          ),
         ),
       );
     }
 
     return Expanded(
       child: ListView.builder(
-        itemCount: _narudzba.length,
+        itemCount: _filteredNarudzba.length,
         itemBuilder: (context, index) {
-          var narudzba = _narudzba[index];
+          var narudzba = _filteredNarudzba[index];
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: MouseRegion(
               cursor: SystemMouseCursors.click,
               child: Card(
-                elevation: 2,
+                elevation: 4,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(12),
                 ),
+                color: Colors.white,
                 child: ListTile(
                   onTap: () async {
                     var refresh = await Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => OrderDetailScreen(narudzba: narudzba),
+                        builder: (context) =>
+                            OrderDetailScreen(narudzba: narudzba),
                       ),
                     );
                     if (refresh == 'reload') {
                       _fetchNarudzbe();
                     }
                   },
-                  title: Text(narudzba.brojNarudzbe ?? ''),
+                  leading: Icon(Icons.shopping_cart, color: Colors.purple[800]),
+                  title: Text(
+                    narudzba.brojNarudzbe ?? '',
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.purple[800],
+                        ),
+                  ),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(narudzba.iznos.toString() ?? ''),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Status: ${narudzba.status ?? 'Unknown'}',
+                        style: const TextStyle(fontSize: 14, color: Colors.black87),
+                      ),
+                      Text(
+                        'Total: ${narudzba.iznos != null ? narudzba.iznos!.toStringAsFixed(2) : '0.00'} KM',
+                        style:
+                            TextStyle(fontSize: 16, color: Colors.purple[700]),
+                      ),
                       const SizedBox(height: 8),
                       Text(
                         'Created on: ${narudzba.datum != null ? DateFormat('yyyy-MM-dd').format(narudzba.datum!) : 'Unknown Date'}',
-                        style: const TextStyle(fontStyle: FontStyle.italic),
+                        style: const TextStyle(
+                            fontStyle: FontStyle.italic, color: Colors.grey),
                       ),
                     ],
                   ),

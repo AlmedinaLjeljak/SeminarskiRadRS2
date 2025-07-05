@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <CustomBuild Include="C:\Users\HOME\Desktop\Razvoj softvera 2 sminarski rad\SeminarskiRadRS2\xFit\UI\xfit_admin\build\windows\x64\CMakeFiles\9b273990234260fcffb51d9dc3d316cf\INSTALL_force.rule">
+    <CustomBuild Include="C:\Users\HOME\Desktop\RS2-SeminarskiRad\SeminarskiRadRS2\xFit\UI\xfit_admin\build\windows\x64\CMakeFiles\1f04cbff89b9cdbdd48ee754e04ed332\INSTALL_force.rule">
       <Filter>CMake Rules</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="CMake Rules">
-      <UniqueIdentifier>{0B1918C3-0511-3939-8F7A-25FCE255150D}</UniqueIdentifier>
+      <UniqueIdentifier>{3F080BBC-8F62-3415-94DA-A1F23FDEDA34}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

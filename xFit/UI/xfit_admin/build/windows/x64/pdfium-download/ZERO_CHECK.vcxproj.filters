@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <CustomBuild Include="C:\Users\HOME\Desktop\Razvoj softvera 2 sminarski rad\SeminarskiRadRS2\xFit\UI\xfit_admin\build\windows\x64\pdfium-download\CMakeFiles\eec23462574957781a380b0c9f66234b\generate.stamp.rule">
+    <CustomBuild Include="C:\Users\HOME\Desktop\RS2-SeminarskiRad\SeminarskiRadRS2\xFit\UI\xfit_admin\build\windows\x64\pdfium-download\CMakeFiles\88359fde8e024359a80794cd4df29009\generate.stamp.rule">
       <Filter>CMake Rules</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="CMake Rules">
-      <UniqueIdentifier>{45FE6A6D-FB0A-3123-ACCF-3E2957427421}</UniqueIdentifier>
+      <UniqueIdentifier>{4F1D810D-2CDA-3C60-A8C2-5E653278F482}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

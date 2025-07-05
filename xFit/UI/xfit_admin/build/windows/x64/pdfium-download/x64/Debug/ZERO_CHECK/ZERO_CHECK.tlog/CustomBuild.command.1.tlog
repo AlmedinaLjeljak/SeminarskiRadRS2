@@ -1,6 +1,6 @@
-^C:\USERS\HOME\DESKTOP\RAZVOJ SOFTVERA 2 SMINARSKI RAD\SEMINARSKIRADRS2\XFIT\UI\XFIT_ADMIN\BUILD\WINDOWS\X64\PDFIUM-DOWNLOAD\CMAKEFILES\EEC23462574957781A380B0C9F66234B\GENERATE.STAMP.RULE
+^C:\USERS\HOME\DESKTOP\RS2-SEMINARSKIRAD\SEMINARSKIRADRS2\XFIT\UI\XFIT_ADMIN\BUILD\WINDOWS\X64\PDFIUM-DOWNLOAD\CMAKEFILES\88359FDE8E024359A80794CD4DF29009\GENERATE.STAMP.RULE
 setlocal
-"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" "-SC:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download" "-BC:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/pdfium-download.sln"
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/HOME/Desktop/RS2-SeminarskiRad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download -BC:/Users/HOME/Desktop/RS2-SeminarskiRad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/HOME/Desktop/RS2-SeminarskiRad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/pdfium-download.sln
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone

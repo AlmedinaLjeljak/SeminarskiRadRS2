@@ -1,14 +1,14 @@
 # Target labels
  pdfium-download
 # Source files and their labels
-C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/CMakeFiles/pdfium-download
-C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/CMakeFiles/eec23462574957781a380b0c9f66234b/pdfium-download.rule
-C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/CMakeFiles/1303a2e5d030f5873e881e0cd3ec837e/pdfium-download-complete.rule
-C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/CMakeFiles/efc1dcebefeffe4641ee9ebe29d1778f/pdfium-download-build.rule
-C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/CMakeFiles/efc1dcebefeffe4641ee9ebe29d1778f/pdfium-download-configure.rule
-C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/CMakeFiles/efc1dcebefeffe4641ee9ebe29d1778f/pdfium-download-download.rule
-C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/CMakeFiles/efc1dcebefeffe4641ee9ebe29d1778f/pdfium-download-install.rule
-C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/CMakeFiles/efc1dcebefeffe4641ee9ebe29d1778f/pdfium-download-mkdir.rule
-C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/CMakeFiles/efc1dcebefeffe4641ee9ebe29d1778f/pdfium-download-patch.rule
-C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/CMakeFiles/efc1dcebefeffe4641ee9ebe29d1778f/pdfium-download-test.rule
-C:/Users/HOME/Desktop/Razvoj softvera 2 sminarski rad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/CMakeFiles/efc1dcebefeffe4641ee9ebe29d1778f/pdfium-download-update.rule
+C:/Users/HOME/Desktop/RS2-SeminarskiRad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/CMakeFiles/pdfium-download
+C:/Users/HOME/Desktop/RS2-SeminarskiRad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/CMakeFiles/88359fde8e024359a80794cd4df29009/pdfium-download.rule
+C:/Users/HOME/Desktop/RS2-SeminarskiRad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/CMakeFiles/f6e1aa864a23fb7e019bbcdc6dc2b743/pdfium-download-complete.rule
+C:/Users/HOME/Desktop/RS2-SeminarskiRad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/CMakeFiles/e19e14053bcedae951e96768a64d41c3/pdfium-download-build.rule
+C:/Users/HOME/Desktop/RS2-SeminarskiRad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/CMakeFiles/e19e14053bcedae951e96768a64d41c3/pdfium-download-configure.rule
+C:/Users/HOME/Desktop/RS2-SeminarskiRad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/CMakeFiles/e19e14053bcedae951e96768a64d41c3/pdfium-download-download.rule
+C:/Users/HOME/Desktop/RS2-SeminarskiRad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/CMakeFiles/e19e14053bcedae951e96768a64d41c3/pdfium-download-install.rule
+C:/Users/HOME/Desktop/RS2-SeminarskiRad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/CMakeFiles/e19e14053bcedae951e96768a64d41c3/pdfium-download-mkdir.rule
+C:/Users/HOME/Desktop/RS2-SeminarskiRad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/CMakeFiles/e19e14053bcedae951e96768a64d41c3/pdfium-download-patch.rule
+C:/Users/HOME/Desktop/RS2-SeminarskiRad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/CMakeFiles/e19e14053bcedae951e96768a64d41c3/pdfium-download-test.rule
+C:/Users/HOME/Desktop/RS2-SeminarskiRad/SeminarskiRadRS2/xFit/UI/xfit_admin/build/windows/x64/pdfium-download/CMakeFiles/e19e14053bcedae951e96768a64d41c3/pdfium-download-update.rule

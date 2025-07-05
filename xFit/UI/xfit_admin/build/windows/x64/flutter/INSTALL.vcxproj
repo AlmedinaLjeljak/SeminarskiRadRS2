@@ -18,7 +18,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{88CE90BA-94C8-3218-AAF4-16EB489FB6B7}</ProjectGuid>
+    <ProjectGuid>{7A43FC65-E588-3A83-8E41-AB9498063DF2}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0.22000.0</WindowsTargetPlatformVersion>
     <Platform>x64</Platform>
@@ -100,7 +100,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\Users\HOME\Desktop\Razvoj softvera 2 sminarski rad\SeminarskiRadRS2\xFit\UI\xfit_admin\build\windows\x64\CMakeFiles\c2fd5107d1abb6b538e81b07fb04f821\INSTALL_force.rule">
+    <CustomBuild Include="C:\Users\HOME\Desktop\RS2-SeminarskiRad\SeminarskiRadRS2\xFit\UI\xfit_admin\build\windows\x64\CMakeFiles\d07e1bfc1f6072ea98761acac1fc97c5\INSTALL_force.rule">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'"> </Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
 cd .
@@ -112,7 +112,7 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\HOME\Desktop\Razvoj softvera 2 sminarski rad\SeminarskiRadRS2\xFit\UI\xfit_admin\build\windows\x64\flutter\CMakeFiles\INSTALL_force</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\HOME\Desktop\RS2-SeminarskiRad\SeminarskiRadRS2\xFit\UI\xfit_admin\build\windows\x64\flutter\CMakeFiles\INSTALL_force</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</VerifyInputsAndOutputsExist>
       <Message Condition="'$(Configuration)|$(Platform)'=='Profile|x64'"> </Message>
@@ -126,7 +126,7 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">C:\Users\HOME\Desktop\Razvoj softvera 2 sminarski rad\SeminarskiRadRS2\xFit\UI\xfit_admin\build\windows\x64\flutter\CMakeFiles\INSTALL_force</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">C:\Users\HOME\Desktop\RS2-SeminarskiRad\SeminarskiRadRS2\xFit\UI\xfit_admin\build\windows\x64\flutter\CMakeFiles\INSTALL_force</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">false</LinkObjects>
       <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">false</VerifyInputsAndOutputsExist>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'"> </Message>
@@ -140,20 +140,20 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\HOME\Desktop\Razvoj softvera 2 sminarski rad\SeminarskiRadRS2\xFit\UI\xfit_admin\build\windows\x64\flutter\CMakeFiles\INSTALL_force</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\HOME\Desktop\RS2-SeminarskiRad\SeminarskiRadRS2\xFit\UI\xfit_admin\build\windows\x64\flutter\CMakeFiles\INSTALL_force</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
       <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</VerifyInputsAndOutputsExist>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="C:\Users\HOME\Desktop\Razvoj softvera 2 sminarski rad\SeminarskiRadRS2\xFit\UI\xfit_admin\build\windows\x64\ZERO_CHECK.vcxproj">
-      <Project>{D6891AD7-2325-3BF7-B29E-CFECF69E18B8}</Project>
+    <ProjectReference Include="C:\Users\HOME\Desktop\RS2-SeminarskiRad\SeminarskiRadRS2\xFit\UI\xfit_admin\build\windows\x64\ZERO_CHECK.vcxproj">
+      <Project>{FCDB7380-A790-3B9D-9503-4ECD5CEFC46C}</Project>
       <Name>ZERO_CHECK</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\HOME\Desktop\Razvoj softvera 2 sminarski rad\SeminarskiRadRS2\xFit\UI\xfit_admin\build\windows\x64\ALL_BUILD.vcxproj">
-      <Project>{8C25C8D1-A6E1-33E2-B681-68D8D99223A1}</Project>
+    <ProjectReference Include="C:\Users\HOME\Desktop\RS2-SeminarskiRad\SeminarskiRadRS2\xFit\UI\xfit_admin\build\windows\x64\ALL_BUILD.vcxproj">
+      <Project>{F09CD054-28F6-3325-A182-175C8B752EBD}</Project>
       <Name>ALL_BUILD</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>

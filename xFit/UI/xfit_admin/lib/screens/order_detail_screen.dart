@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:provider/provider.dart';
-import 'package:xfit_admin/main.dart';
+import 'package:xfit_admin/models/korisnik.dart';
 import 'package:xfit_admin/models/narudzba.dart';
+import 'package:xfit_admin/models/product.dart';
 import 'package:xfit_admin/models/stavkaNarudzbe.dart';
+import 'package:xfit_admin/models/transakcija.dart';
+import 'package:xfit_admin/providers/korisnici_provider.dart';
 import 'package:xfit_admin/providers/narudzba_provider.dart';
 import 'package:xfit_admin/providers/product_provders.dart';
 import 'package:intl/intl.dart';
 import 'package:xfit_admin/providers/stavka_narudzbe_provider.dart';
-import 'package:xfit_admin/widgets/master_screen.dart';
+import 'package:xfit_admin/providers/transakcija_provider.dart';
 
 class OrderDetailScreen extends StatefulWidget {
-  Narudzba? narudzba;
-
+  final Narudzba? narudzba;
   OrderDetailScreen({super.key, this.narudzba});
 
   @override
@@ -23,272 +25,320 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
   Map<String, dynamic> _initialValue = {};
   late OrdersProvider _ordersProvider;
-  late StavkaNarudzbeProvider stavkaNarudzbeProvider;
-  late ProductProvider productProvider;
-  List<StavkaNarudzbe> stavkeNarudzbe = [];
+  late StavkaNarudzbeProvider _stavkaProvider;
+  late ProductProvider _productProvider;
+  late KorisnisiProvider _korisniciProvider;
+  final TransakcijaProvider _transakcijaProvider = TransakcijaProvider();
+  List<Transakcija> _transakcije = [];
 
-  bool isLoading = true;
+  List<StavkaNarudzbe> _stavke = [];
+  Korisnik? _korisnik;
+  bool _loading = true;
+  bool _loadingKorisnik = true;
 
   @override
   void initState() {
     super.initState();
+
     _initialValue = {
       'brojNarudzbe': widget.narudzba?.brojNarudzbe,
       'status': widget.narudzba?.status,
-      'datum': widget.narudzba?.datum != null
-    ? DateFormat('yyyy-MM-dd').format(widget.narudzba!.datum!)
-    : '',
-      'iznos': widget.narudzba?.iznos.toString()
+      'datum': (widget.narudzba?.datum != null)
+          ? _formatDate(widget.narudzba!.datum!)
+          : '',
+      'iznos': widget.narudzba?.iznos != null
+          ? widget.narudzba!.iznos!.toStringAsFixed(2)
+          : '',
     };
-    _ordersProvider = context.read<OrdersProvider>();
-    stavkaNarudzbeProvider = StavkaNarudzbeProvider();
-    productProvider = ProductProvider();
-    _fetchStavkeNarudzbe();
 
-    initForm();
+    _ordersProvider = context.read<OrdersProvider>();
+    _stavkaProvider = StavkaNarudzbeProvider();
+    _productProvider = ProductProvider();
+    _korisniciProvider = KorisnisiProvider();
+
+    _loadItems();
+    _loadKorisnik();
+    _fetchTransakcije();
   }
 
-  Future<void> _fetchStavkeNarudzbe() async {
-    if (widget.narudzba == null) {
+  Future<void> _fetchTransakcije() async {
+    var data = await _transakcijaProvider.get();
+    setState(() {
+      _transakcije = data.result
+          .where((transakcija) => transakcija.narudzbaId == widget.narudzba?.narudzbaId)
+          .toList();
+    });
+  }
+
+  String _formatDate(DateTime date) {
+    return "${date.year.toString().padLeft(4, '0')}-"
+        "${date.month.toString().padLeft(2, '0')}-"
+        "${date.day.toString().padLeft(2, '0')}";
+  }
+
+  Future<void> _loadItems() async {
+    if (widget.narudzba?.narudzbaId == null) {
+      setState(() => _loading = false);
+      return;
+    }
+    try {
+      final items = await _stavkaProvider
+          .getStavkeNarudzbeByNarudzbaId(widget.narudzba!.narudzbaId!);
       setState(() {
-        isLoading = false;
+        _stavke = items;
+        _loading = false;
+      });
+    } catch (_) {
+      setState(() => _loading = false);
+    }
+  }
+
+  Future<void> _loadKorisnik() async {
+    if (widget.narudzba?.korisnik != null) {
+      setState(() {
+        _korisnik = widget.narudzba!.korisnik;
+        _loadingKorisnik = false;
       });
       return;
     }
-
-    try {
-      var narudzbaId = widget.narudzba?.narudzbaId;
-      if (narudzbaId != null) {
-        var result = await stavkaNarudzbeProvider.getStavkeNarudzbeByNarudzbaId(narudzbaId);
-        setState(() {
-          stavkeNarudzbe = result;
-          isLoading = false;
-        });
-      }
-    } catch (e) {
-      print(e);
+    if (widget.narudzba?.korisnikId == null) {
       setState(() {
-        isLoading = false;
+        _loadingKorisnik = false;
+      });
+      return;
+    }
+    try {
+      final k = await _korisniciProvider.getById(widget.narudzba!.korisnikId!);
+      setState(() {
+        _korisnik = k;
+        _loadingKorisnik = false;
+      });
+    } catch (e) {
+      setState(() {
+        _loadingKorisnik = false;
       });
     }
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
-
-  Future initForm() async {
-    setState(() {
-      isLoading = false;
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 186, 231, 240), 
-        title: Text('Order ${this.widget.narudzba?.brojNarudzbe}' ?? "Order details"),
+        backgroundColor: const Color.fromARGB(255, 186, 231, 240),
+        title: Text("Order ${widget.narudzba?.brojNarudzbe ?? ''}"),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context); 
-          },
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: Center(
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.grey),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          padding: EdgeInsets.all(16),
-          child: isLoading
-              ? Container()
-              : SingleChildScrollView(
-                  child: _buildForm(),
-                ),
+      body: (_loading || _loadingKorisnik)
+          ? const Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  _buildSectionCard(
+                    title: "Basic Info",
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if (_korisnik != null) ...[
+                          Text(
+                            "Korisnik: ${_korisnik!.ime} ${_korisnik!.prezime}",
+                            style: const TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w600),
+                          ),
+                          const SizedBox(height: 12),
+                        ],
+                        _buildBasicInfo(),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  _buildSectionCard(
+                    title: "Order Items",
+                    child: _buildItemsList(),
+                  ),
+                  const SizedBox(height: 24),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: ElevatedButton(
+                      onPressed: _onSave,
+                      child: const Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                        child: Text("Save", style: TextStyle(fontSize: 16)),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+    );
+  }
+
+  Widget _buildSectionCard({required String title, required Widget child}) {
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      elevation: 2,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(title,
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge
+                    ?.copyWith(fontWeight: FontWeight.bold)),
+            const Divider(),
+            child,
+          ],
         ),
       ),
     );
   }
 
-  FormBuilder _buildForm() {
+  Widget _buildBasicInfo() {
     return FormBuilder(
       key: _formKey,
       initialValue: _initialValue,
       child: Column(
         children: [
           FormBuilderTextField(
-            decoration: InputDecoration(labelText: "Order number"),
             name: 'brojNarudzbe',
             readOnly: true,
+            decoration: const InputDecoration(labelText: "Order Number"),
           ),
-          SizedBox(height: 10),
-          FormBuilderTextField(
-            decoration: InputDecoration(labelText: "Status"),
+          const SizedBox(height: 12),
+          FormBuilderDropdown<String>(
             name: 'status',
-            onChanged: (value) {
-              final currentValue = _initialValue['status'];
-              print(currentValue);
-            },
-            validator: (value) {
-              if (value != null && value.isNotEmpty) {
-                final currentValue = _initialValue['status'];
-                final newValue = value;
-
-                final allowedTransitions = {
-                  'Pending': ['Completed', 'Cancelled'],
-                  'Cancelled': ['Pending'],
-                };
-
-                if (currentValue != newValue) {
-                  if (allowedTransitions.containsKey(currentValue) &&
-                      allowedTransitions[currentValue] != null &&
-                      !allowedTransitions[currentValue]!.contains(newValue)) {
-                    return "Invalid status transition (Allowed transitions: Pending -> Completed/Cancelled; Cancelled -> Pending)";
-                  }
-                }
-              }
-              return null;
-            },
+            decoration: const InputDecoration(
+              labelText: 'Status',
+              border: OutlineInputBorder(),
+            ),
+            validator: _validateStatus,
+            items: ['Pending', 'Completed', 'Cancelled']
+                .map((status) => DropdownMenuItem(
+                      value: status,
+                      child: Text(status),
+                    ))
+                .toList(),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 12),
           FormBuilderTextField(
-            decoration: InputDecoration(labelText: "Total amount"),
             name: 'iznos',
             readOnly: true,
+            decoration: const InputDecoration(labelText: "Total Amount"),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 12),
           FormBuilderTextField(
-            decoration: InputDecoration(labelText: "Order date"),
             name: 'datum',
             readOnly: true,
-          ),
-          SizedBox(height: 20),
-          Text(
-            'Order details:',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.normal,
-            ),
-          ),
-          if (stavkeNarudzbe.isNotEmpty)
-            ...stavkeNarudzbe.asMap().entries.map((entry) {
-              final index = entry.key;
-              final stavka = entry.value;
-
-              return Column(
-                children: [
-                  FormBuilderTextField(
-                    decoration: InputDecoration(labelText: 'Quantity'),
-                    name: 'kolicina',
-                    readOnly: true,
-                    initialValue: stavka.kolicina.toString(),
-                  ),
-                  FutureBuilder<String>(
-                    future: _getProductName(stavka.proizvodId),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done) {
-                        return FormBuilderTextField(
-                          decoration: InputDecoration(labelText: 'Product name'),
-                          name: 'nazivProizvoda_$index',
-                          readOnly: true,
-                          initialValue: snapshot.data ?? 'N/A',
-                        );
-                      } else {
-                        return CircularProgressIndicator();
-                      }
-                    },
-                  ),
-                  SizedBox(height: 20),
-                ],
-              );
-            }).toList(),
-          SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              ElevatedButton(
-                onPressed: () async {
-                  if (_formKey.currentState?.validate() ?? false) {
-                    _formKey.currentState?.save();
-                    print(_formKey.currentState?.value);
-
-                    var request = Map<String, dynamic>.from(_formKey.currentState!.value);
-
-                    try {
-                      if (widget.narudzba == null) {
-                        await _ordersProvider.insert(request);
-                      } else {
-                        var currentStatus = _initialValue['status'];
-                        var newStatus = request['status'];
-
-                        if (currentStatus == 'Completed') {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) => AlertDialog(
-                              title: Text("Error"),
-                              content: Text("Cannot transition from 'Completed' status."),
-                              actions: [
-                                TextButton(
-                                  onPressed: () => Navigator.pop(context),
-                                  child: Text("OK"),
-                                ),
-                              ],
-                            ),
-                          );
-                        } else {
-                          await _ordersProvider.update(
-                            widget.narudzba!.narudzbaId!,
-                            request,
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Order status successfully updated.'),
-                              backgroundColor: Colors.green,
-                            ),
-                          );
-                          Navigator.pop(context, 'reload');
-                        }
-                      }
-                    } on Exception catch (e) {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) => AlertDialog(
-                          title: Text("Error"),
-                          content: Text(e.toString()),
-                          actions: [
-                            TextButton(
-                              onPressed: () => Navigator.pop(context),
-                              child: Text("OK"),
-                            ),
-                          ],
-                        ),
-                      );
-                    }
-                  }
-                },
-                child: Text("Save"),
-              ),
-            ],
+            decoration: const InputDecoration(labelText: "Order Date"),
           ),
         ],
       ),
     );
   }
 
-  Future<String> _getProductName(int? productId) async {
-    if (productId == null) {
-      return 'N/A';
+  String? _validateStatus(String? val) {
+    if (val == null || val.isEmpty) return null;
+    final curr = _initialValue['status'];
+    final next = val;
+    final allowed = {
+      'Pending': ['Completed', 'Cancelled'],
+      'Cancelled': ['Pending'],
+    };
+    if (curr != next &&
+        (!allowed.containsKey(curr) || !allowed[curr]!.contains(next))) {
+      return "Allowed: Pending→Completed/Cancelled, Cancelled→Pending";
     }
+    return null;
+  }
 
+  Widget _buildItemsList() {
+    if (_stavke.isEmpty) {
+      return const Text("No items in this order");
+    }
+    return Column(
+      children: _stavke.map((s) {
+        if (s.proizvodId == null) {
+          return ListTile(
+            contentPadding: const EdgeInsets.symmetric(vertical: 4),
+            leading: CircleAvatar(child: Text(s.kolicina.toString())),
+            title: const Text('Proizvod ID nije dostupan'),
+          );
+        }
+        return FutureBuilder<Product>(
+          future: _productProvider.getById(s.proizvodId!),
+          builder: (c, snap) {
+            if (!snap.hasData) {
+              return ListTile(
+                contentPadding: const EdgeInsets.symmetric(vertical: 4),
+                leading: CircleAvatar(child: Text(s.kolicina.toString())),
+                title: const Text('Učitavanje...'),
+              );
+            }
+            final product = snap.data!;
+            final cijena = product.cijena ?? 0.0;
+            return ListTile(
+              contentPadding: const EdgeInsets.symmetric(vertical: 4),
+              leading: CircleAvatar(child: Text(s.kolicina.toString())),
+              title: Text(product.naziv ?? 'Bez naziva'),
+              subtitle: Text(
+                  'Cijena: ${cijena.toStringAsFixed(2)} KM\nKoličina: ${s.kolicina}'),
+            );
+          },
+        );
+      }).toList(),
+    );
+  }
+
+  void _onSave() async {
+    if (!(_formKey.currentState?.saveAndValidate() ?? false)) {
+      return;
+    }
+    final data = _formKey.currentState!.value;
     try {
-      var product = await productProvider.getById(productId);
-      return product.naziv ?? 'N/A';
+      if (widget.narudzba == null) {
+        await _ordersProvider.insert(data);
+      } else {
+        if (_initialValue['status'] == 'Completed') {
+          await showDialog(
+            context: context,
+            builder: (ctx) => AlertDialog(
+              title: const Text("Error"),
+              content: const Text("Cannot change status after Completed."),
+              actions: [
+                TextButton(
+                    onPressed: () => Navigator.pop(ctx),
+                    child: const Text("OK"))
+              ],
+            ),
+          );
+          return;
+        }
+        await _ordersProvider.update(widget.narudzba!.narudzbaId!, data);
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            content: Text('Order saved'), backgroundColor: Colors.green),
+      );
+      Navigator.pop(context, 'reload');
     } catch (e) {
-      return 'N/A';
+      await showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text("Error"),
+          content: Text(e.toString()),
+          actions: [
+            TextButton(
+                onPressed: () => Navigator.pop(ctx),
+                child: const Text("OK"))
+          ],
+        ),
+      );
     }
   }
 }

@@ -1,25 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="C:\Users\HOME\Desktop\Razvoj softvera 2 sminarski rad\SeminarskiRadRS2\xFit\UI\xfit_admin\windows\flutter\ephemeral\cpp_client_wrapper\core_implementations.cc">
+    <ClCompile Include="C:\Users\HOME\Desktop\RS2-SeminarskiRad\SeminarskiRadRS2\xFit\UI\xfit_admin\windows\flutter\ephemeral\cpp_client_wrapper\core_implementations.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\HOME\Desktop\Razvoj softvera 2 sminarski rad\SeminarskiRadRS2\xFit\UI\xfit_admin\windows\flutter\ephemeral\cpp_client_wrapper\standard_codec.cc">
+    <ClCompile Include="C:\Users\HOME\Desktop\RS2-SeminarskiRad\SeminarskiRadRS2\xFit\UI\xfit_admin\windows\flutter\ephemeral\cpp_client_wrapper\standard_codec.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\HOME\Desktop\Razvoj softvera 2 sminarski rad\SeminarskiRadRS2\xFit\UI\xfit_admin\windows\flutter\ephemeral\cpp_client_wrapper\plugin_registrar.cc">
+    <ClCompile Include="C:\Users\HOME\Desktop\RS2-SeminarskiRad\SeminarskiRadRS2\xFit\UI\xfit_admin\windows\flutter\ephemeral\cpp_client_wrapper\plugin_registrar.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\Users\HOME\Desktop\Razvoj softvera 2 sminarski rad\SeminarskiRadRS2\xFit\UI\xfit_admin\windows\flutter\CMakeLists.txt" />
+    <CustomBuild Include="C:\Users\HOME\Desktop\RS2-SeminarskiRad\SeminarskiRadRS2\xFit\UI\xfit_admin\windows\flutter\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="CMake Rules">
-      <UniqueIdentifier>{0B1918C3-0511-3939-8F7A-25FCE255150D}</UniqueIdentifier>
+      <UniqueIdentifier>{3F080BBC-8F62-3415-94DA-A1F23FDEDA34}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{39B62010-7CC5-30AA-A6A4-8ACCEE2C02D4}</UniqueIdentifier>
+      <UniqueIdentifier>{1F9F28A6-2794-346D-AC1E-3F2FF2A2E919}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
