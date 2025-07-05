@@ -100,7 +100,7 @@ class _MasterScreenWidgetState extends State<MasterScreenWidget>{
             onTap: (){
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder:(context)=> const TerminScreen(),
+                  builder:(context)=> const TerminiScreen(),
                 ),
               );
             },
@@ -115,6 +115,7 @@ class _MasterScreenWidgetState extends State<MasterScreenWidget>{
               );
             },
           ),
+          
            ListTile(
             title:Text("Reports"),
             onTap: (){

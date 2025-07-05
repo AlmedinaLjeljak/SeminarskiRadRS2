@@ -1,60 +1,100 @@
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:xfit_admin/models/klijent.dart';
+import 'package:xfit_admin/models/korisnik.dart';
 import 'package:xfit_admin/models/termin.dart';
 import 'package:xfit_admin/providers/korisnici_provider.dart';
 import 'package:xfit_admin/providers/termini_provider.dart';
 import 'package:xfit_admin/screens/termin_detail_screen.dart';
 import 'package:xfit_admin/utils/util.dart';
 
-class TerminScreen extends StatefulWidget {
-  const TerminScreen({Key? key}) : super(key: key);
+
+
+class TerminiScreen extends StatefulWidget {
+  const TerminiScreen({Key? key}) : super(key: key);
 
   @override
-  State<TerminScreen> createState() => _TerminiScreenState();
+  State<TerminiScreen> createState() => _TerminiScreenState();
 }
 
-class _TerminiScreenState extends State<TerminScreen> {
+class _TerminiScreenState extends State<TerminiScreen> {
   final TerminiProvider _terminiProvider = TerminiProvider();
-  final KorisnisiProvider _korisnikProvider=KorisnisiProvider();
-  List<Termin> _termin = [];
-  bool isLoading = true;
+  final KorisnisiProvider _korisniciProvider = KorisnisiProvider();
+
+  List<Termin> _termini = [];
+  List<Termin> _filteredTermini = [];
+  Map<int, Korisnik> _korisniciMap = {};
+  bool _isLoading = true;
+
+  String _searchQuery = '';
 
   @override
   void initState() {
     super.initState();
-    _fetchTermini();
-    _fetchKorisnici();
+    _loadTermini();
   }
-  Map<int, String> _korisniciImePrezime = {};
 
-void _fetchKorisnici() async {
-  final response = await _korisnikProvider.get(); 
-  setState(() {
-    _korisniciImePrezime = {
-      for (var user in response.result) user.korisnikId!: '${user.ime}',
-    };
-  });
-}
-
-
-
-  Future<void> _fetchTermini() async {
+  Future<void> _loadTermini() async {
     try {
-      var result = await _terminiProvider.get(
-        filter: {
-          'desktop': Authorization.username.toString(),
-        },
-      );
+      final result = await _terminiProvider.get(filter: {
+        'mobile': Authorization.username,
+      });
+
+      _termini = result.result;
+
+      await _loadKorisniciForTermini(_termini);
+
+      _applyFilter();
+
       setState(() {
-        _termin = result.result;
-        isLoading = false;
+        _isLoading = false;
       });
     } catch (e) {
       print(e);
-      setState(() {
-        isLoading = false;
-      });
+      setState(() => _isLoading = false);
     }
+  }
+
+  Future<void> _loadKorisniciForTermini(List<Termin> termini) async {
+    final ids = <int>{};
+    for (var t in termini) {
+      if (t.korisnikIdUposlenik != null) ids.add(t.korisnikIdUposlenik!);
+      if (t.korisnikIdKlijent != null) ids.add(t.korisnikIdKlijent!);
+    }
+
+    for (var id in ids) {
+      try {
+        final korisnik = await _korisniciProvider.getById(id);
+        if (korisnik != null) {
+          _korisniciMap[id] = korisnik;
+        }
+      } catch (e) {
+        print('Greška pri dohvaćanju korisnika id=$id: $e');
+      }
+    }
+  }
+
+  void _applyFilter() {
+    if (_searchQuery.isEmpty) {
+      _filteredTermini = List.from(_termini);
+    } else {
+      final query = _searchQuery.toLowerCase();
+      _filteredTermini = _termini.where((t) {
+        final uposlenik = _korisniciMap[t.korisnikIdUposlenik];
+        final klijent = _korisniciMap[t.korisnikIdKlijent];
+
+        final uposlenikImePrezime = uposlenik != null
+            ? '${uposlenik.ime} ${uposlenik.prezime}'.toLowerCase()
+            : '';
+        final klijentImePrezime = klijent != null
+            ? '${klijent.ime} ${klijent.prezime}'.toLowerCase()
+            : '';
+
+        return uposlenikImePrezime.contains(query) || klijentImePrezime.contains(query);
+      }).toList();
+    }
+    setState(() {});
   }
 
   @override
@@ -62,18 +102,87 @@ void _fetchKorisnici() async {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 186, 231, 240),
-        title: Text('Appointments'),
+        title: const Text('Appointments'),
       ),
-      body: SingleChildScrollView(
-        child: Column(
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Search by  name',
+                      prefixIcon: Icon(Icons.search),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    onChanged: (value) {
+                      _searchQuery = value;
+                      _applyFilter();
+                    },
+                  ),
+                ),
+                Expanded(
+                  child: _filteredTermini.isEmpty
+                      ? const Center(child: Text('No appointments found.'))
+                      : ListView.separated(
+                          padding: const EdgeInsets.all(16),
+                          itemCount: _filteredTermini.length,
+                          separatorBuilder: (_, __) => const SizedBox(height: 12),
+                          itemBuilder: (ctx, i) => _buildCard(_filteredTermini[i]),
+                        ),
+                ),
+              ],
+            ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _navigateDetail(null),
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
+
+  Widget _buildCard(Termin t) {
+    final uposlenik = _korisniciMap[t.korisnikIdUposlenik];
+    final Klijent = _korisniciMap[t.korisnikIdKlijent];
+
+    return Card(
+      elevation: 3,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+        child: Row(
           children: [
-            Center(child: _buildDataListView()),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () async {
-                _navigateToTerminDetailScreen(null,null); 
-              },
-              child: Text('Add Appointment'),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Uposlenik: ${Klijent != null ? '${Klijent.ime} ${Klijent.prezime}' : 'Unknown'}',
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    'Klijent: ${uposlenik != null ? '${uposlenik.ime} ${uposlenik.prezime}' : 'Unknown'}',
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    DateFormat('dd.MM.yyyy – HH:mm').format(t.datum!),
+                    style: const TextStyle(color: Colors.grey),
+                  ),
+                ],
+              ),
+            ),
+            IconButton(
+              tooltip: 'Edit',
+              icon: const Icon(Icons.edit, color: Colors.blueGrey),
+              onPressed: () => _navigateDetail(t),
+            ),
+            IconButton(
+              tooltip: 'Mark Complete',
+              icon: const Icon(Icons.check_circle, color: Colors.green),
+              onPressed: () => _confirmDelete(t),
             ),
           ],
         ),
@@ -81,122 +190,63 @@ void _fetchKorisnici() async {
     );
   }
 
-  Widget _buildDataListView() {
-    if (isLoading) {
-      return CircularProgressIndicator();
-    }
-
-    if (_termin.isEmpty) {
-      return Text('No termini found.');
-    }
-
-    return Container(
-      padding: const EdgeInsets.all(8),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Center(
-          child: DataTable(
-            columns: [
-              DataColumn(label: Text('Uposlenik')),
-              DataColumn(label: Text('Klijent')),
-              DataColumn(label: Text('Date')),
-              DataColumn(label: Text('Edit')),
-              DataColumn(label: Text('Delete')),
-            ],
-            rows: _termin.map((termin) {
-              return DataRow(
-                cells: [
-                  DataCell(Text(_korisniciImePrezime[termin.korisnikIdKlijent] ?? 'N/A')),
-                  DataCell(Text(_korisniciImePrezime[termin.korisnikIdUposlenik] ?? 'N/A')),
-                  DataCell(Text(DateFormat('dd.MM.yyyy - HH:mm').format(termin.datum!))),
-                  DataCell(IconButton(
-                    icon: Icon(Icons.edit),
-                    onPressed: () {
-                      _navigateToTerminDetailScreen(termin,termin.korisnikIdUposlenik);
-                    },
-                  )),
-                  DataCell(IconButton(
-                    icon: Icon(Icons.close),
-                    onPressed: () {
-                      _showDeleteConfirmationDialog(termin);
-                    },
-                  )),
-                ],
-              );
-            }).toList(),
-          ),
+  void _navigateDetail(Termin? t) async {
+    final modified = await Navigator.of(context).push<Termin>(
+      MaterialPageRoute(
+        builder: (_) => TerminDetailScreen(
+          termin: t,
+          selectedClient: t?.korisnikIdKlijent,
         ),
       ),
     );
-  }
-
-  void _navigateToTerminDetailScreen(Termin? termin, int? selectedKlijent) async {
-    final modifiedTermin = await Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => TerminDetailScreen(termin: termin, selectedKlijent: selectedKlijent),
-      ),
-    );
-
-    if (modifiedTermin != null && modifiedTermin is Termin) {
+    if (modified != null) {
       setState(() {
-        int index = _termin.indexWhere((element) => element.terminId == modifiedTermin.terminId);
-        if (index != -1) {
-          _termin[index] = modifiedTermin;
+        final idx = _termini.indexWhere((x) => x.terminId == modified.terminId);
+        if (idx != -1) {
+          _termini[idx] = modified;
         } else {
-          _termin.add(modifiedTermin);
+          _termini.add(modified);
         }
       });
-    }
+      _applyFilter();  }
   }
 
-
-  void _showDeleteConfirmationDialog(Termin termin) {
+  void _confirmDelete(Termin t) {
     showDialog(
       context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Confirm Delete'),
-          content: Text('Is this appointment finished?'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('No, keep it'),
-            ),
-            TextButton(
-              onPressed: () async {
-                await _deleteTermin(termin);
-                Navigator.of(context).pop();
-              },
-              child: Text('Yes, delete it'),
-            ),
-          ],
-        );
-      },
+      builder: (_) => AlertDialog(
+        title: const Text('Complete Appointment?'),
+        content: const Text('Mark this appointment as completed (and remove)?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              _deleteTermin(t);
+            },
+            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            child: const Text('Complete'),
+          ),
+        ],
+      ),
     );
   }
 
-  Future<void> _deleteTermin(Termin termin) async {
+  Future<void> _deleteTermin(Termin t) async {
     try {
-      await _terminiProvider.delete(termin.terminId);
-      setState(() {
-        _termin.removeWhere((item) => item.terminId == termin.terminId);
-      });
+      await _terminiProvider.delete(t.terminId);
+      setState(() => _termini.removeWhere((x) => x.terminId == t.terminId));
+      _applyFilter();
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Appointment deleted successfully.'),
-        ),
+        const SnackBar(content: Text('Appointment completed.')),
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Failed to delete appointment.'),
-        ),
+        const SnackBar(content: Text('Failed to complete appointment.')),
       );
     }
   }
 }
-
-
-
