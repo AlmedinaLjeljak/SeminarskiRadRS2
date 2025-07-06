@@ -38,7 +38,7 @@ class _TerminiScreenState extends State<TerminiScreen> {
   Future<void> _loadTermini() async {
     try {
       final result = await _terminiProvider.get(filter: {
-        'mobile': Authorization.username,
+        'desktop': Authorization.username,
       });
 
       _termini = result.result;
@@ -145,7 +145,7 @@ class _TerminiScreenState extends State<TerminiScreen> {
 
   Widget _buildCard(Termin t) {
     final uposlenik = _korisniciMap[t.korisnikIdUposlenik];
-    final Klijent = _korisniciMap[t.korisnikIdKlijent];
+    final klijent = _korisniciMap[t.korisnikIdKlijent];
 
     return Card(
       elevation: 3,
@@ -159,12 +159,12 @@ class _TerminiScreenState extends State<TerminiScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Uposlenik: ${Klijent != null ? '${Klijent.ime} ${Klijent.prezime}' : 'Unknown'}',
+                    'Uposlenik: ${uposlenik != null ? '${uposlenik.ime} ${uposlenik.prezime}' : 'Unknown'}',
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    'Klijent: ${uposlenik != null ? '${uposlenik.ime} ${uposlenik.prezime}' : 'Unknown'}',
+                    'Klijent: ${klijent != null ? '${klijent.ime} ${klijent.prezime}' : 'Unknown'}',
                   ),
                   const SizedBox(height: 4),
                   Text(
@@ -250,3 +250,6 @@ class _TerminiScreenState extends State<TerminiScreen> {
     }
   }
 }
+
+
+

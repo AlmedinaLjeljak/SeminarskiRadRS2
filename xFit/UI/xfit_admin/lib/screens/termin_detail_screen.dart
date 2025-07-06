@@ -227,7 +227,7 @@ class _TerminDetailScreenState extends State<TerminDetailScreen> {
      
       final uposlenik = await _korisniciProvider.get(filter: {'korisnikUlogas': 'uposlenik'});
       final up = uposlenik.result.firstWhere((u) => u.korisnickoIme == Authorization.username).korisnikId!;
-      final newTermin = Termin(null, _modifiedDatum, _selectedClient, up);
+      final newTermin = Termin(null, _modifiedDatum, up, _selectedClient);
       final inserted = await _terminiProvider.insert(newTermin);
       Navigator.pop(context, inserted);
     }
