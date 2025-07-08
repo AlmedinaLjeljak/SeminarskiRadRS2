@@ -3,7 +3,6 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:intl/intl.dart';
 import 'package:xfit_mobilna/models/novost.dart';
 import 'package:xfit_mobilna/widgets/master_screen.dart';
-
 class NovostDetailScreen extends StatefulWidget {
   Novost? novost;
   NovostDetailScreen({super.key, this.novost});
@@ -28,7 +27,7 @@ class _NovostDetailScreenState extends State<NovostDetailScreen> {
 
     _initialValue = {
       'naziv' : widget.novost?.naziv,
-      'sadrzaj' : widget.novost?.sadrzaj,
+      'sadzaj' : widget.novost?.sadzaj,
       'datumObjave' : widget.novost?.datumObjave,
       };
       initForm();
@@ -110,7 +109,7 @@ class _NovostDetailScreenState extends State<NovostDetailScreen> {
             child: Padding(
               padding: EdgeInsets.all(8.0),
               child: FormBuilderTextField(
-                name: 'sadrzaj',
+                name: 'sadzaj',
                 readOnly: true,
                 maxLines: null, 
               ),

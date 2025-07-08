@@ -42,8 +42,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
         'id': 0,
         'narudzbaId': widget.narudzbaId ?? 0,
         'iznos': widget.iznos ?? totalAmount,
-        'transId': DateTime.now().millisecondsSinceEpoch.toString(),
-        'statusTransakcije': 'ok'
+    
       };
 
       Transakcija transaction = Transakcija.fromJson(transactionBody);

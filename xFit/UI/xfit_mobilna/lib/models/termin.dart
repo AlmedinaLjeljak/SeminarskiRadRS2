@@ -5,11 +5,11 @@ part 'termin.g.dart';
 @JsonSerializable()
 class Termin{
 	int? terminId; 
-  DateTime? datumVrijeme;
-  int? uposlenikId;
-  int? klijentId;
+  DateTime? datum;
+  int? korisnikIdUposlenik;
+  int? korisnikIdKlijent;
   
-  Termin(this.terminId, this.datumVrijeme,this.uposlenikId,this.klijentId);
+  Termin(this.terminId, this.datum,this.korisnikIdUposlenik,this.korisnikIdKlijent);
 
   factory Termin.fromJson(Map<String, dynamic> json) => _$TerminFromJson(json);
 

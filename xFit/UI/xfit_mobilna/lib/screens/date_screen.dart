@@ -28,7 +28,7 @@ class _DateTestState extends State<DateTest> {
   Future<void> _fetchOcuppiedAppointments() async {
     try {
       var data = await _terminiProvider.get(filter: {
-        'datumVrijeme': selectedDate!.toIso8601String(),
+        'datum': selectedDate!.toIso8601String(),
       });
 
       setState(() {
@@ -45,7 +45,7 @@ class _DateTestState extends State<DateTest> {
     }
 
     for (int i = 0; i < terminiResult!.result.length; i++) {
-      if (terminiResult!.result[i].datumVrijeme!.hour == h) {
+      if (terminiResult!.result[i].datum!.hour == h) {
         return true; 
       }
     }

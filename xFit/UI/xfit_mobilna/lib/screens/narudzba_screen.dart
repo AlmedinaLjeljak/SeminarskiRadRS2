@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:xfit_mobilna/models/narudzba.dart';
 import 'package:xfit_mobilna/providers/korisnik_providder.dart';
 import 'package:xfit_mobilna/providers/narudzba_provider.dart';
+import 'package:xfit_mobilna/screens/order_detail_screen.dart';
+import 'package:xfit_mobilna/utils/util.dart';
 import 'package:xfit_mobilna/widgets/master_screen.dart';
 
 class OrdersScreen extends StatefulWidget {
@@ -27,27 +29,26 @@ class _OrdersScreenState extends State<OrdersScreen> {
     _fetchNarudzbe();
   }
 
-  Future<void> _fetchNarudzbe() async {
-    try {
-      var result = await _ordersProvider.get(); 
-      setState(() {
-        _narudzba = result.result;
-        isLoading = false;
-      });
-    } catch (e) {
-      print(e);
-      setState(() {
-        isLoading = false;
-      });
-    }
+Future<void> _fetchNarudzbe() async {
+  try {
+    var result = await _ordersProvider.get(); 
+    setState(() {
+      _narudzba = result.result;
+      isLoading = false;
+    });
+  } catch (e) {
+    print(e);
+    setState(() {
+      isLoading = false;
+    });
   }
+}
+
 
   @override
   Widget build(BuildContext context) {
     return MasterScreenWidget(
-      
-        title_widget: Text('Orders'),
-      
+      title: 'Orders',
       child: Column(
         children: [
           _buildDataListView(),
@@ -58,7 +59,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
 
   Widget _buildDataListView() {
     if (isLoading) {
-      return Expanded(
+      return const Expanded(
         child: Center(
           child: CircularProgressIndicator(),
         ),
@@ -66,7 +67,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
     }
 
     if (_narudzba.isEmpty) {
-      return Expanded(
+      return const Expanded(
         child: Center(
           child: Text('No orders found.'),
         ),
@@ -79,7 +80,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         itemBuilder: (context, index) {
           var narudzba = _narudzba[index];
           return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
             child: MouseRegion(
               cursor: SystemMouseCursors.click,
               child: Card(
@@ -88,31 +89,38 @@ class _OrdersScreenState extends State<OrdersScreen> {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: ListTile(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            OrderDetailsScreen(narudzba: narudzba),
+                      ),
+                    );
+                  },
                   title: Text(narudzba.brojNarudzbe ?? ''),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(narudzba.iznos.toString()),
-                      SizedBox(height: 8),
+                      Text('${narudzba.iznos?.toStringAsFixed(2) ?? "0.00"} KM'),
+                      const SizedBox(height: 8),
                       Text(
                         'Created on: ${narudzba.datum != null ? DateFormat('yyyy-MM-dd').format(narudzba.datum!) : 'Unknown Date'}',
-                        style: TextStyle(fontStyle: FontStyle.italic),
+                        style: const TextStyle(fontStyle: FontStyle.italic),
                       ),
                     ],
                   ),
-                  trailing: Container(
-                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                    decoration: BoxDecoration(
-                      color: _getStatusColor(narudzba.status),
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(8),
-                        bottomRight: Radius.circular(8),
-                      ),
-                    ),
-                    child: Text(
-                      narudzba.status ?? 'Unknown Status',
-                      style: TextStyle(color: Colors.white),
-                    ),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.info, color: Colors.blue),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              OrderDetailsScreen(narudzba: narudzba),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),
@@ -121,16 +129,5 @@ class _OrdersScreenState extends State<OrdersScreen> {
         },
       ),
     );
-  }
-
-  _getStatusColor(String? status) {
-    if (status == 'Pending') {
-      return Colors.orange;
-    } else if (status == 'Completed') {
-      return Colors.green;
-    } else if (status == 'Cancelled') {
-      return Colors.red;
-    }
-    return Colors.grey;
   }
 }

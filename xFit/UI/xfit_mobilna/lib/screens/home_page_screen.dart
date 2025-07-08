@@ -17,7 +17,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   List<Novost> _novosti = [];
   bool isLoading = true;
   TextEditingController _naslovController = TextEditingController();
-  bool _isSortAscending = true; 
+  bool _isSortAscending = true;
 
   @override
   void initState() {
@@ -28,9 +28,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
   Future<void> _fetchNovosti() async {
     try {
       var result = await _novostiProvider.get(filter: {
-        'naslov': _naslovController.text,
+        'naziv': _naslovController.text,
       });
-      print(result);
 
       setState(() {
         _novosti = result.result;
@@ -58,9 +57,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   @override
   Widget build(BuildContext context) {
     return MasterScreenWidget(
-      
-        title_widget: Text('Home Page'),
-      
+      title: 'Home Page',
       child: Column(
         children: [
           _buildSearch(),
@@ -90,11 +87,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
             value: _isSortAscending ? 'older_to_newer' : 'newer_to_older',
             onChanged: (value) {
               setState(() {
-                if (value == 'older_to_newer') {
-                  _isSortAscending = true;
-                } else {
-                  _isSortAscending = false;
-                }
+                _isSortAscending = value == 'older_to_newer';
                 _sortNovosti();
               });
             },
@@ -115,13 +108,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
   }
 
   String? _truncateString(String? text) {
-  if (text != null && text.length > 100) {
-    return text.substring(0, 100) + '...';
-  } else {
-    return text;
+    if (text != null && text.length > 100) {
+      return text.substring(0, 100) + '...';
+    } else {
+      return text;
+    }
   }
-}
-
 
   Widget _buildDataListView() {
     if (isLoading) {
@@ -148,7 +140,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: MouseRegion(
-              cursor: SystemMouseCursors.click, 
+              cursor: SystemMouseCursors.click,
               child: Card(
                 elevation: 2,
                 shape: RoundedRectangleBorder(
@@ -159,7 +151,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(_truncateString(novost.sadrzaj) ?? ''),
+                      Text(_truncateString(novost.sadzaj) ?? ''),
                       SizedBox(height: 8),
                       Text(
                         'Published on: ${DateFormat('yyyy-MM-dd').format(novost.datumObjave ?? DateTime.now())}',
@@ -168,16 +160,15 @@ class _HomePageScreenState extends State<HomePageScreen> {
                     ],
                   ),
                   trailing: ElevatedButton(
-  onPressed: () {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => NovostDetailScreen(novost: novost),
-      ),
-    );
-  },
-  child: Text('Details'),
-),
-
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => NovostDetailScreen(novost: novost),
+                        ),
+                      );
+                    },
+                    child: Text('Details'),
+                  ),
                 ),
               ),
             ),

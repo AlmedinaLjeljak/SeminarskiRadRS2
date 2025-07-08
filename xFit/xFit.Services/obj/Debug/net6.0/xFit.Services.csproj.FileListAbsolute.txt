@@ -66,3 +66,20 @@ C:\Users\HOME\Desktop\Razvoj softvera 2 sminarski rad\SeminarskiRadRS2\xFit\xFit
 C:\Users\HOME\Desktop\Razvoj softvera 2 sminarski rad\SeminarskiRadRS2\xFit\xFit.Services\obj\Debug\net6.0\xFit.Services.pdb
 C:\Users\HOME\Desktop\Razvoj softvera 2 sminarski rad\SeminarskiRadRS2\xFit\xFit.Services\obj\Debug\net6.0\xFit.Services.genruntimeconfig.cache
 C:\Users\HOME\Desktop\Razvoj softvera 2 sminarski rad\SeminarskiRadRS2\xFit\xFit.Services\obj\Debug\net6.0\ref\xFit.Services.dll
+C:\Users\HOME\Desktop\RS2-SeminarskiRad\SeminarskiRadRS2\xFit\xFit.Services\bin\Debug\net6.0\xFit.Services.deps.json
+C:\Users\HOME\Desktop\RS2-SeminarskiRad\SeminarskiRadRS2\xFit\xFit.Services\bin\Debug\net6.0\xFit.Services.runtimeconfig.json
+C:\Users\HOME\Desktop\RS2-SeminarskiRad\SeminarskiRadRS2\xFit\xFit.Services\bin\Debug\net6.0\xFit.Services.dll
+C:\Users\HOME\Desktop\RS2-SeminarskiRad\SeminarskiRadRS2\xFit\xFit.Services\bin\Debug\net6.0\xFit.Services.pdb
+C:\Users\HOME\Desktop\RS2-SeminarskiRad\SeminarskiRadRS2\xFit\xFit.Services\bin\Debug\net6.0\xFit.Model.dll
+C:\Users\HOME\Desktop\RS2-SeminarskiRad\SeminarskiRadRS2\xFit\xFit.Services\bin\Debug\net6.0\xFit.Model.pdb
+C:\Users\HOME\Desktop\RS2-SeminarskiRad\SeminarskiRadRS2\xFit\xFit.Services\obj\Debug\net6.0\xFit.Services.csproj.AssemblyReference.cache
+C:\Users\HOME\Desktop\RS2-SeminarskiRad\SeminarskiRadRS2\xFit\xFit.Services\obj\Debug\net6.0\xFit.Services.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HOME\Desktop\RS2-SeminarskiRad\SeminarskiRadRS2\xFit\xFit.Services\obj\Debug\net6.0\xFit.Services.AssemblyInfoInputs.cache
+C:\Users\HOME\Desktop\RS2-SeminarskiRad\SeminarskiRadRS2\xFit\xFit.Services\obj\Debug\net6.0\xFit.Services.AssemblyInfo.cs
+C:\Users\HOME\Desktop\RS2-SeminarskiRad\SeminarskiRadRS2\xFit\xFit.Services\obj\Debug\net6.0\xFit.Services.csproj.CoreCompileInputs.cache
+C:\Users\HOME\Desktop\RS2-SeminarskiRad\SeminarskiRadRS2\xFit\xFit.Services\obj\Debug\net6.0\xFit.Services.csproj.CopyComplete
+C:\Users\HOME\Desktop\RS2-SeminarskiRad\SeminarskiRadRS2\xFit\xFit.Services\obj\Debug\net6.0\xFit.Services.dll
+C:\Users\HOME\Desktop\RS2-SeminarskiRad\SeminarskiRadRS2\xFit\xFit.Services\obj\Debug\net6.0\refint\xFit.Services.dll
+C:\Users\HOME\Desktop\RS2-SeminarskiRad\SeminarskiRadRS2\xFit\xFit.Services\obj\Debug\net6.0\xFit.Services.pdb
+C:\Users\HOME\Desktop\RS2-SeminarskiRad\SeminarskiRadRS2\xFit\xFit.Services\obj\Debug\net6.0\xFit.Services.genruntimeconfig.cache
+C:\Users\HOME\Desktop\RS2-SeminarskiRad\SeminarskiRadRS2\xFit\xFit.Services\obj\Debug\net6.0\ref\xFit.Services.dll

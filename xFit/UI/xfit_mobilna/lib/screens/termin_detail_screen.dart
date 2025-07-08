@@ -27,7 +27,7 @@ class _TerminDetailScreenState extends State<TerminDetailScreen> {
   late TerminiProvider _terminiProvider;
   SearchResult<Korisnik>? result;
   List<Termin>? _termini;
-  int? _selectedUposlenik;
+  int? _selectedUposleni;
 
   bool _isDateModified = false;
   bool _isSaveButtonEnabled = false;
@@ -40,12 +40,12 @@ class _TerminDetailScreenState extends State<TerminDetailScreen> {
     _korisniciProvider = Provider.of<KorisnisiProvider>(context, listen: false);
     _terminiProvider = TerminiProvider();
 
-    _modifiedDatum = widget.termin?.datumVrijeme ?? DateTime.now();
-    _modifiedUposlenikId = widget.termin?.uposlenikId;
+    _modifiedDatum = widget.termin?.datum ?? DateTime.now();
+    _modifiedUposlenikId = widget.termin?.korisnikIdUposlenik;
 
     _initialDateTime = _modifiedDatum;
 
-    _fetchKlijenti();
+    _fetchKlijent();
     _fetchTerminiForKlijent();
     _fetchOcuppiedAppointments();
   }
@@ -53,7 +53,7 @@ class _TerminDetailScreenState extends State<TerminDetailScreen> {
   Future<void> _fetchOcuppiedAppointments() async {
     try {
       var data = await _terminiProvider.get(filter: {
-        'datumVrijeme': _modifiedDatum.toIso8601String(),
+        'datum': _modifiedDatum.toIso8601String(),
       });
 
       setState(() {
@@ -64,18 +64,18 @@ class _TerminDetailScreenState extends State<TerminDetailScreen> {
     }
   }
 
-  Future<void> _fetchKlijenti() async {
+  Future<void> _fetchKlijent() async {
     try {
       var data = await _korisniciProvider.get(filter: {
-        'korisnikUlogas': 'klijent',
+        'korisnikUlogas': 'desktop',
       });
 
       setState(() {
         result = data;
         if (result?.result.isNotEmpty == true) {
-          _selectedUposlenik = _modifiedUposlenikId ?? result!.result[0].korisnikId;
+          _selectedUposleni = _modifiedUposlenikId ?? result!.result[0].korisnikId;
         } else {
-          _selectedUposlenik = null;
+          _selectedUposleni = null;
         }
       });
     } catch (e) {
@@ -97,7 +97,7 @@ class _TerminDetailScreenState extends State<TerminDetailScreen> {
   bool _isDateTimeOccupied(DateTime dateTime) {
     if (_termini != null) {
       for (var termin in _termini!) {
-        if (termin.datumVrijeme == dateTime) {
+        if (termin.datum == dateTime) {
           return true;
         }
       }
@@ -105,7 +105,7 @@ class _TerminDetailScreenState extends State<TerminDetailScreen> {
     return false;
   }
 
-   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -113,116 +113,109 @@ class _TerminDetailScreenState extends State<TerminDetailScreen> {
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
-        child: Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 16.0),
-              DropdownButton<int>(
-                value: _selectedUposlenik,
-                onChanged: (newValue) {
-                  setState(() {
-                    _selectedUposlenik = newValue!;
-                  });
-                },
-                items: result?.result
-                        .map<DropdownMenuItem<int>>((Korisnik korisnik) {
-                      return DropdownMenuItem<int>(
-                        value: korisnik.korisnikId,
-                        child: Text(korisnik.ime!),
-                      );
-                    }).toList() ??
-                    [],
-                isExpanded: true,
-                disabledHint: Text(
-                  _selectedUposlenik != null
-                      ? 'Selected Uposlenik ID: $_selectedUposlenik'
-                      : 'Select a Uposlenik',
-                ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 16.0),
+            DropdownButton<int>(
+              value: _selectedUposleni,
+              onChanged: (newValue) {
+                setState(() {
+                  _selectedUposleni = newValue!;
+                });
+              },
+              items: result?.result
+                      .map<DropdownMenuItem<int>>((Korisnik korisnik) {
+                    return DropdownMenuItem<int>(
+                      value: korisnik.korisnikId,
+                      child: Text(korisnik.ime!),
+                    );
+                  }).toList() ??
+                  [],
+              isExpanded: true,
+              disabledHint: Text(
+                _selectedUposleni != null
+                    ? 'Selected Uposlenik ID: $_selectedUposleni'
+                    : 'Select a Uposlenik',
               ),
-              SizedBox(height: 20),
-              Text(
-                'Date:',
-                style: TextStyle(fontSize: 16),
-              ),
-              SizedBox(height: 8),
-              Text(
-                DateFormat('dd.MM.yyyy - HH:mm').format(_modifiedDatum),
-                style: TextStyle(fontSize: 16),
-              ),
-              SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ElevatedButton(
-                    onPressed: () async {
-                       var terminDatum = await Navigator.of(context).push(
+            ),
+            SizedBox(height: 20),
+            Text(
+              'Date:',
+              style: TextStyle(fontSize: 16),
+            ),
+            SizedBox(height: 8),
+            Text(
+              DateFormat('dd.MM.yyyy - HH:mm').format(_modifiedDatum),
+              style: TextStyle(fontSize: 16),
+            ),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ElevatedButton(
+                  onPressed: () async {
+                    var terminDatum = await Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => DateTest(),
                       ),
                     );
 
-                    if(terminDatum!=null && terminDatum is DateTime)
-                    {
-                      print("Test");
-                    print((terminDatum as DateTime).toIso8601String());
-
-                    setState(() {
-                       _modifiedDatum = terminDatum;
-                      _isDateModified = true;
-                      _isSaveButtonEnabled = true;
-                    });
-                  await _fetchOcuppiedAppointments();
+                    if (terminDatum != null && terminDatum is DateTime) {
+                      setState(() {
+                        _modifiedDatum = terminDatum;
+                        _isDateModified = true;
+                        _isSaveButtonEnabled = true;
+                      });
+                      await _fetchOcuppiedAppointments();
                     }
-                    },
-                    child: Text('Select Date and Time'),
-                  ),
-                  ElevatedButton(
-                    onPressed: _isSaveButtonEnabled
-                        ? () {
-                            _saveNewTermin();
-                          }
-                        : null,
-                    child: Text('Save'),
-                  ),
+                  },
+                  child: Text('Select Date and Time'),
+                ),
+                ElevatedButton(
+                  onPressed: _isSaveButtonEnabled
+                      ? () {
+                          _saveNewTermin();
+                        }
+                      : null,
+                  child: Text('Save'),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  (terminiResult == null || terminiResult!.result.isEmpty)
+                      ? Text('No occupied appointments')
+                      : Text('Occupied appointments')
                 ],
               ),
-              const SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    (terminiResult == null || terminiResult!.result.isEmpty)
-                        ? Text('No occupied appointments')
-                        : Text('Occupied appointments')
-                  ],
-                ),
-              ),
-              
-              Expanded(
-                child: 
-                 (terminiResult == null || terminiResult!.result.isEmpty) ? Container() :
-               ListView.builder(
-                    itemCount: terminiResult!.result.length,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          ListTile(
-                            title: Text(terminiResult!.result[index].datumVrijeme.toString(),
-                           
+            ),
+            Expanded(
+              child: (terminiResult == null || terminiResult!.result.isEmpty)
+                  ? Container()
+                  : ListView.builder(
+                      itemCount: terminiResult!.result.length,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          children: [
+                            ListTile(
+                              title: Text(
+                                terminiResult!.result[index].datum.toString(),
                               ),
-                          ),
-                          const Divider(
-                            color: Colors.black,
-                            thickness: 1,
-                          )
-                        ],
-                      );
-                    },
-                  ),
-              )
-            ],
-          ),
+                            ),
+                            const Divider(
+                              color: Colors.black,
+                              thickness: 1,
+                            )
+                          ],
+                        );
+                      },
+                    ),
+            )
+          ],
         ),
       ),
     );
@@ -233,27 +226,16 @@ class _TerminDetailScreenState extends State<TerminDetailScreen> {
       return;
     }
 
- 
-    Future<int?> getKlijentId() async {
-  try {
-    final klijenti = await _korisniciProvider.get(filter: {
-      'korisnikUlogas': 'klijent',
-    });
+    Future<int> getKlijentId() async {
+      final klijenti = await _korisniciProvider.get(filter: {
+        'korisnikUlogas': 'klijent',
+      });
 
-  
-    if (klijenti.result.isNotEmpty) {
-      
-      return klijenti.result[0].korisnikId;
-    } else {
-     
-      return null;
+      final klijent = klijenti.result.firstWhere(
+          (korisnik) => korisnik.korisnickoIme == Authorization.username);
+
+      return klijent.korisnikId!;
     }
-  } catch (e) {
-    print("Error fetching klijent: $e");
-    return null;
-  }
-}
-
 
     final klijent = await getKlijentId();
     final selectedDateTime = _modifiedDatum;
@@ -280,41 +262,19 @@ class _TerminDetailScreenState extends State<TerminDetailScreen> {
       final newTermin = Termin(
         null,
         _modifiedDatum,
-        _selectedUposlenik,
         klijent,
-        
+        _selectedUposleni,
       );
 
       try {
-        if (_isDateTimeOccupied(_modifiedDatum)) {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: Text('Date and Time Occupied'),
-                content:
-                    Text('The selected date and time are already occupied.'),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Text('OK'),
-                  ),
-                ],
-              );
-            },
-          );
-        } else {
-          final insertedTermin = await TerminiProvider().insert(newTermin);
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Appointment successfully added.'),
-              backgroundColor: Colors.green,
-            ),
-          );
-          Navigator.pop(context, insertedTermin);
-        }
+        final insertedTermin = await TerminiProvider().insert(newTermin);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Appointment successfully added.'),
+            backgroundColor: Colors.green,
+          ),
+        );
+        Navigator.pop(context, insertedTermin);
       } catch (e) {
         print(e);
       }
