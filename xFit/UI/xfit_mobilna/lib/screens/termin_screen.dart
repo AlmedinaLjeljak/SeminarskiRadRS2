@@ -6,7 +6,6 @@ import 'package:xfit_mobilna/providers/korisnik_providder.dart';
 import 'package:xfit_mobilna/providers/termini_provider.dart';
 import 'package:xfit_mobilna/screens/termin_detail_screen.dart';
 import 'package:xfit_mobilna/screens/termin_info_screen.dart';
-import 'package:xfit_mobilna/utils/util.dart';
 import 'package:xfit_mobilna/widgets/master_screen.dart';
 
 class TerminiScreen extends StatefulWidget {
@@ -28,21 +27,20 @@ class _TerminiScreenState extends State<TerminiScreen> {
     _fetchTermini();
   }
 
- Future<void> _fetchTermini() async {
-  try {
-    var result = await _terminiProvider.get(); // Bez filtera
-    setState(() {
-      _termini = result.result;
-      isLoading = false;
-    });
-  } catch (e) {
-    print(e);
-    setState(() {
-      isLoading = false;
-    });
+  Future<void> _fetchTermini() async {
+    try {
+      var result = await _terminiProvider.get(); // bez filtera
+      setState(() {
+        _termini = result.result;
+        isLoading = false;
+      });
+    } catch (e) {
+      print(e);
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
-}
-
 
   Future<Korisnik?> _fetchKorisnik(int? korisnikId) async {
     if (korisnikId == null) return null;
@@ -88,17 +86,29 @@ class _TerminiScreenState extends State<TerminiScreen> {
                                 final uposlenik = snapshot.data![0];
                                 final klijent = snapshot.data![1];
 
+                                // provjera da li je termin prošao
+                                bool isPast = termin.datum != null &&
+                                    termin.datum!.isBefore(DateTime.now());
+
                                 return Card(
-                                  elevation: 2,
+                                  elevation: 3,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(12),
+                                    side: BorderSide(
+                                      color:
+                                          isPast ? Colors.grey : Colors.green,
+                                      width: 2,
+                                    ),
                                   ),
+                                  color: isPast ? Colors.grey[200] : Colors.white,
                                   child: ListTile(
                                     contentPadding: EdgeInsets.all(16),
                                     title: Text(
                                       'Uposlenik: ${uposlenik != null ? "${uposlenik.ime} ${uposlenik.prezime}" : "Unknown"}',
                                       style: TextStyle(
-                                          fontWeight: FontWeight.bold),
+                                        fontWeight: FontWeight.bold,
+                                        color: isPast ? Colors.grey : Colors.black,
+                                      ),
                                     ),
                                     subtitle: Column(
                                       crossAxisAlignment:
@@ -107,10 +117,37 @@ class _TerminiScreenState extends State<TerminiScreen> {
                                         SizedBox(height: 8),
                                         Text(
                                           'Klijent: ${klijent != null ? "${klijent.ime} ${klijent.prezime}" : "Unknown"}',
+                                          style: TextStyle(
+                                              color: isPast
+                                                  ? Colors.grey
+                                                  : Colors.black87),
                                         ),
                                         SizedBox(height: 4),
-                                        Text(
-                                          'Date: ${termin.datum != null ? DateFormat('dd.MM.yyyy - HH:mm').format(termin.datum!) : 'Nepoznat datum'}',
+                                        Row(
+                                          children: [
+                                            Icon(
+                                              isPast
+                                                  ? Icons.check_circle
+                                                  : Icons.access_time,
+                                              color: isPast
+                                                  ? Colors.red
+                                                  : Colors.green,
+                                              size: 18,
+                                            ),
+                                            SizedBox(width: 6),
+                                            Text(
+                                              termin.datum != null
+                                                  ? DateFormat('dd.MM.yyyy - HH:mm')
+                                                      .format(termin.datum!)
+                                                  : 'Nepoznat datum',
+                                              style: TextStyle(
+                                                fontStyle: FontStyle.italic,
+                                                color: isPast
+                                                    ? Colors.red
+                                                    : Colors.green,
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
@@ -121,8 +158,7 @@ class _TerminiScreenState extends State<TerminiScreen> {
                                         Navigator.of(context).push(
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                TerminInfoScreen(
-                                                    termin: termin),
+                                                TerminInfoScreen(termin: termin),
                                           ),
                                         );
                                       },
@@ -159,8 +195,8 @@ class _TerminiScreenState extends State<TerminiScreen> {
 
     if (modifiedTermin != null && modifiedTermin is Termin) {
       setState(() {
-        int index = _termini
-            .indexWhere((element) => element.terminId == modifiedTermin.terminId);
+        int index = _termini.indexWhere(
+            (element) => element.terminId == modifiedTermin.terminId);
         if (index != -1) {
           _termini[index] = modifiedTermin;
         } else {

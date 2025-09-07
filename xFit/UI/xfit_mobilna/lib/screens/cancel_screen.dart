@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'cart_screen.dart'; 
 
 class CancelScreen extends StatelessWidget {
   const CancelScreen({Key? key}) : super(key: key);
@@ -26,7 +27,13 @@ class CancelScreen extends StatelessWidget {
             ),
             const SizedBox(height: 30),
             ElevatedButton(
-              onPressed: () => Navigator.of(context).popUntil((route) => route.isFirst),
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => const CartScreen()),
+                  (route) => false, 
+                );
+              },
               child: const Text('Return to Cart'),
             ),
           ],

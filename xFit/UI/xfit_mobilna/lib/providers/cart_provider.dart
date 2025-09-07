@@ -1,9 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:xfit_mobilna/models/cart.dart';
-import 'package:xfit_mobilna/models/product.dart';
-import 'package:xfit_mobilna/screens/cart_screen.dart';
 import 'package:collection/collection.dart';
+import 'package:flutter/widgets.dart';
+
+import 'package:flutter/material.dart';
+import 'package:xfit_mobilna/models/cart.dart';
+
+import '../models/product.dart';
+import '../screens/cart_screen.dart';
 
 class CartProvider with ChangeNotifier {
   Cart cart = Cart();
@@ -26,7 +28,8 @@ class CartProvider with ChangeNotifier {
   }
 
   CartItem? findInCart(Product product) {
-    CartItem? item = cart.items.firstWhereOrNull((item) => item.product.proizvodId == product.proizvodId);
+    CartItem? item = cart.items.firstWhereOrNull(
+        (item) => item.product.proizvodId == product.proizvodId);
     return item;
   }
 
@@ -50,4 +53,10 @@ class CartProvider with ChangeNotifier {
 
     }
   }
+  int getQuantity(Product product) {
+  final existingItem = findInCart(product);
+  return existingItem?.count ?? 0;
+}
+
+
 }

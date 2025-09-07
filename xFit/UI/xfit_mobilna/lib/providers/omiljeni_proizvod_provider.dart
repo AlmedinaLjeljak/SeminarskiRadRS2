@@ -42,4 +42,19 @@ class OmiljeniProizvodProvider extends BaseProvider<OmiljeniProizvod> {
       throw  Exception("Unknown error");
     }
   }
+
+
+    Future<void> removeByProductId(int productId, int korisnikId) async {
+    final favorites = await get(filter: {
+      "proizvodId": productId,
+      "korisnikId": korisnikId,
+    });
+
+    if (favorites.result.isNotEmpty) {
+      final omiljeni = favorites.result.first;
+      await delete(omiljeni.omiljeniProizvodId);
+    } else {
+      throw Exception("Omiljeni proizvod nije pronađen");
+    }
+  }
 }

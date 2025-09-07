@@ -9,7 +9,9 @@ import 'package:xfit_mobilna/utils/util.dart';
 
 import '../models/product.dart';
 import '../providers/product_provider.dart';
+import '../providers/cart_provider.dart';
 import '../widgets/master_screen.dart';
+import 'product_detail_screen.dart'; // << dodano
 
 class FavoritesScreen extends StatefulWidget {
   const FavoritesScreen({Key? key}) : super(key: key);
@@ -22,6 +24,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   late OmiljeniProizvodProvider _favoritesProvider;
   late KorisnisiProvider _korisniciProvider;
   late ProductProvider _productProvider;
+  late CartProvider _cartProvider;
+
   List<OmiljeniProizvod> favoriteProducts = [];
 
   @override
@@ -30,6 +34,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     _favoritesProvider = Provider.of<OmiljeniProizvodProvider>(context, listen: false);
     _korisniciProvider = Provider.of<KorisnisiProvider>(context, listen: false);
     _productProvider = Provider.of<ProductProvider>(context, listen: false);
+    _cartProvider = Provider.of<CartProvider>(context, listen: false);
 
     _fetchFavorites();
   }
@@ -80,43 +85,59 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                   return const Text('Error loading product');
                 } else {
                   final product = snapshot.data!;
+
                   return Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      elevation: 2,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Image.memory(
-                                base64Decode(product.slika!),
-                                width: 100,
-                                height: 100,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            const SizedBox(width: 12),
-                            Expanded(
-                              child: Text(
-                                product.naziv ?? 'No name',
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => ProductDetailsScreen(product),
+                          ),
+                        );
+                      },
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        elevation: 2,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Image.memory(
+                                  base64Decode(product.slika!),
+                                  width: 100,
+                                  height: 100,
+                                  fit: BoxFit.cover,
                                 ),
                               ),
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.delete),
-                              color: Colors.red,
-                              tooltip: "Remove from favorites",
-                              onPressed: () => _deleteFavorite(favorite.omiljeniProizvodId),
-                            ),
-                          ],
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Text(
+                                  product.naziv ?? 'No name',
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.shopping_cart),
+                                color: Colors.blue,
+                                tooltip: "Add to cart",
+                                onPressed: () => _addToCart(product),
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.delete),
+                                color: Colors.red,
+                                tooltip: "Remove from favorites",
+                                onPressed: () => _deleteFavorite(favorite.omiljeniProizvodId),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -142,6 +163,20 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
       );
     } catch (e) {
       print("Greška prilikom brisanja: $e");
+    }
+  }
+
+  Future<void> _addToCart(Product product) async {
+    try {
+      await _cartProvider.addToCart(product);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("${product.naziv} added to cart."),
+          backgroundColor: const Color.fromARGB(255, 28, 222, 60),
+        ),
+      );
+    } catch (e) {
+      print("Greška prilikom dodavanja u korpu: $e");
     }
   }
 }
