@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:xfit_mobilna/models/korisnik.dart';
 import 'package:xfit_mobilna/providers/korisnik_providder.dart';
@@ -22,6 +23,11 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
   late Future<Korisnik> _korisnikFuture;
   bool _isLoading = true;
 
+  ImageProvider _profileImage = const AssetImage('assets/images/no_image.jpg');
+
+  File? _image;
+  String? _base64Image;
+
   @override
   void initState() {
     super.initState();
@@ -33,7 +39,8 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
     final korisnikId = await getKlijentId();
     _korisnikFuture = _korisniciProvider.getById(korisnikId);
 
-    await Future.delayed(Duration(milliseconds: 300));
+    // Sačekaj da se korisnik stvarno učita
+    await _korisnikFuture;
 
     setState(() {
       _isLoading = false;
@@ -54,7 +61,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
   @override
   Widget build(BuildContext context) {
     if (_isLoading) {
-      return Scaffold(
+      return const Scaffold(
         body: Center(
           child: CircularProgressIndicator(),
         ),
@@ -64,60 +71,134 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
         future: _korisnikFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator();
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Text('Error loading data');
+            return const Center(child: Text('Error loading data'));
+          } else if (!snapshot.hasData || snapshot.data == null) {
+            return const Center(child: Text("No user data found"));
           } else {
-            final korisnikData = snapshot.data;
+            final korisnikData = snapshot.data!;
 
             return MasterScreenWidget(
-              title_widget: Text("My Profile"),
+              title_widget: const Text("My Profile"),
               child: FormBuilder(
                 key: _formKey,
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SizedBox(height: 20),
-                 
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(100), 
-                        child: Image.asset(
-                          'assets/images/no_image.jpg',
-                          height: 150,
+                      const SizedBox(height: 20),
+
+                      GestureDetector(
+                        onTap: () async {
+                          final pickedImage = await ImagePicker().pickImage(
+                              source: ImageSource.gallery);
+                          if (pickedImage == null) return;
+
+                          final image = File(pickedImage.path);
+                          final imageBytes = await image.readAsBytes();
+                          final base64String = base64Encode(imageBytes);
+
+                          setState(() {
+                            korisnikData.slika = base64String;
+                          });
+                        },
+                        child: Container(
                           width: 150,
-                          fit: BoxFit.cover,
+                          height: 150,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: Colors.blue,
+                              width: 2,
+                            ),
+                          ),
+                          child: ClipOval(
+                            child: (korisnikData.slika != null &&
+                                    korisnikData.slika!.isNotEmpty)
+                                ? Image.memory(
+                                    base64Decode(korisnikData.slika!),
+                                    width: 150,
+                                    height: 150,
+                                    fit: BoxFit.cover,
+                                  )
+                                : Image.asset(
+                                    "assets/images/no_image.jpg",
+                                    width: 150,
+                                    height: 150,
+                                    fit: BoxFit.cover,
+                                  ),
+                          ),
                         ),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
+
                       FormBuilderTextField(
                         name: 'ime',
-                        initialValue: korisnikData?.ime ?? '',
-                        enabled: true,
-                        decoration: InputDecoration(
+                        initialValue: korisnikData.ime ?? '',
+                        enabled: false,
+                        decoration: const InputDecoration(
                           labelText: 'First name',
                           prefixIcon: Icon(Icons.person),
                         ),
                       ),
+                      const SizedBox(height: 16),
+
                       FormBuilderTextField(
                         name: 'prezime',
-                        initialValue: korisnikData?.prezime ?? '',
-                        enabled: true,
-                        decoration: InputDecoration(
+                        initialValue: korisnikData.prezime ?? '',
+                        enabled: false,
+                        decoration: const InputDecoration(
                           labelText: 'Last name',
                           prefixIcon: Icon(Icons.person),
                         ),
                       ),
+                      const SizedBox(height: 16),
+
                       FormBuilderTextField(
                         name: 'korisnickoIme',
-                        initialValue: korisnikData?.korisnickoIme ?? '',
-                        enabled: true,
-                        decoration: InputDecoration(
+                        initialValue: korisnikData.korisnickoIme ?? '',
+                        enabled: false,
+                        decoration: const InputDecoration(
                           labelText: 'Username',
                           prefixIcon: Icon(Icons.account_circle),
                         ),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 16),
+
+                      FormBuilderTextField(
+                        name: 'email',
+                        initialValue: korisnikData.email ?? '',
+                        enabled: true,
+                        decoration: const InputDecoration(
+                          labelText: 'Email',
+                          prefixIcon: Icon(Icons.email),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+
+                      FormBuilderTextField(
+                        name: 'telefon',
+                        initialValue: korisnikData.telefon ?? '',
+                        enabled: true,
+                        decoration: const InputDecoration(
+                          labelText: 'Phone',
+                          prefixIcon: Icon(Icons.phone),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+
+                      FormBuilderTextField(
+                        name: 'adresa',
+                        initialValue: korisnikData.adresa ?? '',
+                        enabled: true,
+                        decoration: const InputDecoration(
+                          labelText: 'Address',
+                          prefixIcon: Icon(Icons.location_on),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+
                       ElevatedButton(
                         onPressed: () async {
                           if (_formKey.currentState != null) {
@@ -125,19 +206,21 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                               var request = Map<String, dynamic>.from(
                                   _formKey.currentState!.value);
 
-                              if (request.isEmpty) {
+                              if (request['email'].isEmpty ||
+                                  request['telefon'].isEmpty ||
+                                  request['adresa'].isEmpty) {
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) =>
                                       AlertDialog(
-                                    title: Text("Warning"),
-                                    content: Text(
+                                    title: const Text("Warning"),
+                                    content: const Text(
                                         "Fields cannot be empty. Please fill in all fields."),
                                     actions: [
                                       TextButton(
                                         onPressed: () =>
                                             Navigator.pop(context),
-                                        child: Text("OK"),
+                                        child: const Text("OK"),
                                       ),
                                     ],
                                   ),
@@ -145,41 +228,86 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                 return;
                               }
 
-                              try {
-                                await _korisniciProvider.update(
-                                    korisnikData!.korisnikId!, request);
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    backgroundColor: Colors.green,
-                                    duration: Duration(milliseconds: 1000),
-                                    content: Text(
-                                        "'My profile' successfully updated!"),
+                              if (!RegExp(r"^(?:\+?\d{10}|\d{9})$")
+                                  .hasMatch(request['telefon'])) {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                    title: const Text("Warning"),
+                                    content: const Text(
+                                        "Invalid phone number format. Please enter a valid phone number."),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(context),
+                                        child: const Text("OK"),
+                                      ),
+                                    ],
                                   ),
                                 );
+                                return;
+                              }
+
+                              if (!RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9]+\.[a-zA-Z]+$")
+                                  .hasMatch(request['email'])) {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                    title: const Text("Warning"),
+                                    content: const Text(
+                                        "Invalid email format. Please enter a valid email address."),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(context),
+                                        child: const Text("OK"),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                                return;
+                              }
+
+                              if (korisnikData.slika != null) {
+                                request['slika'] = korisnikData.slika;
+                              }
+
+                              try {
+                                await _korisniciProvider.update(
+                                    korisnikData.korisnikId!, request);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                  backgroundColor: Colors.green,
+                                  duration: Duration(milliseconds: 1000),
+                                  content: Text(
+                                      "'My profile' successfully updated!"),
+                                ));
                               } catch (e) {
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) =>
                                       AlertDialog(
-                                    title: Text("Error"),
+                                    title: const Text("Error"),
                                     content: Text(e.toString()),
                                     actions: [
                                       TextButton(
                                           onPressed: () =>
                                               Navigator.pop(context),
-                                          child: Text("OK")),
+                                          child: const Text("OK")),
                                     ],
                                   ),
                                 );
                               }
                             }
                           } else {
-                            print("");
+                            print("_formKey.currentState is null");
                           }
                         },
-                        child: Text('Save'),
+                        child: const Text('Save'),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                     ],
                   ),
                 ),
@@ -191,5 +319,3 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
     }
   }
 }
-
-

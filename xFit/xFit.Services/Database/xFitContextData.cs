@@ -59,6 +59,9 @@ namespace xFit.Services.Database
 					Ime = "korisnik",
 					Prezime = "korisnik",
 					DatumRodjenja = new DateTime(2024, 11, 15, 10, 0, 0),
+					Email = "korisnik@gmail.com",
+					Telefon="061234567",
+					Adresa="test",
 					KorisnickoIme = "desktop",
 					GradId = 1,
 					SpolId = 1,
@@ -71,6 +74,9 @@ namespace xFit.Services.Database
 					Ime = "novi",
 					Prezime = "korisnik",
 					DatumRodjenja = new DateTime(2024, 11, 15, 10, 0, 0),
+					Email="novikorisnik@gmail.com",
+					Telefon="061234567",
+					Adresa="Testiranje",
 					KorisnickoIme = "mobile",
 					GradId = 2,
 					SpolId = 2,
@@ -78,7 +84,7 @@ namespace xFit.Services.Database
 					LozinkaSalt = "8rp4QQCjoi/gQ+0RKgKuWQ=="
 				}
 
-				);
+				) ;
 			modelBuilder.Entity<Klijent>().HasData(
 				new Klijent()
 				{

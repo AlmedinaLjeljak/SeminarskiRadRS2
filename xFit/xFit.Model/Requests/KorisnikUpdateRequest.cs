@@ -12,8 +12,14 @@ namespace xFit.Model.Requests
 
 		public string? Prezime { get; set; }
 		public string? KorisnickoIme { get; set; }
+		public string? Email { get; set; }
 
+		public string? Telefon { get; set; }
 
-
+		public string? Adresa { get; set; }
+		public byte[]? Slika { get; set; }
 	}
+
+
 }
+

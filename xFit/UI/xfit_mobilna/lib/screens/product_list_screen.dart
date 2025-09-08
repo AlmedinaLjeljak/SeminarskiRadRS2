@@ -180,125 +180,172 @@ class _ProductListScreenState extends State<ProductListScreen> {
   }
 
   Widget _buildProductCard(Product x) {
-    return Card(
-      elevation: 3,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            InkWell(
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => ProductDetailsScreen(x),
-                  ),
-                );
-              },
-              child: Container(
-                height: 100,
-                width: double.infinity,
-                child: x.slika == null || x.slika!.isEmpty
-                    ? Image.asset("assets/images/no-image.jpg",
-                        fit: BoxFit.contain)
-                    : imageFromBase64String(x.slika!),
-              ),
-            ),
-            SizedBox(height: 8),
-            Expanded(
-              child: Text(
-                x.naziv ?? "",
-                style: TextStyle(fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-            SizedBox(height: 4),
-            Text("${formatNumber(x.cijena)} KM"),
-            Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Consumer<CartProvider>(
-                  builder: (context, cartProvider, child) {
-                    final quantity = cartProvider.getQuantity(x);
-                    final isInCart = quantity > 0;
-
-                    if (isInCart) {
-                      return Container(
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade200,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            InkWell(
-                              onTap: () => cartProvider.decreaseQuantity(x),
-                              child: Padding(
-                                padding: EdgeInsets.all(4),
-                                child: Icon(Icons.remove, size: 18),
-                              ),
-                            ),
-                            SizedBox(width: 4),
-                            Text(
-                              quantity.toString(),
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(width: 4),
-                            InkWell(
-                              onTap: () => cartProvider.addToCart(x),
-                              child: Padding(
-                                padding: EdgeInsets.all(4),
-                                child: Icon(Icons.add, size: 18),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    } else {
-                      return IconButton(
-                        icon: Icon(Icons.shopping_cart),
-                        onPressed: () => cartProvider.addToCart(x),
-                      );
-                    }
-                  },
+  return Card(
+    elevation: 3,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+    child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          InkWell(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => ProductDetailsScreen(x),
                 ),
-                FutureBuilder<bool>(
-                  future: _favoritesProvider.exists(x.proizvodId!),
-                  builder: (context, snapshot) {
-                    final isFav = snapshot.data ?? false;
+              );
+            },
+            child: Container(
+              height: 100,
+              width: double.infinity,
+              child: x.slika == null || x.slika!.isEmpty
+                  ? Image.asset("assets/images/no-image.jpg", fit: BoxFit.contain)
+                  : imageFromBase64String(x.slika!),
+            ),
+          ),
+          SizedBox(height: 8),
+          Expanded(
+            child: Text(
+              x.naziv ?? "",
+              style: TextStyle(fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          SizedBox(height: 4),
+          Text("${formatNumber(x.cijena)} KM"),
+          Spacer(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Consumer<CartProvider>(
+                builder: (context, cartProvider, child) {
+                  final quantity = cartProvider.getQuantity(x);
+                  final isInCart = quantity > 0;
+
+                  if (isInCart) {
+                    return Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade200,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          InkWell(
+                            onTap: () => cartProvider.decreaseQuantity(x),
+                            child: Padding(
+                              padding: EdgeInsets.all(4),
+                              child: Icon(Icons.remove, size: 18),
+                            ),
+                          ),
+                          SizedBox(width: 4),
+                          Text(
+                            quantity.toString(),
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(width: 4),
+                          InkWell(
+                            onTap: () async {
+                              cartProvider.addToCart(x);
+
+                              // Rekomender logika
+                              try {
+                                var recommendResult = await _recommendResultProvider.get();
+                                var filteredRecommendation = recommendResult.result
+                                    .where((r) => r.proizvodId == x.proizvodId)
+                                    .toList();
+                                if (filteredRecommendation.isNotEmpty) {
+                                  var match = filteredRecommendation.first;
+
+                                  var prvi = await _productProvider.getById(match.prviProizvodId!);
+                                  var drugi = await _productProvider.getById(match.drugiProizvodId!);
+                                  var treci = await _productProvider.getById(match.treciProizvodId!);
+
+                                  setState(() {
+                                    resultRecomm = SearchResult<Product>()
+                                      ..result = [prvi, drugi, treci]
+                                      ..count = 3;
+                                  });
+                                }
+                              } catch (e) {
+                                print("Rekomender error: $e");
+                              }
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.all(4),
+                              child: Icon(Icons.add, size: 18),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  } else {
                     return IconButton(
-                      icon: Icon(Icons.favorite,
-                          color: isFav ? Colors.red : Colors.grey),
+                      icon: Icon(Icons.shopping_cart),
                       onPressed: () async {
-                        if (!isFav) {
-                          await _favoritesProvider.sendRabbit({
-                            "datumDodavanja":
-                                DateTime.now().toUtc().toIso8601String(),
-                            "proizvodId": x.proizvodId,
-                            "korisnikId": await getKlijentId(),
-                          });
-                        } else {
-                          await _favoritesProvider.removeByProductId(
-                              x.proizvodId!, await getKlijentId());
+                        cartProvider.addToCart(x);
+
+                        // Rekomender logika
+                        try {
+                          var recommendResult = await _recommendResultProvider.get();
+                          var filteredRecommendation = recommendResult.result
+                              .where((r) => r.proizvodId == x.proizvodId)
+                              .toList();
+                          if (filteredRecommendation.isNotEmpty) {
+                            var match = filteredRecommendation.first;
+
+                            var prvi = await _productProvider.getById(match.prviProizvodId!);
+                            var drugi = await _productProvider.getById(match.drugiProizvodId!);
+                            var treci = await _productProvider.getById(match.treciProizvodId!);
+
+                            setState(() {
+                              resultRecomm = SearchResult<Product>()
+                                ..result = [prvi, drugi, treci]
+                                ..count = 3;
+                            });
+                          }
+                        } catch (e) {
+                          print("Rekomender error: $e");
                         }
-                        setState(() {});
                       },
                     );
-                  },
-                ),
-              ],
-            ),
-          ],
-        ),
+                  }
+                },
+              ),
+              FutureBuilder<bool>(
+                future: _favoritesProvider.exists(x.proizvodId!),
+                builder: (context, snapshot) {
+                  final isFav = snapshot.data ?? false;
+                  return IconButton(
+                    icon: Icon(Icons.favorite, color: isFav ? Colors.red : Colors.grey),
+                    onPressed: () async {
+                      if (!isFav) {
+                        await _favoritesProvider.sendRabbit({
+                          "datumDodavanja": DateTime.now().toUtc().toIso8601String(),
+                          "proizvodId": x.proizvodId,
+                          "korisnikId": await getKlijentId(),
+                        });
+                      } else {
+                        await _favoritesProvider.removeByProductId(
+                            x.proizvodId!, await getKlijentId());
+                      }
+                      setState(() {});
+                    },
+                  );
+                },
+              ),
+            ],
+          ),
+        ],
       ),
-    );
+    ));
   }
+
+
 
   Future<int> getKlijentId() async {
     final klijenti = await _korisniciProvider.get(filter: {

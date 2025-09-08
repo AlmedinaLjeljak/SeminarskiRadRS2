@@ -12,8 +12,8 @@ using xFit.Services.Database;
 namespace xFit.Services.Migrations
 {
     [DbContext(typeof(XFitContext))]
-    [Migration("20250516063212_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250908165314_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -123,7 +123,7 @@ namespace xFit.Services.Migrations
                         new
                         {
                             KlijentId = 1,
-                            DatumRodjenja = new DateTime(2025, 5, 16, 8, 32, 11, 969, DateTimeKind.Local).AddTicks(6565),
+                            DatumRodjenja = new DateTime(2025, 9, 8, 18, 53, 13, 763, DateTimeKind.Local).AddTicks(1083),
                             Ime = "Klijent",
                             KorisnikId = 2,
                             Prezime = "Klijent"
@@ -139,8 +139,14 @@ namespace xFit.Services.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("KorisnikId"));
 
+                    b.Property<string>("Adresa")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("DatumRodjenja")
                         .HasColumnType("date");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("GradId")
                         .IsRequired()
@@ -165,10 +171,16 @@ namespace xFit.Services.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte[]>("Slika")
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<int?>("SpolId")
                         .IsRequired()
                         .HasColumnType("int")
                         .HasColumnName("SpolID");
+
+                    b.Property<string>("Telefon")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("KorisnikId");
 
@@ -182,26 +194,32 @@ namespace xFit.Services.Migrations
                         new
                         {
                             KorisnikId = 1,
+                            Adresa = "test",
                             DatumRodjenja = new DateTime(2024, 11, 15, 10, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "korisnik@gmail.com",
                             GradId = 1,
                             Ime = "korisnik",
                             KorisnickoIme = "desktop",
                             LozinkaHash = "zQrh4zsUE+z35ztss7lj7YMOW6w=",
                             LozinkaSalt = "ZsCgm8wyDPs7RIqUszVNwg==",
                             Prezime = "korisnik",
-                            SpolId = 1
+                            SpolId = 1,
+                            Telefon = "061234567"
                         },
                         new
                         {
                             KorisnikId = 2,
+                            Adresa = "Testiranje",
                             DatumRodjenja = new DateTime(2024, 11, 15, 10, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "novikorisnik@gmail.com",
                             GradId = 2,
                             Ime = "novi",
                             KorisnickoIme = "mobile",
                             LozinkaHash = "tXvOHjvV9skoEdo/IB+EJ5f/rrk=",
                             LozinkaSalt = "8rp4QQCjoi/gQ+0RKgKuWQ==",
                             Prezime = "korisnik",
-                            SpolId = 2
+                            SpolId = 2,
+                            Telefon = "061234567"
                         });
                 });
 
@@ -237,14 +255,14 @@ namespace xFit.Services.Migrations
                         new
                         {
                             KorisnikUlogaId = 1,
-                            DatumIzmjene = new DateTime(2025, 5, 16, 8, 32, 11, 969, DateTimeKind.Local).AddTicks(6631),
+                            DatumIzmjene = new DateTime(2025, 9, 8, 18, 53, 13, 763, DateTimeKind.Local).AddTicks(1208),
                             KorisnikId = 1,
                             UlogaId = 1
                         },
                         new
                         {
                             KorisnikUlogaId = 2,
-                            DatumIzmjene = new DateTime(2025, 5, 16, 8, 32, 11, 969, DateTimeKind.Local).AddTicks(6633),
+                            DatumIzmjene = new DateTime(2025, 9, 8, 18, 53, 13, 763, DateTimeKind.Local).AddTicks(1211),
                             KorisnikId = 2,
                             UlogaId = 2
                         });
@@ -288,7 +306,7 @@ namespace xFit.Services.Migrations
                         {
                             NarudzbaId = 1,
                             BrojNarudzbe = "#1",
-                            Datum = new DateTime(2025, 5, 16, 8, 32, 11, 972, DateTimeKind.Local).AddTicks(5856),
+                            Datum = new DateTime(2025, 9, 8, 18, 53, 13, 765, DateTimeKind.Local).AddTicks(396),
                             Iznos = 17.0,
                             KorisnikId = 1,
                             Status = "Pending"
@@ -297,7 +315,7 @@ namespace xFit.Services.Migrations
                         {
                             NarudzbaId = 2,
                             BrojNarudzbe = "#2",
-                            Datum = new DateTime(2025, 5, 16, 8, 32, 11, 972, DateTimeKind.Local).AddTicks(5863),
+                            Datum = new DateTime(2025, 9, 8, 18, 53, 13, 765, DateTimeKind.Local).AddTicks(401),
                             Iznos = 20.0,
                             KorisnikId = 2,
                             Status = "Pending"
@@ -343,7 +361,7 @@ namespace xFit.Services.Migrations
                         new
                         {
                             NovostId = 1,
-                            DatumObjave = new DateTime(2025, 5, 16, 8, 32, 11, 972, DateTimeKind.Local).AddTicks(5765),
+                            DatumObjave = new DateTime(2025, 9, 8, 18, 53, 13, 765, DateTimeKind.Local).AddTicks(345),
                             KorisnikId = 1,
                             Naziv = "Novost",
                             Sadzaj = "Sadrzaj novost"
@@ -387,7 +405,7 @@ namespace xFit.Services.Migrations
                         new
                         {
                             OmiljeniProizvodId = 1,
-                            DatumDodavanja = new DateTime(2025, 5, 16, 8, 32, 11, 972, DateTimeKind.Local).AddTicks(5803),
+                            DatumDodavanja = new DateTime(2025, 9, 8, 18, 53, 13, 765, DateTimeKind.Local).AddTicks(367),
                             KlijentId = 1,
                             ProizvodId = 1
                         });
@@ -573,7 +591,7 @@ namespace xFit.Services.Migrations
                         new
                         {
                             RecenzijaId = 1,
-                            Datum = new DateTime(2025, 5, 16, 8, 32, 11, 972, DateTimeKind.Local).AddTicks(5473),
+                            Datum = new DateTime(2025, 9, 8, 18, 53, 13, 765, DateTimeKind.Local).AddTicks(221),
                             KorisnikId = 1,
                             ProizvodId = 1,
                             Sadrzaj = "sadrzaj"
@@ -647,7 +665,7 @@ namespace xFit.Services.Migrations
                         new
                         {
                             RezervacijaId = 1,
-                            Datum = new DateTime(2025, 5, 16, 8, 32, 11, 972, DateTimeKind.Local).AddTicks(5960),
+                            Datum = new DateTime(2025, 9, 8, 18, 53, 13, 765, DateTimeKind.Local).AddTicks(511),
                             Email = "rezervacija@gmail.com",
                             KlijentId = 1,
                             TerminId = 1,
@@ -767,7 +785,7 @@ namespace xFit.Services.Migrations
                         new
                         {
                             TerminId = 1,
-                            Datum = new DateTime(2025, 5, 16, 8, 32, 11, 972, DateTimeKind.Local).AddTicks(5600),
+                            Datum = new DateTime(2025, 9, 8, 18, 53, 13, 765, DateTimeKind.Local).AddTicks(292),
                             KorisnikIdKlijent = 1,
                             KorisnikIdUposlenik = 1
                         });
@@ -868,7 +886,7 @@ namespace xFit.Services.Migrations
                         new
                         {
                             UposlenikId = 1,
-                            DatumRodjenja = new DateTime(2025, 5, 16, 8, 32, 11, 969, DateTimeKind.Local).AddTicks(6650),
+                            DatumRodjenja = new DateTime(2025, 9, 8, 18, 53, 13, 763, DateTimeKind.Local).AddTicks(1224),
                             Ime = "uposlenik",
                             KorisnikId = 1,
                             Prezime = "uposlenik"

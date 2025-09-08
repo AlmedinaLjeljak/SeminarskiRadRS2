@@ -8,10 +8,14 @@ class Korisnik {
   String? ime;
   String? prezime;
   DateTime? datumRodjenja;
+  String? slika;
+  String? email;
+  String? telefon;
+  String? adresa;
   String? korisnickoIme;
 
 
-  Korisnik(this.korisnikId, this.ime, this.prezime, this.datumRodjenja,this.korisnickoIme);
+  Korisnik(this.korisnikId, this.ime, this.prezime, this.datumRodjenja,this.slika,this.email,this.telefon,this.adresa,this.korisnickoIme);
 
   factory Korisnik.fromJson(Map<String, dynamic> json) => _$KorisnikFromJson(json);
 
