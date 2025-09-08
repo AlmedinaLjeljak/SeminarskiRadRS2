@@ -23,11 +23,6 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
   late Future<Korisnik> _korisnikFuture;
   bool _isLoading = true;
 
-  ImageProvider _profileImage = const AssetImage('assets/images/no_image.jpg');
-
-  File? _image;
-  String? _base64Image;
-
   @override
   void initState() {
     super.initState();
@@ -36,10 +31,9 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
   }
 
   Future<void> _loadKorisnikData() async {
-    final korisnikId = await getKlijentId();
+    final korisnikId = await _getKlijentId();
     _korisnikFuture = _korisniciProvider.getById(korisnikId);
 
-    // Sačekaj da se korisnik stvarno učita
     await _korisnikFuture;
 
     setState(() {
@@ -47,7 +41,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
     });
   }
 
-  Future<int> getKlijentId() async {
+  Future<int> _getKlijentId() async {
     final klijenti = await _korisniciProvider.get(filter: {
       'korisnikUlogas': 'klijent',
     });
@@ -89,6 +83,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                     children: [
                       const SizedBox(height: 20),
 
+                      // Profile image
                       GestureDetector(
                         onTap: () async {
                           final pickedImage = await ImagePicker().pickImage(
@@ -133,10 +128,11 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                       ),
                       const SizedBox(height: 20),
 
+                      // User fields
                       FormBuilderTextField(
                         name: 'ime',
                         initialValue: korisnikData.ime ?? '',
-                        enabled: false,
+                        enabled: true,
                         decoration: const InputDecoration(
                           labelText: 'First name',
                           prefixIcon: Icon(Icons.person),
@@ -147,7 +143,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                       FormBuilderTextField(
                         name: 'prezime',
                         initialValue: korisnikData.prezime ?? '',
-                        enabled: false,
+                        enabled: true,
                         decoration: const InputDecoration(
                           labelText: 'Last name',
                           prefixIcon: Icon(Icons.person),
@@ -158,7 +154,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                       FormBuilderTextField(
                         name: 'korisnickoIme',
                         initialValue: korisnikData.korisnickoIme ?? '',
-                        enabled: false,
+                        enabled: true,
                         decoration: const InputDecoration(
                           labelText: 'Username',
                           prefixIcon: Icon(Icons.account_circle),
@@ -201,108 +197,130 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
 
                       ElevatedButton(
                         onPressed: () async {
-                          if (_formKey.currentState != null) {
-                            if (_formKey.currentState!.saveAndValidate()) {
-                              var request = Map<String, dynamic>.from(
-                                  _formKey.currentState!.value);
+                          if (_formKey.currentState != null &&
+                              _formKey.currentState!.saveAndValidate()) {
+                            var request = Map<String, dynamic>.from(
+                                _formKey.currentState!.value);
 
-                              if (request['email'].isEmpty ||
-                                  request['telefon'].isEmpty ||
-                                  request['adresa'].isEmpty) {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) =>
-                                      AlertDialog(
-                                    title: const Text("Warning"),
-                                    content: const Text(
-                                        "Fields cannot be empty. Please fill in all fields."),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(context),
-                                        child: const Text("OK"),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                                return;
-                              }
-
-                              if (!RegExp(r"^(?:\+?\d{10}|\d{9})$")
-                                  .hasMatch(request['telefon'])) {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) =>
-                                      AlertDialog(
-                                    title: const Text("Warning"),
-                                    content: const Text(
-                                        "Invalid phone number format. Please enter a valid phone number."),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(context),
-                                        child: const Text("OK"),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                                return;
-                              }
-
-                              if (!RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9]+\.[a-zA-Z]+$")
-                                  .hasMatch(request['email'])) {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) =>
-                                      AlertDialog(
-                                    title: const Text("Warning"),
-                                    content: const Text(
-                                        "Invalid email format. Please enter a valid email address."),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(context),
-                                        child: const Text("OK"),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                                return;
-                              }
-
-                              if (korisnikData.slika != null) {
-                                request['slika'] = korisnikData.slika;
-                              }
-
-                              try {
-                                await _korisniciProvider.update(
-                                    korisnikData.korisnikId!, request);
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                  backgroundColor: Colors.green,
-                                  duration: Duration(milliseconds: 1000),
-                                  content: Text(
-                                      "'My profile' successfully updated!"),
-                                ));
-                              } catch (e) {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) =>
-                                      AlertDialog(
-                                    title: const Text("Error"),
-                                    content: Text(e.toString()),
-                                    actions: [
-                                      TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(context),
-                                          child: const Text("OK")),
-                                    ],
-                                  ),
-                                );
-                              }
+                            // Validation
+                            if (request['ime'].isEmpty ||
+                                request['prezime'].isEmpty ||
+                                request['email'].isEmpty ||
+                                request['telefon'].isEmpty ||
+                                request['adresa'].isEmpty) {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) =>
+                                    AlertDialog(
+                                  title: const Text("Warning"),
+                                  content: const Text(
+                                      "All fields must be filled."),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(context),
+                                      child: const Text("OK"),
+                                    ),
+                                  ],
+                                ),
+                              );
+                              return;
                             }
-                          } else {
-                            print("_formKey.currentState is null");
+
+                            if (!RegExp(r"^(?:\+?\d{10}|\d{9})$")
+                                .hasMatch(request['telefon'])) {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) =>
+                                    AlertDialog(
+                                  title: const Text("Warning"),
+                                  content: const Text(
+                                      "Invalid phone number format."),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(context),
+                                      child: const Text("OK"),
+                                    ),
+                                  ],
+                                ),
+                              );
+                              return;
+                            }
+
+                            if (!RegExp(
+                                    r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9]+\.[a-zA-Z]+$")
+                                .hasMatch(request['email'])) {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) =>
+                                    AlertDialog(
+                                  title: const Text("Warning"),
+                                  content: const Text(
+                                      "Invalid email format."),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(context),
+                                      child: const Text("OK"),
+                                    ),
+                                  ],
+                                ),
+                              );
+                              return;
+                            }
+
+                            if (korisnikData.slika != null) {
+                              request['slika'] = korisnikData.slika;
+                            }
+
+                            // Update user
+                            try {
+                              final updatedUser = await _korisniciProvider.update(
+                                  korisnikData.korisnikId!, request);
+
+                              // Update Authorization if username changed
+                              if (updatedUser.korisnickoIme !=
+                                  Authorization.username) {
+                                Authorization.username =
+                                    updatedUser.korisnickoIme;
+                              }
+
+                              // Refresh UI with updated data
+                              setState(() {
+                                korisnikData.ime = updatedUser.ime;
+                                korisnikData.prezime = updatedUser.prezime;
+                                korisnikData.korisnickoIme =
+                                    updatedUser.korisnickoIme;
+                                korisnikData.email = updatedUser.email;
+                                korisnikData.telefon = updatedUser.telefon;
+                                korisnikData.adresa = updatedUser.adresa;
+                                korisnikData.slika = updatedUser.slika;
+                              });
+
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
+                                backgroundColor: Colors.green,
+                                duration: Duration(milliseconds: 1000),
+                                content: Text(
+                                    "'My profile' successfully updated!"),
+                              ));
+                            } catch (e) {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) =>
+                                    AlertDialog(
+                                  title: const Text("Error"),
+                                  content: Text(e.toString()),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(context),
+                                        child: const Text("OK")),
+                                  ],
+                                ),
+                              );
+                            }
                           }
                         },
                         child: const Text('Save'),
